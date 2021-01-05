@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import * as React from "react";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
-import SignupScreen, {SigninScreen} from "../screens/TabLoginScreen";
+import {SigninScreen, SignupScreen} from "../screens/TabLoginScreen";
 import {LoginRoot, LoginScreens} from "./types";
 import {screenTitle} from "./utils";
 import WelcomeScreen from "../screens/WelcomeScreen";

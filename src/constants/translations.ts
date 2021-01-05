@@ -102,8 +102,6 @@ export default {
         editProfile: "Edit profile",
         nationality: "Nationality",
         university: "University",
-        selectCountry: "Select country",
-        countryPickerLanguageCode: "common", // see TranslationLanguageCode from react-native-country-picker-modal
         profileType: "Type",
         profileTypes: "Types",
         gender: "Gender",
@@ -160,20 +158,9 @@ export default {
                     title: "Staff roles",
                 },
             },
-            legal1: {
+            legal: {
                 title: "Terms & Conditions",
-                text:
-                    "As explained in details in our Terms & Conditions, you agree to use «SEA-EU Around» and its services only to be put into contact, on a non-business and non-profit basis, with people wishing to meet, collaborate and interact online or in the frame of a mobility. You commit to carry out respectful exchanges with other members. Your name and surname will be visible by other members.",
-            },
-            legal2: {
-                title: "Data Policy",
-                text:
-                    "In the context of your use of SEA-EU Around, you will provide some personal data to create your profile as further explained in our Terms & Conditions. This data is collected and processed by UBO through SEA-EU Around in order to enable matching among Members, according to needs/offers and interests defined by Members of SEA-EU Around. Your data will be visible only by  other Members.",
-            },
-            legal3: {
-                title: "Cookies",
-                text:
-                    "I acknowledge that cookies might be used. The information is kept only for application purposes and does not permit to identify the Member except for the cookie enabling UBO to re-authenticate the Member on its arrival on SEA-EU Around, saving the Member from having to re-enter their password at each connection.",
+                text: "Insert T&C here",
             },
             submit: "Submit",
             getStarted: "Get Started",

@@ -4,7 +4,6 @@ import {AuthState, OnboardingState} from "../types";
 import {
     AuthAction,
     LogInSuccessAction,
-    RegisterBeginAction,
     RegisterSuccessAction,
     SetOnboardingValuesAction,
     AUTH_ACTION_TYPES,
@@ -20,29 +19,16 @@ const initialOnboardingState = (): OnboardingState => ({
 export const initialState: AuthState = {
     authenticated: false,
     token: null,
-    validated: false,
-    registerEmail: "",
-    validatedEmail: null,
     onboarded: false,
     onboarding: initialOnboardingState(),
 };
 
 export const authReducer = (state: AuthState = initialState, action: AuthAction): AuthState => {
     switch (action.type) {
-        case AUTH_ACTION_TYPES.REGISTER_BEGIN: {
-            const {email} = <RegisterBeginAction>action;
-            return {
-                ...state,
-                registerEmail: email,
-            };
-        }
         case AUTH_ACTION_TYPES.REGISTER_SUCCESS: {
-            const {
-                user: {verificationToken, onboarded},
-            } = <RegisterSuccessAction>action;
+            const {onboarded} = (action as RegisterSuccessAction).user;
             return {
                 ...state,
-                verificationToken,
                 onboarded,
             };
         }
@@ -75,8 +61,6 @@ export const authReducer = (state: AuthState = initialState, action: AuthAction)
                 ...state,
                 token: null,
                 authenticated: false,
-                validated: false,
-                validatedEmail: null,
                 onboarded: false,
             };
         }

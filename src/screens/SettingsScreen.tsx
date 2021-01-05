@@ -97,11 +97,7 @@ class SettingsScreen extends React.Component<SettingsScreenProps> {
                         />
                     </Section>
                     <View style={styles.logosContainer}>
-                        <LocalImage
-                            imageKey="app-icon"
-                            resizeMode="contain"
-                            style={[styles.logo, styles.logoSeaEuAround]}
-                        />
+                        <LocalImage imageKey="app-icon" resizeMode="contain" style={[styles.logo, styles.logoApp]} />
                     </View>
                 </ScrollView>
             </ScreenWrapper>
@@ -207,17 +203,7 @@ const themedStyles = preTheme((theme: Theme) => {
             marginTop: 30,
             width: "100%",
         },
-        logoErasmus: {height: 40},
-        logoSeaEuAround: {height: 60},
-        /*logoJA: {height: 40},
-        developedBy: {
-            textTransform: "uppercase",
-            textAlign: "center",
-            letterSpacing: 1,
-            fontSize: 11,
-            color: theme.textLight,
-            marginTop: 40,
-        },*/
+        logoApp: {height: 60},
     });
 });
 

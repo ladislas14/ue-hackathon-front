@@ -11,27 +11,6 @@ import ScreenWrapper from "./ScreenWrapper";
 export type TabHomeScreenProps = ThemeProps;
 
 class TabHomeScreen extends React.Component<TabHomeScreenProps> {
-    private async fetchPostEmbed(shortCode: string): Promise<Response> {
-        // seaEuAlliance profile ID: 32204624961
-        // url=
-        const BASE_URL = "https://graph.facebook.com/v9.0/instagram_oembed";
-        const CLIENT_TOKEN = "80cd0bc3c132ad645a15d234ccd841bd";
-        const POST_URL = `https://www.instagram.com/p/${shortCode}/`;
-        const url = `${BASE_URL}?url=${POST_URL}&access_token=${CLIENT_TOKEN}`;
-
-        const headers: {[key: string]: string} = {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        };
-        console.log(url);
-        const response = await fetch(url, {method: "GET", headers});
-        return response;
-    }
-
-    fetchEmbed() {
-        this.fetchPostEmbed("CJQ-ZX_rZb8").then((response) => console.log(JSON.stringify(response)));
-    }
-
     render(): JSX.Element {
         const {theme} = this.props;
         const styles = themedStyles(theme);
@@ -39,18 +18,10 @@ class TabHomeScreen extends React.Component<TabHomeScreenProps> {
         return (
             <ScreenWrapper>
                 <View style={styles.container}>
-                    {/*<TouchableOpacity onPress={() => this.fetchEmbed()}>
-                        <Text style={{fontSize: 22, padding: 20}}>Fetch</Text>
-                    </TouchableOpacity>*/}
                     <FontAwesome style={styles.icon} name="heart" />
-                    <Text style={styles.title}>Thank you for participating in the alpha program.</Text>
+                    <Text style={styles.title}>Welcome.</Text>
                     <View style={styles.separator} />
-                    <Text style={[styles.alphaText, {fontWeight: "bold"}]}>
-                        Found a bug or have some feedback for us or ideas for the app?
-                    </Text>
-                    <Text style={styles.alphaText}>
-                        Get in touch with us on Slack and we would be happy to discuss it with you!
-                    </Text>
+                    <Text style={styles.subtitle}>Not implemented.</Text>
                     <LogOutButton style={styles.logoutButton} />
                 </View>
             </ScreenWrapper>
@@ -74,7 +45,7 @@ const themedStyles = preTheme((theme: Theme) => {
             color: theme.text,
             ...styleTextLight,
         },
-        alphaText: {
+        subtitle: {
             width: "100%",
             textAlign: "left",
             fontSize: 16,

@@ -4,8 +4,7 @@ import i18n from "i18n-js";
 import * as Yup from "yup";
 import {Formik, FormikProps} from "formik";
 import {FormTextInput} from "../forms/FormTextInput";
-import {connect, ConnectedProps} from "react-redux";
-import {AppState, MyThunkDispatch, ValidatedActionReturn} from "../../state/types";
+import {MyThunkDispatch, ValidatedActionReturn} from "../../state/types";
 import {VALIDATOR_EMAIL_LOGIN, VALIDATOR_PASSWORD_LOGIN} from "../../validators";
 import {getLoginTextInputsStyleProps, formStyles} from "../../styles/forms";
 import {requestLogin} from "../../state/auth/actions";
@@ -19,6 +18,7 @@ import {RemoteValidationErrors} from "../../api/dto";
 import {MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 import {rootNavigate} from "../../navigation/utils";
 import Button from "../Button";
+import store from "../../state/store";
 
 type FormState = {
     email: string;
@@ -31,15 +31,8 @@ const LoginFormSchema = Yup.object().shape({
     password: VALIDATOR_PASSWORD_LOGIN,
 });
 
-// Map props from the store
-const reduxConnector = connect((state: AppState) => ({
-    validatedEmail: state.auth.validatedEmail,
-}));
-
 // Component props
-type LoginFormProps = ConnectedProps<typeof reduxConnector> &
-    ThemeProps &
-    FormProps<FormState> & {containerStyle?: StyleProp<ViewStyle>};
+type LoginFormProps = ThemeProps & FormProps<FormState> & {containerStyle?: StyleProp<ViewStyle>};
 
 type LoginFormState = {remoteErrors?: RemoteValidationErrors; submitting: boolean};
 
@@ -53,15 +46,9 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
         this.state = {submitting: false};
     }
 
-    componentDidUpdate(oldProps: LoginFormProps) {
-        const {validatedEmail} = this.props;
-        if (this.setFieldValue && validatedEmail && oldProps.validatedEmail != validatedEmail)
-            this.setFieldValue("email", validatedEmail);
-    }
-
     submit(values: FormState) {
         this.setState({...this.state, submitting: true});
-        (this.props.dispatch as MyThunkDispatch)(requestLogin(values.email, values.password)).then(
+        (store.dispatch as MyThunkDispatch)(requestLogin(values.email, values.password)).then(
             ({success, errors}: ValidatedActionReturn) => {
                 if (success && this.props.onSuccessfulSubmit) this.props.onSuccessfulSubmit(values);
                 if (errors && errors.fields) {
@@ -241,4 +228,4 @@ const themedStyles = preTheme((theme: Theme) => {
     });
 });
 
-export default reduxConnector(withTheme(LoginForm));
+export default withTheme(LoginForm);

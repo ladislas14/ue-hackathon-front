@@ -7,8 +7,8 @@ class OnboardingLegalScreen extends React.Component<OnboardingScreenProps> {
     render(): JSX.Element {
         return (
             <OnboardingLegalSlide
-                title={i18n.t("onboarding.legal1.title")}
-                text={i18n.t("onboarding.legal1.text")}
+                title={i18n.t("onboarding.legal.title")}
+                text={i18n.t("onboarding.legal.text")}
                 {...this.props}
             />
         );
