@@ -83,8 +83,5 @@ export default {
             ],
             useNextNotificationsApi: true,
         },
-        web: {
-            favicon: "./assets/images/favicon.png",
-        },
     },
 };
