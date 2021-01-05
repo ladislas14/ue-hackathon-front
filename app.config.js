@@ -9,8 +9,8 @@ let CLIENT_HOST;
 let EXTRAS = {};
 
 if (TARGET === "PRODUCTION") {
-    CLIENT_HOST = "sea-eu-around.lad-dev.team";
-    const SERVER_HOST = "api.sea-eu-around.lad-dev.team";
+    CLIENT_HOST = "hackathon.lad-dev.team";
+    const SERVER_HOST = "api.hackathon.lad-dev.team";
     EXTRAS = {
         CLIENT_URL: `${CLIENT_HTTP}://${CLIENT_HOST}`,
         SERVER_HOST,
@@ -18,8 +18,8 @@ if (TARGET === "PRODUCTION") {
         DEBUG: false,
     };
 } else {
-    CLIENT_HOST = "staging.sea-eu-around.lad-dev.team";
-    const SERVER_HOST = "api-staging.sea-eu-around.lad-dev.team";
+    CLIENT_HOST = "staging.hackathon.lad-dev.team";
+    const SERVER_HOST = "api-staging.hackathon.lad-dev.team";
     EXTRAS = {
         CLIENT_URL: `${CLIENT_HTTP}://${CLIENT_HOST}`,
         SERVER_HOST,
@@ -68,7 +68,7 @@ export default {
             package: "com.sea_eu.around",
             versionCode: ANDROID_VERSION_CODE,
             permissions: [],
-            intentFilters: [
+            /*intentFilters: [
                 {
                     action: "VIEW",
                     data: [
@@ -80,7 +80,7 @@ export default {
                     ],
                     category: ["BROWSABLE", "DEFAULT"],
                 },
-            ],
+            ],*/
             useNextNotificationsApi: true,
         },
     },
