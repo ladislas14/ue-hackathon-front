@@ -3,7 +3,6 @@ import {ONBOARDING_SCREENS} from "../screens/onboarding";
 export type RootNavigatorScreens = {
     MainScreen: undefined;
     LoginRoot: undefined;
-    APIScreen: undefined;
     MyProfileScreen: undefined;
     ProfileScreen: undefined;
     SettingsScreen: undefined;
