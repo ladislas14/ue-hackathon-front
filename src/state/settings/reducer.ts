@@ -13,10 +13,6 @@ export const settingsReducer = (state: SettingsState = initialState, action: Set
             const {theme} = action as SetThemeAction;
             return {...state, userSettings: {...state.userSettings, theme}};
         }
-        case SETTINGS_ACTION_TYPES.TOGGLE_THEME: {
-            const theme = state.userSettings.theme == "light" ? "dark" : "light";
-            return {...state, userSettings: {...state.userSettings, theme}};
-        }
         default:
             return state;
     }

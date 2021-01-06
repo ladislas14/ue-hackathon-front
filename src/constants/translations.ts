@@ -191,50 +191,6 @@ export default {
             signUp: "Sign up",
             or: "or",
         },
-        // Report
-        report: {
-            title: "Report",
-            send: "Send",
-            cancel: "Cancel",
-            what: "What / who?",
-            why: "Why?",
-            typePlaceholder: "Select a reason",
-            types: {
-                violence: "Violence",
-                nudity: "Nudity",
-                harassment: "Harassment",
-                "undesirable-content": "Undesirable content",
-                "hate-speech": "Hate speech",
-                "vulgar-content": "Vulgar content",
-                other: "Other",
-            },
-            confirmationTitle: "Thank you",
-            confirmation: "An administrator will investigate your report shortly.",
-            failureTitle: "Sorry",
-            failure: "We are unable to fulfill your request.",
-        },
-        // Reset password
-        resetPassword: {
-            instructions: "To choose a new password, click the link in the email we just sent you.",
-            title: "Please choose a new password",
-            button: "Send",
-            success: "Your password has been updated.",
-        },
-        // Delete account
-        deleteAccount: {
-            title: "Delete your account",
-            warning:
-                "Your account and all associated data will be deleted within six months. Please be aware that after this time, your account will be irreversibly deleted. If you sign in during this month however, the deletion will be cancelled.",
-            button: "Delete",
-            success1: "Your request has been received and will be processed shortly.",
-            success2: "We are sorry to see you go.",
-            leave: "Leave",
-            inputLabel: "Enter password to confirm",
-        },
-        // Messaging tab
-        messaging: {
-            noMatches: "It appears that you haven't matched with anyone yet. :(",
-        },
         // Matching tab
         matching: {
             noResults: "No results found",
@@ -307,12 +263,6 @@ export default {
             MyProfileScreen: "Profile",
             ProfileScreen: "Profile",
             SettingsScreen: "Settings",
-            DeleteAccountScreen: "Delete Account",
-            DeleteAccountSuccessScreen: "Account Deleted",
-            ValidationEmailSentScreen: "Validate your account",
-            ValidateEmailScreen: "Validate your account",
-            ResetPasswordScreen: "Reset your password",
-            ResetPasswordSuccessScreen: "Password reset",
             OnboardingSuccessfulScreen: "Successful registration",
             NotFoundScreen: "Not Found",
             MatchSuccessScreen: "Match!",
@@ -327,8 +277,6 @@ export default {
             },
             language: "Language",
             darkTheme: "Dark theme",
-            deleteAccount: "Delete Account",
-            deleteMyAccount: "Delete my account",
             version: "Version",
             termsOfService: "Terms of Service",
             reportABug: "Report a Bug",

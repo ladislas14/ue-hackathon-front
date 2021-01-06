@@ -4,7 +4,6 @@
     "start": "expo start",
     "build-ios": "set \"TARGET=PRODUCTION\" && expo build:ios -t archive",
     "build-android": "set \"TARGET=PRODUCTION\" && expo build:android -t apk",
-    "upload-android": "set \"TARGET=PRODUCTION\" && expo upload:android --use-submission-service --type apk",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",

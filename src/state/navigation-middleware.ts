@@ -24,10 +24,10 @@ export const navigationMiddleware: Middleware<unknown, AppState> = (/*store: Mid
             rootNavigate("LoginRoot", {screen: "SigninScreen"});
             break;
         }
-        case AUTH_ACTION_TYPES.REGISTER_SUCCESS: {
-            // rootNavigate("ValidationEmailSentScreen");
+        /*case AUTH_ACTION_TYPES.REGISTER_SUCCESS: {
+            rootNavigate("ValidationEmailSentScreen");
             break;
-        }
+        }*/
     }
 
     next(action);

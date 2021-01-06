@@ -39,28 +39,10 @@ export type LogOutAction = {type: string};
 
 export type LogInFailureAction = {type: string};
 
-export type ValidateAccountSuccessAction = {
-    type: string;
-    email: string;
-};
-
-export type ValidateAccountFailureAction = {type: string};
-
 export type SetOnboardingValuesAction = {
     type: string;
     values: Partial<OnboardingState>;
 };
-
-export type ForgotPasswordFailureAction = {type: string};
-
-export type ForgotPasswordSuccessAction = {
-    type: string;
-    email: string;
-};
-
-export type ResetPasswordSuccessAction = {type: string};
-
-export type DeleteAccountSuccessAction = {type: string};
 
 export type AuthAction =
     | RegisterBeginAction
@@ -69,13 +51,7 @@ export type AuthAction =
     | LogInSuccessAction
     | LogInFailureAction
     | LogOutAction
-    | ValidateAccountSuccessAction
-    | ValidateAccountFailureAction
-    | SetOnboardingValuesAction
-    | ForgotPasswordFailureAction
-    | ForgotPasswordSuccessAction
-    | ResetPasswordSuccessAction
-    | DeleteAccountSuccessAction;
+    | SetOnboardingValuesAction;
 
 // Register actions
 
