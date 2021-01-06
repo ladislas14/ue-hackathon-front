@@ -37,7 +37,6 @@ export function encodeRequestParams(args: URLParams): string {
  * @param body - The body of the request.
  * @param auth - Whether or not this request should be authenticated.
  * @param verbose - Whether or not to print information about the request and response.
- * @param authToken - The authentication token. If not given, the token from the redux store will be used.
  */
 export async function requestRemote(
     url: string,

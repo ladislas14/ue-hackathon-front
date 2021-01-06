@@ -9,9 +9,8 @@ import {BackendResponse, TokenDto} from "./dto";
  * @param method - Which HTTP method to use (GET, PUT, POST, ...)
  * @param params - The URL parameters (?param1=value1&param2=value2 ...)
  * @param body - The body of the request.
- * @param auth - Whether or not this request should be authenticated.
- * @param verbose - Whether or not to print information about the request and response.
  * @param authToken - The authentication token. If not given, the token from the redux store will be used.
+ * @param verbose - Whether or not to print information about the request and response.
  */
 export async function requestBackend(
     endpoint: string,
