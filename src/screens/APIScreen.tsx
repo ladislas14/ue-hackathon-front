@@ -7,11 +7,11 @@ import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
 
-export type TabAPIScreenProps = ThemeProps;
+export type APIScreenProps = ThemeProps;
 
 let numPages = 0;
 
-class TabAPIScreen extends React.Component<TabAPIScreenProps> {
+class APIScreen extends React.Component<APIScreenProps> {
     async requestRandomPlant() {
         // First find out how many pages there are if we don't know yet
         if (numPages === 0) {
@@ -23,6 +23,7 @@ class TabAPIScreen extends React.Component<TabAPIScreenProps> {
         }
 
         // Get a random plant from a random page
+        console.log("Fetching a random plant...");
         requestTrefle("plants", "GET", {
             page: Math.floor(Math.random() * numPages),
         }).then((resp) => {
@@ -63,4 +64,4 @@ const themedStyles = preTheme((theme: Theme) => {
     });
 });
 
-export default withTheme(TabAPIScreen);
+export default withTheme(APIScreen);

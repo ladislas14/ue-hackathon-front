@@ -38,7 +38,7 @@ class WelcomeScreen extends React.Component<WelcomeScreenProps> {
                         <Button
                             text={"Plant of the day"}
                             icon={<MaterialCommunityIcons name="tree" style={styles.apiIcon} />}
-                            onPress={() => rootNavigate("TabAPIScreen")}
+                            onPress={() => rootNavigate("APIScreen")}
                             skin="rounded-filled"
                         />
                         <Button
