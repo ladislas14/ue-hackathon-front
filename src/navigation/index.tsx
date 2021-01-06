@@ -16,6 +16,7 @@ import MyProfileScreen from "../screens/MyProfileScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import MainHeader from "../components/headers/MainHeader";
 import SettingsScreen from "../screens/SettingsScreen";
+import TabAPIScreen from "../screens/TabAPIScreen";
 
 type RootNavigationProps = React.PropsWithRef<ThemeProps & {initialRoute?: keyof RootNavigatorScreens}> & {
     onReady?: () => void;
@@ -60,6 +61,7 @@ function Navigation({theme, initialRoute, onReady}: RootNavigationProps): JSX.El
             <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={initialRouteName}>
                 <Stack.Screen name="LoginRoot" component={LoginNavigator} />
                 <Stack.Screen name="MainScreen" component={MainNavigator} />
+                <Stack.Screen name="TabAPIScreen" component={TabAPIScreen} />
                 <Stack.Screen
                     name="MyProfileScreen"
                     component={MyProfileScreen}

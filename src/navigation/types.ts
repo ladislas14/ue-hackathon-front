@@ -3,6 +3,7 @@ import {ONBOARDING_SCREENS} from "../screens/onboarding";
 export type RootNavigatorScreens = {
     MainScreen: undefined;
     LoginRoot: undefined;
+    TabAPIScreen: undefined;
     MyProfileScreen: undefined;
     ProfileScreen: undefined;
     SettingsScreen: undefined;
@@ -19,7 +20,6 @@ export type MainNavigatorTabs = {
 
 export type TabHomeRoot = {
     TabHomeScreen: undefined;
-    TabAPIScreen: undefined;
 };
 
 // Login screen

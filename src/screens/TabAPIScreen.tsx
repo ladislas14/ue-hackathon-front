@@ -1,16 +1,37 @@
-import {FontAwesome} from "@expo/vector-icons";
 import * as React from "react";
-import {StyleSheet, Text, View} from "react-native";
+import {Button, StyleSheet, View} from "react-native";
 import {withTheme} from "react-native-elements";
-import LogOutButton from "../components/LogOutButton";
-import {styleTextLight} from "../styles/general";
+import {requestTrefle} from "../api/trefle";
+import {TreflePaginatedResponse, TreflePlantDto} from "../api/trefle/dto";
 import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
 
 export type TabAPIScreenProps = ThemeProps;
 
+let numPages = 0;
+
 class TabAPIScreen extends React.Component<TabAPIScreenProps> {
+    async requestRandomPlant() {
+        // First find out how many pages there are if we don't know yet
+        if (numPages === 0) {
+            await requestTrefle("plants", "GET").then((resp) => {
+                const response = resp as TreflePaginatedResponse;
+                numPages = parseInt(response.links.last.split("page=")[1]);
+                console.log(`There are ${numPages} pages of plants.`);
+            });
+        }
+
+        // Get a random plant from a random page
+        requestTrefle("plants", "GET", {
+            page: Math.floor(Math.random() * numPages),
+        }).then((resp) => {
+            const response = resp as TreflePaginatedResponse<TreflePlantDto>;
+            const plant = response.data[Math.floor(Math.random() * response.data.length)];
+            console.log(plant);
+        });
+    }
+
     render(): JSX.Element {
         const {theme} = this.props;
         const styles = themedStyles(theme);
@@ -18,11 +39,7 @@ class TabAPIScreen extends React.Component<TabAPIScreenProps> {
         return (
             <ScreenWrapper>
                 <View style={styles.container}>
-                    <FontAwesome style={styles.icon} name="heart" />
-                    <Text style={styles.title}>Welcome.</Text>
-                    <View style={styles.separator} />
-                    <Text style={styles.subtitle}>Not implemented.</Text>
-                    <LogOutButton style={styles.logoutButton} />
+                    <Button title="Test Trefle API" onPress={() => this.requestRandomPlant()} />
                 </View>
             </ScreenWrapper>
         );
@@ -38,34 +55,10 @@ const themedStyles = preTheme((theme: Theme) => {
             alignItems: "center",
             justifyContent: "center",
         },
-        title: {
-            width: "100%",
-            textAlign: "center",
-            fontSize: 24,
-            color: theme.text,
-            ...styleTextLight,
-        },
-        subtitle: {
-            width: "100%",
-            textAlign: "left",
-            fontSize: 16,
-            color: theme.text,
-            marginVertical: 10,
-        },
         icon: {
             color: theme.accent,
             fontSize: 48,
             paddingBottom: 20,
-        },
-        separator: {
-            marginVertical: 30,
-            height: 1,
-            opacity: 0.1,
-            width: "100%",
-            backgroundColor: theme.text,
-        },
-        logoutButton: {
-            marginTop: 80,
         },
     });
 });
