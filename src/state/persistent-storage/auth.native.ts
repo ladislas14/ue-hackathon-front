@@ -1,5 +1,5 @@
 import * as SecureStore from "expo-secure-store";
-import {TokenDto} from "../../api/dto";
+import {TokenDto} from "../../api/backend/dto";
 import {CredentialsStorageObject} from "../../types";
 
 // Note that we have to fall back to AsyncStorage on web since SecureStore is not available there.

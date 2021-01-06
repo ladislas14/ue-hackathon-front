@@ -1,6 +1,7 @@
 import i18n from "i18n-js";
-import {HttpStatusCode} from "../constants/http-status";
-import {ErrorRequestResponse, RemoteValidationErrors, RequestResponse, UnprocessableEntityRequestResponse} from "./dto";
+import {HttpStatusCode} from "../../constants/http-status";
+import {RequestResponse} from "../utils";
+import {BackendErrorResponse, RemoteValidationErrors, UnprocessableEntityRequestResponse} from "./dto";
 
 export const localizeError = (err: string): string => i18n.t(err, {defaultValue: err});
 
@@ -12,7 +13,7 @@ const extractError = ({code, description}: {code: string; description: string}):
 export function gatherValidationErrors(resp: RequestResponse): RemoteValidationErrors | undefined {
     if (resp.status == HttpStatusCode.OK) return undefined;
     else {
-        const {errorType, description} = resp as ErrorRequestResponse;
+        const {errorType, description} = resp as BackendErrorResponse;
         const output: RemoteValidationErrors = {general: extractError({code: errorType, description}), fields: {}};
         if (resp.status == HttpStatusCode.UNPROCESSABLE_ENTITY) {
             const {errors} = resp as UnprocessableEntityRequestResponse;

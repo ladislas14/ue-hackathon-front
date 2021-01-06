@@ -6,11 +6,11 @@ import {
     ResponseUserDto,
     SignedUrlResponseDto,
     SuccessfulRequestResponse,
-} from "../../api/dto";
+} from "../../api/backend/dto";
 import {UserProfile} from "../../model/user-profile";
 import {User} from "../../model/user";
 import {requestBackend} from "../../api/utils";
-import {convertDtoToProfile, convertDtoToUser, convertPartialProfileToCreateDto} from "../../api/converters";
+import {convertDtoToProfile, convertDtoToUser, convertPartialProfileToCreateDto} from "../../api/backend/converters";
 import {ImageInfo} from "expo-image-picker/build/ImagePicker.types";
 import {HttpStatusCode} from "../../constants/http-status";
 

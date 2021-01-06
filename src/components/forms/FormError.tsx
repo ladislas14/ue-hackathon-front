@@ -3,7 +3,7 @@ import {Text, View, ViewProps, StyleSheet} from "react-native";
 import {withTheme} from "react-native-elements";
 import {preTheme} from "../../styles/utils";
 import {Theme, ThemeProps} from "../../types";
-import {localizeError} from "../../api/errors";
+import {localizeError} from "../../api/backend/errors";
 
 // Component props
 export type FormErrorProps = ThemeProps & {

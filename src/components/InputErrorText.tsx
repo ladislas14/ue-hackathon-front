@@ -3,7 +3,7 @@ import {Text, TextProps, StyleSheet} from "react-native";
 import {Theme, ThemeProps} from "../types";
 import {withTheme} from "react-native-elements";
 import {preTheme} from "../styles/utils";
-import {localizeError} from "../api/errors";
+import {localizeError} from "../api/backend/errors";
 
 // Component props
 export type InputErrorTextProps = ThemeProps & TextProps & {error: string | string[] | null | undefined};

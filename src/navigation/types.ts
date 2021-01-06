@@ -19,6 +19,7 @@ export type MainNavigatorTabs = {
 
 export type TabHomeRoot = {
     TabHomeScreen: undefined;
+    TabAPIScreen: undefined;
 };
 
 // Login screen

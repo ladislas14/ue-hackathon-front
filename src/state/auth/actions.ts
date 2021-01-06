@@ -1,11 +1,11 @@
 import {AppThunk, OnboardingState, ValidatedThunkAction} from "../types";
-import {LoginDto, ResponseUserDto, SuccessfulRequestResponse, TokenDto} from "../../api/dto";
+import {LoginDto, ResponseUserDto, SuccessfulRequestResponse, TokenDto} from "../../api/backend/dto";
 import {User} from "../../model/user";
 import {requestBackend} from "../../api/utils";
 import {createProfile} from "../profile/actions";
-import {convertDtoToUser} from "../../api/converters";
+import {convertDtoToUser} from "../../api/backend/converters";
 import {HttpStatusCode} from "../../constants/http-status";
-import {gatherValidationErrors} from "../../api/errors";
+import {gatherValidationErrors} from "../../api/backend/errors";
 import {readCachedCredentials} from "../persistent-storage/auth";
 
 export enum AUTH_ACTION_TYPES {

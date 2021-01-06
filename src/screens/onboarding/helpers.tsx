@@ -1,4 +1,4 @@
-import {CreateProfileDto} from "../../api/dto";
+import {CreateProfileDto} from "../../api/backend/dto";
 import {createProfile} from "../../state/profile/actions";
 import store from "../../state/store";
 import {MyThunkDispatch, OnboardingState} from "../../state/types";

@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {TokenDto} from "../../api/dto";
+import {TokenDto} from "../../api/backend/dto";
 import {CredentialsStorageObject} from "../../types";
 
 /**

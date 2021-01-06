@@ -1,5 +1,5 @@
 import {ThemeProps as RNEThemeProps} from "react-native-elements";
-import {TokenDto} from "./api/dto";
+import {TokenDto} from "./api/backend/dto";
 import themes from "./constants/themes";
 
 export type ThemeKey = "light" | "dark";

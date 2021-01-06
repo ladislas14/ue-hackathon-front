@@ -1,11 +1,13 @@
-import {Gender} from "../constants/profile-constants";
+import {Gender} from "../../constants/profile-constants";
+import {SuccessfulRequestResponse} from "../utils";
 
 /* General response-related types */
 
 // Any response from the server should follow this structure
-export type RequestResponse = SuccessfulRequestResponse | UnprocessableEntityRequestResponse | ErrorRequestResponse;
-export type SuccessfulRequestResponse = {status: number; data: unknown} & {[key: string]: unknown};
-export type PaginatedRequestResponse = SuccessfulRequestResponse & {
+export type BackendResponse = BackendErrorResponse | BackendSuccessfulResponse | BackendPaginatedResponse;
+export type BackendErrorResponse = {status: number; errorType: string; description: string};
+export type BackendSuccessfulResponse = SuccessfulRequestResponse & {data: unknown};
+export type BackendPaginatedResponse = BackendSuccessfulResponse & {
     meta: {
         currentPage: number;
         itemCount: number;
@@ -21,10 +23,8 @@ export type PaginatedRequestResponse = SuccessfulRequestResponse & {
     };
 };
 
-export type ErrorRequestResponse = {status: number; errorType: string; description: string};
-
 // Only on 422 status
-export type UnprocessableEntityRequestResponse = ErrorRequestResponse & {
+export type UnprocessableEntityRequestResponse = BackendErrorResponse & {
     errors: {property: string; codes: {description: string; code: string}[]}[];
 };
 
