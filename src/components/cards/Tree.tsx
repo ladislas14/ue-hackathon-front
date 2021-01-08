@@ -12,16 +12,9 @@ class Tree extends React.Component<TreeProps>
     {
         return(
             <View>
-                <Image source={{this.props.specie.image_url}}/>
-                <Text> this.props.specie.id</Text>
+                <Image source={{uri:this.props.specie.image_url}}/>
                 <Text> this.props.specie.common_name</Text>
-                <Text> this.props.specie.slug</Text>
-                <Text> this.props.specie.scientific_name</Text>
-                <Text> this.props.specie.id</Text>
-                <Text> this.props.specie.id</Text>
-                <Text> this.props.specie.id</Text>
-
-                            
+                <Text> this.props.specie.scientific_name</Text>           
             </View>
         )
     }
