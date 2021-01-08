@@ -48,7 +48,7 @@ Run `npm run build-android` or `npm run build-ios` depending on the platform you
 
 ## Contributors
 
-Caroline de Pourtales (caroline.de-pourtales@imt-atlantique.net)
-Alfred Pichard (alfred.pichard@imt-atlantique.net)
-Ladislas Dellinger (ladislas.dellinger@imt-atlantique.net)
-Kelian Baert (kelian.baert@imt-atlantique.net)
+Caroline de Pourtales (caroline.de-pourtales@imt-atlantique.net)  
+Alfred Pichard (alfred.pichard@imt-atlantique.net)  
+Ladislas Dellinger (ladislas.dellinger@imt-atlantique.net)  
+Kelian Baert (kelian.baert@imt-atlantique.net)  
