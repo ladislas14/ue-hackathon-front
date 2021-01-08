@@ -3,15 +3,25 @@ import {Button, StyleSheet, View} from "react-native";
 import {withTheme} from "react-native-elements";
 import {requestTrefle} from "../api/trefle";
 import {TreflePaginatedResponse, TreflePlantDto} from "../api/trefle/dto";
+import Tree from "../components/cards/Tree";
 import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
 
 export type APIScreenProps = ThemeProps;
 
+type APIScreenState = {
+    plant: TreflePlantDto | null;
+};
+
 let numPages = 0;
 
-class APIScreen extends React.Component<APIScreenProps> {
+class APIScreen extends React.Component<APIScreenProps, APIScreenState> {
+    constructor(props: APIScreenProps) {
+        super(props);
+        this.state = {plant: null};
+    }
+
     async requestRandomPlant() {
         // First find out how many pages there are if we don't know yet
         if (numPages === 0) {
@@ -29,6 +39,7 @@ class APIScreen extends React.Component<APIScreenProps> {
         }).then((resp) => {
             const response = resp as TreflePaginatedResponse<TreflePlantDto>;
             const plant = response.data[Math.floor(Math.random() * response.data.length)];
+            this.setState({...this.state, plant});
             console.log(plant);
         });
     }
@@ -41,6 +52,7 @@ class APIScreen extends React.Component<APIScreenProps> {
             <ScreenWrapper>
                 <View style={styles.container}>
                     <Button title="Test Trefle API" onPress={() => this.requestRandomPlant()} />
+                    <Tree plant={this.state.plant} />
                 </View>
             </ScreenWrapper>
         );
