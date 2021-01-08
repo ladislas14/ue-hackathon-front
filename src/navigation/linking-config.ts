@@ -1,9 +1,9 @@
 import {LinkingOptions} from "@react-navigation/native";
 import * as Linking from "expo-linking";
-import {APP_SCHEME, CLIENT_URL} from "../constants/config";
+import {APP_SCHEME} from "../constants/config";
 
 const config: LinkingOptions = {
-    prefixes: [Linking.makeUrl("/"), CLIENT_URL, `${APP_SCHEME}://`],
+    prefixes: [Linking.makeUrl("/"), `${APP_SCHEME}://`],
     config: {
         screens: {
             LoginRoot: {
