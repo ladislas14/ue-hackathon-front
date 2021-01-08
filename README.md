@@ -18,7 +18,15 @@ npm install -g expo-cli
 npm i
 ```
 
-### 4. Launch the project:
+### 4. Configure:
+
+You can set the URL of the staging and production servers by modifying the `STAGING_SERVER_HOST` and `PRODUCTION_SERVER_HOST` constants in the [app config](app.config.js).  
+If you are deploying the server on Scalingo, you can find its URL on the Container page of your app.
+
+Note that by default, the project will start in debug mode on the staging environment.
+When building however, the environment is switched to production.
+
+### 5. Launch the project:
 
 ```bash
 npm start
@@ -26,7 +34,7 @@ npm start
 
 This will start the bundler in your default browser.
 
-### 5. Start the app on your phone:
+### 6. Start the app on your phone:
   
 - First you need to install the Expo app on your phone.
 - Then, you can scan the QR code shown by expo on your computer to open the app on your device.
