@@ -2,28 +2,21 @@ const TARGET = process.env.TARGET || "STAGING";
 
 const VERSION = "0.1.0";
 const ANDROID_VERSION_CODE = 1;
+const PRODUCTION_SERVER_HOST = "api.hackathon.lad-dev.team";
+const STAGING_SERVER_HOST = "127.0.0.1";
 
-const CLIENT_HTTP = "https";
-
-let CLIENT_HOST;
 let EXTRAS = {};
 
 if (TARGET === "PRODUCTION") {
-    CLIENT_HOST = "hackathon.lad-dev.team";
-    const SERVER_HOST = "api.hackathon.lad-dev.team";
     EXTRAS = {
-        CLIENT_URL: `${CLIENT_HTTP}://${CLIENT_HOST}`,
-        SERVER_HOST,
-        SERVER_URL: `https://${SERVER_HOST}`,
+        SERVER_HOST: PRODUCTION_SERVER_HOST,
+        SERVER_URL: `https://${PRODUCTION_SERVER_HOST}`,
         DEBUG: false,
     };
 } else {
-    CLIENT_HOST = "staging.hackathon.lad-dev.team";
-    const SERVER_HOST = "api-staging.hackathon.lad-dev.team";
     EXTRAS = {
-        CLIENT_URL: `${CLIENT_HTTP}://${CLIENT_HOST}`,
-        SERVER_HOST,
-        SERVER_URL: `https://${SERVER_HOST}`,
+        SERVER_HOST: STAGING_SERVER_HOST,
+        SERVER_URL: `https://${STAGING_SERVER_HOST}`,
         DEBUG: true,
     };
 }
