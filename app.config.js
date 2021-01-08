@@ -10,13 +10,13 @@ let EXTRAS = {};
 if (TARGET === "PRODUCTION") {
     EXTRAS = {
         SERVER_HOST: PRODUCTION_SERVER_HOST,
-        SERVER_URL: `https://${SERVER_HOST}`,
+        SERVER_URL: `https://${PRODUCTION_SERVER_HOST}`,
         DEBUG: false,
     };
 } else {
     EXTRAS = {
         SERVER_HOST: STAGING_SERVER_HOST,
-        SERVER_URL: `https://${SERVER_HOST}`,
+        SERVER_URL: `https://${STAGING_SERVER_HOST}`,
         DEBUG: true,
     };
 }
