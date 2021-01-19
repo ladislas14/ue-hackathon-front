@@ -1,7 +1,8 @@
 import {ONBOARDING_SCREENS} from "../screens/onboarding";
 
 export type RootNavigatorScreens = {
-    MainScreen: undefined;
+    MainScreenClient: undefined;
+    MainScreenStaff: undefined;
     LoginRoot: undefined;
     APIScreen: undefined;
     SettingsScreen: undefined;
@@ -10,21 +11,29 @@ export type RootNavigatorScreens = {
     NotFoundScreen: undefined;
 };
 
-export type MainNavigatorTabs = {
+export type MainNavigatorClientTabs = {
     TabBooking: undefined;
     TabProfile: undefined;
 };
 
-// TAB: Booking
+export type MainNavigatorStaffTabs = {
+    TabAvailability: undefined;
+};
+
+// Client tabs
 
 export type TabBookingRoot = {
     BookingScreen: undefined;
 };
-
-// TAB: Profile
-
 export type TabProfileRoot = {
     ProfileScreen: undefined;
+};
+
+// Staff tabs
+
+export type TabAvailabilityRoot = {
+    AvailabilityScreen: undefined;
+    DailyAvailabilityScreen: undefined;
 };
 
 // Login screen
@@ -45,7 +54,8 @@ export type OnboardingScreens = typeof ONBOARDING_SCREENS;
 
 export type NavigatorRoute =
     | keyof RootNavigatorScreens
-    | keyof MainNavigatorTabs
+    | keyof MainNavigatorClientTabs
+    | keyof MainNavigatorStaffTabs
     | keyof TabBookingRoot
     | keyof TabProfileRoot
     | keyof LoginRoot

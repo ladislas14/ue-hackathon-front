@@ -5,7 +5,6 @@ import * as React from "react";
 import {RootNavigatorScreens} from "../navigation/types";
 import LinkingConfiguration from "./linking-config";
 import LoginNavigator from "./LoginNavigator";
-import MainNavigator from "./MainNavigator";
 import OnboardingNavigator from "./OnboardingNavigator";
 import {rootNavigationRef} from "./utils";
 import {withTheme} from "react-native-elements";
@@ -14,6 +13,8 @@ import OnboardingSuccessfulScreen from "../screens/onboarding/OnboardingSuccessf
 import MainHeader from "../components/headers/MainHeader";
 import SettingsScreen from "../screens/SettingsScreen";
 import APIScreen from "../screens/APIScreen";
+import MainNavigatorClient from "./MainNavigatorClient";
+import MainNavigatorStaff from "./MainNavigatorStaff";
 
 type RootNavigationProps = React.PropsWithRef<ThemeProps & {initialRoute?: keyof RootNavigatorScreens}> & {
     onReady?: () => void;
@@ -57,7 +58,8 @@ function Navigation({theme, initialRoute, onReady}: RootNavigationProps): JSX.El
         >
             <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={initialRouteName}>
                 <Stack.Screen name="LoginRoot" component={LoginNavigator} />
-                <Stack.Screen name="MainScreen" component={MainNavigator} />
+                <Stack.Screen name="MainScreenClient" component={MainNavigatorClient} />
+                <Stack.Screen name="MainScreenStaff" component={MainNavigatorStaff} />
                 <Stack.Screen name="APIScreen" component={APIScreen} />
                 <Stack.Screen
                     name="SettingsScreen"

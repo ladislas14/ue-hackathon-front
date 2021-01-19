@@ -15,9 +15,16 @@ type DebugMenuState = {visible: boolean};
 class DebugMenu extends React.Component<DebugMenuProps, DebugMenuState> {
     ACTIONS = [
         {
-            title: "Access MainScreen",
+            title: "Access MainScreen (client)",
             onPress: () => {
-                rootNavigate("MainScreen");
+                rootNavigate("MainScreenClient");
+                this.hide();
+            },
+        },
+        {
+            title: "Access MainScreen (staff)",
+            onPress: () => {
+                rootNavigate("MainScreenStaff");
                 this.hide();
             },
         },

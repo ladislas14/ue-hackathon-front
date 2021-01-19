@@ -54,7 +54,7 @@ export default function useCachedResources(): {isLoadingComplete: boolean; initi
     }, []);
 
     let initialRoute: undefined | keyof RootNavigatorScreens = undefined;
-    if (loggedInFromCache) initialRoute = loggedInFromCache.onboarded ? "MainScreen" : "OnboardingScreen";
+    if (loggedInFromCache) initialRoute = loggedInFromCache.onboarded ? "MainScreenClient" : "OnboardingScreen";
 
     return {isLoadingComplete, initialRoute};
 }

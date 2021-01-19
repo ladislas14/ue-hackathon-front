@@ -2,7 +2,7 @@
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {createStackNavigator, StackHeaderProps, StackScreenProps} from "@react-navigation/stack";
 import * as React from "react";
-import {MainNavigatorTabs, RootNavigatorScreens, TabBookingRoot, TabProfileRoot} from "../navigation/types";
+import {MainNavigatorClientTabs, RootNavigatorScreens, TabBookingRoot, TabProfileRoot} from "./types";
 import {withTheme} from "react-native-elements";
 import {BottomTabBarProps} from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import {ThemeProps} from "../types";
@@ -11,12 +11,12 @@ import MainTabBar, {MainTabBarIcon} from "../components/tabs/MainTabBar";
 import ProfileScreen from "../screens/ProfileScreen";
 import BookingScreen from "../screens/BookingScreen";
 
-const TabNavigator = createBottomTabNavigator<MainNavigatorTabs>();
+const TabNavigator = createBottomTabNavigator<MainNavigatorClientTabs>();
 
 // Component props
-export type MainNavigatorProps = ThemeProps & StackScreenProps<RootNavigatorScreens, "MainScreen">;
+export type MainNavigatorProps = ThemeProps & StackScreenProps<RootNavigatorScreens, "MainScreenClient">;
 
-function MainNavigatorComponent(): JSX.Element {
+function MainNavigatorClientComponent(): JSX.Element {
     return (
         <TabNavigator.Navigator
             initialRouteName="TabBooking"
@@ -75,4 +75,4 @@ const TabProfileNavigator = withTheme(
     ),
 );
 
-export default withTheme(MainNavigatorComponent);
+export default withTheme(MainNavigatorClientComponent);

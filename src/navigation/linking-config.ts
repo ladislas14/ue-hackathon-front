@@ -17,7 +17,7 @@ const config: LinkingOptions = {
                     },
                 },
             },
-            MainScreen: {
+            MainScreenClient: {
                 screens: {
                     TabBooking: {
                         screens: {
@@ -27,6 +27,16 @@ const config: LinkingOptions = {
                     TabProfile: {
                         screens: {
                             ProfileScreen: "profile",
+                        },
+                    },
+                },
+            },
+            MainScreenStaff: {
+                screens: {
+                    TabAvailability: {
+                        screens: {
+                            AvailabilityScreen: "availability",
+                            DailyAvailabilityScreen: "availability/:day",
                         },
                     },
                 },

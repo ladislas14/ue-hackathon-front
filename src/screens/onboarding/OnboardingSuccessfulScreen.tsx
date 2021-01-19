@@ -20,7 +20,7 @@ class OnboardingSuccessfulScreen extends React.Component<OnboardingSuccessfulScr
                 <FontAwesome style={styles.icon} name="home"></FontAwesome>
                 <Text style={styles.title}>{i18n.t("onboarding.profileCreated")}</Text>
                 <View style={styles.separator} />
-                <TouchableOpacity style={styles.button} onPress={() => rootNavigate("MainScreen")}>
+                <TouchableOpacity style={styles.button} onPress={() => rootNavigate("MainScreenClient")}>
                     <Text style={styles.buttonText}>{i18n.t("onboarding.getStarted")}</Text>
                 </TouchableOpacity>
             </View>

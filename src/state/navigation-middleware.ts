@@ -17,7 +17,7 @@ export const navigationMiddleware: Middleware<unknown, AppState> = (/*store: Mid
         }
         case AUTH_ACTION_TYPES.LOG_IN_SUCCESS: {
             const {user} = action as LogInSuccessAction;
-            rootNavigate(user.onboarded ? "MainScreen" : "OnboardingScreen");
+            rootNavigate(user.onboarded ? "MainScreenClient" : "OnboardingScreen");
             break;
         }
         case AUTH_ACTION_TYPES.LOG_OUT: {

@@ -12,6 +12,8 @@ import SemiHighlightedText from "../components/SemiHighlightedText";
 import {getLocalSvg} from "../assets";
 import Button from "../components/Button";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
+import DebugMenu from "../components/DebugMenu";
+import {DEBUG_MODE} from "../constants/config";
 
 export type WelcomeScreenProps = ThemeProps & StackScreenProps<RootNavigatorScreens>;
 
@@ -63,6 +65,7 @@ class WelcomeScreen extends React.Component<WelcomeScreenProps> {
                         />
                     </View>
                 </View>
+                {DEBUG_MODE && <DebugMenu />}
             </ScreenWrapper>
         );
     }

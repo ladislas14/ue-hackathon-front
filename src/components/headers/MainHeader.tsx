@@ -49,7 +49,7 @@ export type MainHeaderProps = ConnectedProps<typeof reduxConnector> &
 
 class MainHeaderClass extends React.Component<MainHeaderProps> {
     back(): void {
-        navigateBack("MainScreen");
+        navigateBack("MainScreenClient");
     }
 
     render(): JSX.Element {
