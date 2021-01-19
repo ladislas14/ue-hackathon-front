@@ -253,6 +253,7 @@ export default {
             OnboardingPrivacyScreen: "Privacy Policy",
             BookingScreen: "Booking",
             ProfileScreen: "Profile",
+            AvailabilityScreen: "AvailabilityScreen",
             SettingsScreen: "Settings",
             OnboardingSuccessfulScreen: "Successful registration",
         },

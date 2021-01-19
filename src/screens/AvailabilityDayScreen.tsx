@@ -5,9 +5,9 @@ import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
 
-export type DailyAvailabilityScreenProps = ThemeProps;
+export type AvailabilityDayScreenProps = ThemeProps;
 
-class DailyAvailabilityScreen extends React.Component<DailyAvailabilityScreenProps> {
+class AvailabilityDayScreen extends React.Component<AvailabilityDayScreenProps> {
     render(): JSX.Element {
         const {theme} = this.props;
         const styles = themedStyles(theme);
@@ -40,4 +40,4 @@ const themedStyles = preTheme((theme: Theme) => {
     });
 });
 
-export default withTheme(DailyAvailabilityScreen);
+export default withTheme(AvailabilityDayScreen);

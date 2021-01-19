@@ -35,8 +35,9 @@ const config: LinkingOptions = {
                 screens: {
                     TabAvailability: {
                         screens: {
-                            AvailabilityScreen: "availability",
-                            DailyAvailabilityScreen: "availability/:day",
+                            AvailabilityDayScreen: "availability/day",
+                            AvailabilityProductsScreen: "availability/products",
+                            AvailabilitySettingsScreen: "availability/settings",
                         },
                     },
                 },

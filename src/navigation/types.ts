@@ -32,8 +32,9 @@ export type TabProfileRoot = {
 // Staff tabs
 
 export type TabAvailabilityRoot = {
-    AvailabilityScreen: undefined;
-    DailyAvailabilityScreen: undefined;
+    AvailabilityDayScreen: undefined;
+    AvailabilityProductsScreen: undefined;
+    AvailabilitySettingsScreen: undefined;
 };
 
 // Login screen
