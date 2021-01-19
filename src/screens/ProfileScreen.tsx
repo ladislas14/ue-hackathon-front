@@ -1,53 +1,41 @@
 import {StackScreenProps} from "@react-navigation/stack";
 import * as React from "react";
 import {connect, ConnectedProps} from "react-redux";
-import {MyThunkDispatch} from "../state/types";
-import {RootNavigatorScreens} from "../navigation/types";
+import {AppState, MyThunkDispatch} from "../state/types";
+import {TabProfileRoot} from "../navigation/types";
+import EditProfileForm from "../components/forms/EditProfileForm";
 import {ThemeProps} from "../types";
 import {withTheme} from "react-native-elements";
-import ProfileView from "../components/ProfileView";
-import {UserProfile} from "../model/user-profile";
-import {fetchProfile} from "../state/profile/actions";
+import {fetchUser, setProfileFields} from "../state/profile/actions";
 import ScreenWrapper from "./ScreenWrapper";
 
-const reduxConnector = connect(() => ({}));
+const reduxConnector = connect((state: AppState) => ({
+    user: state.profile.user,
+}));
 
-// Component props
-type ProfileScreenProps = ConnectedProps<typeof reduxConnector> & ThemeProps & StackScreenProps<RootNavigatorScreens>;
+type ProfileScreenProps = ConnectedProps<typeof reduxConnector> &
+    ThemeProps &
+    StackScreenProps<TabProfileRoot, "ProfileScreen">;
 
-// Component state
-type ProfileScreenState = {profile: UserProfile | null};
-
-class ProfileScreen extends React.Component<ProfileScreenProps, ProfileScreenState> {
-    constructor(props: ProfileScreenProps) {
-        super(props);
-        this.state = {profile: null};
-    }
-
-    getRouteParams(): {[key: string]: string | boolean | number} {
-        const params = this.props.route.params;
-        return params ? (params as {[key: string]: string | boolean | number}) : {};
-    }
-
+class ProfileScreen extends React.Component<ProfileScreenProps> {
     componentDidMount() {
-        const {dispatch} = this.props;
+        this.props.navigation.addListener("focus", () => this.onFocus());
+        this.onFocus();
+    }
 
-        this.props.navigation.addListener("focus", () => {
-            const {id} = this.getRouteParams();
-            if (id && (!this.state.profile || this.state.profile.id !== id)) {
-                (dispatch as MyThunkDispatch)(fetchProfile(id as string)).then((profile) => {
-                    this.setState({...this.state, profile});
-                });
-            }
-        });
+    onFocus() {
+        (this.props.dispatch as MyThunkDispatch)(fetchUser());
     }
 
     render(): JSX.Element {
-        const {profile} = this.state;
+        const {user, dispatch} = this.props;
 
         return (
             <ScreenWrapper>
-                <ProfileView profile={profile} />
+                <EditProfileForm
+                    user={user}
+                    onChange={(fields) => (dispatch as MyThunkDispatch)(setProfileFields(fields))}
+                />
             </ScreenWrapper>
         );
     }

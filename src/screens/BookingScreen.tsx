@@ -8,9 +8,9 @@ import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
 
-export type TabHomeScreenProps = ThemeProps;
+export type BookingScreenProps = ThemeProps;
 
-class TabHomeScreen extends React.Component<TabHomeScreenProps> {
+class BookingScreen extends React.Component<BookingScreenProps> {
     render(): JSX.Element {
         const {theme} = this.props;
         const styles = themedStyles(theme);
@@ -70,4 +70,4 @@ const themedStyles = preTheme((theme: Theme) => {
     });
 });
 
-export default withTheme(TabHomeScreen);
+export default withTheme(BookingScreen);

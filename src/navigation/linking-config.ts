@@ -19,15 +19,18 @@ const config: LinkingOptions = {
             },
             MainScreen: {
                 screens: {
-                    TabHome: {
+                    TabBooking: {
                         screens: {
-                            TabHomeScreen: "home",
+                            BookingScreen: "home",
+                        },
+                    },
+                    TabProfile: {
+                        screens: {
+                            ProfileScreen: "profile",
                         },
                     },
                 },
             },
-            MyProfileScreen: "profile",
-            ProfileScreen: "profile/:id",
             SettingsScreen: "settings",
             OnboardingScreen: {
                 screens: {
@@ -38,7 +41,6 @@ const config: LinkingOptions = {
                 },
             },
             OnboardingSuccessfulScreen: "onboarding/success",
-            NotFoundScreen: "*",
         },
     },
 };

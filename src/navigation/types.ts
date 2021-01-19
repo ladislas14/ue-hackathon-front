@@ -4,8 +4,6 @@ export type RootNavigatorScreens = {
     MainScreen: undefined;
     LoginRoot: undefined;
     APIScreen: undefined;
-    MyProfileScreen: undefined;
-    ProfileScreen: undefined;
     SettingsScreen: undefined;
     OnboardingScreen: undefined;
     OnboardingSuccessfulScreen: undefined;
@@ -13,13 +11,20 @@ export type RootNavigatorScreens = {
 };
 
 export type MainNavigatorTabs = {
-    TabHome: undefined;
+    TabBooking: undefined;
+    TabProfile: undefined;
 };
 
-// TAB: Home
+// TAB: Booking
 
-export type TabHomeRoot = {
-    TabHomeScreen: undefined;
+export type TabBookingRoot = {
+    BookingScreen: undefined;
+};
+
+// TAB: Profile
+
+export type TabProfileRoot = {
+    ProfileScreen: undefined;
 };
 
 // Login screen
@@ -30,7 +35,6 @@ export type LoginRoot = {
 };
 
 export type LoginScreens = {
-    ForgotPasswordScreen: undefined;
     SigninScreen: undefined;
     SignupScreen: undefined;
 };
@@ -42,7 +46,8 @@ export type OnboardingScreens = typeof ONBOARDING_SCREENS;
 export type NavigatorRoute =
     | keyof RootNavigatorScreens
     | keyof MainNavigatorTabs
-    | keyof TabHomeRoot
+    | keyof TabBookingRoot
+    | keyof TabProfileRoot
     | keyof LoginRoot
     | keyof LoginScreens
     | keyof OnboardingScreens;

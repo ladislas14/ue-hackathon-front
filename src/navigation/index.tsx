@@ -2,7 +2,6 @@
 import {NavigationContainer, DefaultTheme, DarkTheme} from "@react-navigation/native";
 import {createStackNavigator, StackHeaderProps} from "@react-navigation/stack";
 import * as React from "react";
-import NotFoundScreen from "../screens/NotFoundScreen";
 import {RootNavigatorScreens} from "../navigation/types";
 import LinkingConfiguration from "./linking-config";
 import LoginNavigator from "./LoginNavigator";
@@ -12,8 +11,6 @@ import {rootNavigationRef, screenTitle} from "./utils";
 import {withTheme} from "react-native-elements";
 import {ThemeProps} from "../types";
 import OnboardingSuccessfulScreen from "../screens/onboarding/OnboardingSuccessfulScreen";
-import MyProfileScreen from "../screens/MyProfileScreen";
-import ProfileScreen from "../screens/ProfileScreen";
 import MainHeader from "../components/headers/MainHeader";
 import SettingsScreen from "../screens/SettingsScreen";
 import APIScreen from "../screens/APIScreen";
@@ -63,43 +60,6 @@ function Navigation({theme, initialRoute, onReady}: RootNavigationProps): JSX.El
                 <Stack.Screen name="MainScreen" component={MainNavigator} />
                 <Stack.Screen name="APIScreen" component={APIScreen} />
                 <Stack.Screen
-                    name="MyProfileScreen"
-                    component={MyProfileScreen}
-                    options={{
-                        headerShown: true,
-                        title: screenTitle("MyProfileScreen"),
-                        header: (props: StackHeaderProps) => (
-                            <MainHeader
-                                {...props}
-                                backButton={true}
-                                noAvatar={true}
-                                noShadow={true}
-                                buttonBackgroundColor={theme.accent}
-                                wrapperStyle={{backgroundColor: theme.accent}}
-                                color={theme.textWhite}
-                            />
-                        ),
-                    }}
-                />
-                <Stack.Screen
-                    name="ProfileScreen"
-                    component={ProfileScreen}
-                    options={{
-                        headerShown: true,
-                        title: screenTitle("ProfileScreen"),
-                        header: (props: StackHeaderProps) => (
-                            <MainHeader
-                                {...props}
-                                backButton={true}
-                                noShadow={true}
-                                buttonBackgroundColor={theme.accent}
-                                wrapperStyle={{backgroundColor: theme.accent}}
-                                color={theme.textWhite}
-                            />
-                        ),
-                    }}
-                />
-                <Stack.Screen
                     name="SettingsScreen"
                     component={SettingsScreen}
                     options={{
@@ -115,11 +75,6 @@ function Navigation({theme, initialRoute, onReady}: RootNavigationProps): JSX.El
                     name="OnboardingSuccessfulScreen"
                     component={OnboardingSuccessfulScreen}
                     options={{title: screenTitle("OnboardingSuccessfulScreen")}}
-                />
-                <Stack.Screen
-                    name="NotFoundScreen"
-                    component={NotFoundScreen}
-                    options={{title: screenTitle("NotFoundScreen")}}
                 />
             </Stack.Navigator>
         </NavigationContainer>
