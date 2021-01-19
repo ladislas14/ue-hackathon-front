@@ -6,7 +6,6 @@ import {MainNavigatorTabs, RootNavigatorScreens, TabBookingRoot, TabProfileRoot}
 import {withTheme} from "react-native-elements";
 import {BottomTabBarProps} from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import {ThemeProps} from "../types";
-import {screenTitle} from "./utils";
 import MainHeader from "../components/headers/MainHeader";
 import MainTabBar, {MainTabBarIcon} from "../components/tabs/MainTabBar";
 import ProfileScreen from "../screens/ProfileScreen";
@@ -28,14 +27,14 @@ function MainNavigatorComponent(): JSX.Element {
                 component={TabBookingNavigator}
                 options={{
                     //tabBarLabel: (props) => <MainTabBarLabel text={i18n.t("tabs.home")} {...props} />,
-                    tabBarIcon: (props) => <MainTabBarIcon name="home" {...props} />,
+                    tabBarIcon: (props) => <MainTabBarIcon name="shopping-cart" {...props} />,
                 }}
             />
             <TabNavigator.Screen
                 name="TabProfile"
                 component={TabProfileNavigator}
                 options={{
-                    tabBarIcon: (props) => <MainTabBarIcon name="people" {...props} />,
+                    tabBarIcon: (props) => <MainTabBarIcon name="person" {...props} />,
                 }}
             />
         </TabNavigator.Navigator>
@@ -46,11 +45,7 @@ const BookingStack = createStackNavigator<TabBookingRoot>();
 
 const TabBookingNavigator = (): JSX.Element => (
     <BookingStack.Navigator screenOptions={{header: MainHeader}}>
-        <BookingStack.Screen
-            name="BookingScreen"
-            component={BookingScreen}
-            options={{title: screenTitle("BookingScreen")}}
-        />
+        <BookingStack.Screen name="BookingScreen" component={BookingScreen} />
     </BookingStack.Navigator>
 );
 
@@ -64,7 +59,6 @@ const TabProfileNavigator = withTheme(
                 component={ProfileScreen}
                 options={{
                     headerShown: true,
-                    title: screenTitle("ProfileScreen"),
                     header: (props: StackHeaderProps) => (
                         <MainHeader
                             {...props}

@@ -3,7 +3,6 @@ import * as React from "react";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
 import {SigninScreen, SignupScreen} from "../screens/TabLoginScreen";
 import {LoginRoot, LoginScreens} from "./types";
-import {screenTitle} from "./utils";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import LoginHeader from "../components/headers/LoginHeader";
 import DebugMenu from "../components/DebugMenu";
@@ -16,22 +15,14 @@ const Tab = createMaterialTopTabNavigator<LoginRoot>();
 
 const LoginNavigator = (): JSX.Element => (
     <Tab.Navigator swipeEnabled={false} tabBar={() => <></>}>
-        <Tab.Screen name="WelcomeScreen" component={WelcomeScreen} options={{title: screenTitle("WelcomeScreen")}} />
+        <Tab.Screen name="WelcomeScreen" component={WelcomeScreen} />
         <Tab.Screen name="LoginScreens">
             {() => (
                 <>
                     <LoginHeader />
                     <SigninRoot.Navigator tabBar={() => <></>} initialRouteName="SigninScreen" swipeEnabled={false}>
-                        <SigninRoot.Screen
-                            name="SigninScreen"
-                            component={SigninScreen}
-                            options={{title: screenTitle("SigninScreen")}}
-                        />
-                        <SigninRoot.Screen
-                            name="SignupScreen"
-                            component={SignupScreen}
-                            options={{title: screenTitle("SignupScreen")}}
-                        />
+                        <SigninRoot.Screen name="SigninScreen" component={SigninScreen} />
+                        <SigninRoot.Screen name="SignupScreen" component={SignupScreen} />
                     </SigninRoot.Navigator>
 
                     <VersionInfo />

@@ -110,7 +110,7 @@ class MainHeaderClass extends React.Component<MainHeaderProps> {
                             containerStyle={styles.avatarContainer}
                             titleStyle={styles.avatarTitle}
                             activeOpacity={0.75}
-                            onPress={() => rootNavigate("MyProfileScreen")}
+                            onPress={() => rootNavigate("ProfileScreen")}
                         />
                     ))}
                 <Text style={[styles.title, {marginLeft: 12, color: textColor}, titleStyle]} numberOfLines={1}>

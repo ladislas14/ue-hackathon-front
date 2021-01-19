@@ -7,7 +7,7 @@ import LinkingConfiguration from "./linking-config";
 import LoginNavigator from "./LoginNavigator";
 import MainNavigator from "./MainNavigator";
 import OnboardingNavigator from "./OnboardingNavigator";
-import {rootNavigationRef, screenTitle} from "./utils";
+import {rootNavigationRef} from "./utils";
 import {withTheme} from "react-native-elements";
 import {ThemeProps} from "../types";
 import OnboardingSuccessfulScreen from "../screens/onboarding/OnboardingSuccessfulScreen";
@@ -64,18 +64,13 @@ function Navigation({theme, initialRoute, onReady}: RootNavigationProps): JSX.El
                     component={SettingsScreen}
                     options={{
                         headerShown: true,
-                        title: screenTitle("SettingsScreen"),
                         header: (props: StackHeaderProps) => (
                             <MainHeader {...props} backButton={true} noSettingsButton={true} />
                         ),
                     }}
                 />
                 <Stack.Screen name="OnboardingScreen" component={OnboardingNavigator} />
-                <Stack.Screen
-                    name="OnboardingSuccessfulScreen"
-                    component={OnboardingSuccessfulScreen}
-                    options={{title: screenTitle("OnboardingSuccessfulScreen")}}
-                />
+                <Stack.Screen name="OnboardingSuccessfulScreen" component={OnboardingSuccessfulScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
