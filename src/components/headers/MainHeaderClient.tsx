@@ -21,7 +21,7 @@ export type MainHeaderStackProps = Partial<StackHeaderProps> & {route?: Route<st
 // Component props
 export type MainHeaderProps = ConnectedProps<typeof reduxConnector> &
     ThemeProps &
-    MainHeaderStackProps & {title: string};
+    MainHeaderStackProps & {title?: string};
 
 class MainHeaderClient extends React.Component<MainHeaderProps> {
     render(): JSX.Element {
@@ -31,7 +31,7 @@ class MainHeaderClient extends React.Component<MainHeaderProps> {
         return (
             <MainHeader
                 {...otherProps}
-                overrideTitle={title}
+                overrideTitle={title || ""}
                 backRouteFallback="MainScreenClient"
                 rightButtons={[
                     (props) => (
