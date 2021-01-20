@@ -15,7 +15,7 @@ class AvailabilityDayScreen extends React.Component<AvailabilityDayScreenProps> 
 
         return (
             <ScreenWrapper>
-                <Text style={styles.title}>Date de disponibilité des produits</Text>
+                <Text style={styles.title}>Date des commandes</Text>
                 <View style={styles.container}>
                     <CalendarPicker
                     />        

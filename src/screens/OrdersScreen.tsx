@@ -4,21 +4,18 @@ import {withTheme} from "react-native-elements";
 import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
-import CalendarPicker from 'react-native-calendar-picker';
 
-export type AvailabilityDayScreenProps = ThemeProps;
+export type AvailabilityProductsScreenProps = ThemeProps;
 
-class AvailabilityDayScreen extends React.Component<AvailabilityDayScreenProps> {
+class AvailabilityProductsScreen extends React.Component<AvailabilityProductsScreenProps> {
     render(): JSX.Element {
         const {theme} = this.props;
         const styles = themedStyles(theme);
 
         return (
             <ScreenWrapper>
-                <Text style={styles.title}>Date de disponibilité des produits</Text>
+                <Text style={styles.title}>Inventaire des commandes </Text>
                 <View style={styles.container}>
-                    <CalendarPicker
-                    />        
                 </View>
             </ScreenWrapper>
         );
@@ -44,4 +41,4 @@ const themedStyles = preTheme((theme: Theme) => {
     });
 });
 
-export default withTheme(AvailabilityDayScreen);
+export default withTheme(AvailabilityProductsScreen);

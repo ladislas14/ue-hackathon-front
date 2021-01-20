@@ -1,16 +1,15 @@
 import * as React from "react";
-import {TabAvailabilityRoot} from "../navigation/types";
+import {TabOrderRoot} from "../navigation/types";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
-import AvailabilityDayScreen from "../screens/AvailabilityDayScreen";
-import AvailabilityProductsScreen from "../screens/AvailabilityProductsScreen";
-import AvailabilitySettingsScreen from "../screens/AvailabilitySettingsScreen";
+import OrderDayScreen from "../screens/OrderDayScreen";
+import OrdersScreen from "../screens/OrdersScreen";
 
-const Stack = createMaterialTopTabNavigator<TabAvailabilityRoot>();
+const Stack = createMaterialTopTabNavigator<TabOrderRoot>();
 
-export default function AvailabilityNavigator(): JSX.Element {
+export default function OrderNavigator(): JSX.Element {
     return (
         <Stack.Navigator
-            initialRouteName={"AvailabilityDayScreen"}
+            initialRouteName={"OrderDayScreen"}
             tabBarOptions={{showLabel: false, showIcon: false}}
             tabBar={() => <></>}
             springConfig={{
@@ -22,9 +21,8 @@ export default function AvailabilityNavigator(): JSX.Element {
             lazy={true}
             lazyPreloadDistance={0}
         >
-            <Stack.Screen name={"AvailabilityDayScreen"} component={AvailabilityDayScreen} />
-            <Stack.Screen name={"AvailabilityProductsScreen"} component={AvailabilityProductsScreen} />
-            <Stack.Screen name={"AvailabilitySettingsScreen"} component={AvailabilitySettingsScreen} />
+            <Stack.Screen name={"OrderDayScreen"} component={OrderDayScreen} />
+            <Stack.Screen name={"OrdersScreen"} component={OrdersScreen} />
         </Stack.Navigator>
     );
 }

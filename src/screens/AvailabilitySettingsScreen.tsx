@@ -16,11 +16,12 @@ class AvailabilitySettingsScreen extends React.Component<AvailabilitySettingsScr
 
         return (
             <ScreenWrapper>
+                <Text style={styles.title}>Horaires de la cafétéria</Text>
                 <View style={styles.container}>
                     <View style={styles.subcontainer}>
                         <Text style={styles.subtitle}>Heure d'ouverture</Text>
                         <DateTimePicker 
-                            value={new Date()}
+                            value={new Date(2019,1,2, 8,0,0)}
                             mode="time"
                             style={{width: 100, height: 130}}
                             is24Hour={true}
@@ -30,19 +31,13 @@ class AvailabilitySettingsScreen extends React.Component<AvailabilitySettingsScr
                     <View style={styles.subcontainer}>
                         <Text style={styles.subtitle}>Heure de fermeture</Text>
                         <DateTimePicker 
-                            value={new Date()}
+                            value={new Date(2019,1,2, 8,0,0)}
                             mode="time"
                             style={{width: 100, height: 130}}
                             is24Hour={true}
                             display="spinner"
                         />
                     </View>
-                </View>
-                <View style={styles.subcontainer}>
-                    <Text style={styles.subtitle}>Récurrence des réglages</Text>
-                    <CalendarPicker
-                    allowRangeSelection={true}
-                    />
                 </View>
             </ScreenWrapper>
         );
@@ -68,11 +63,18 @@ const themedStyles = preTheme((theme: Theme) => {
             alignItems: "center",
             justifyContent: "center",
         },
+        title: {
+            width: "100%",
+            textAlign: "center",
+            paddingTop:30,
+            fontSize: 35,
+            color: theme.text,
+        },
         subtitle: {
             width: "100%",
             textAlign: "center",
-            paddingTop:20,
-            fontSize: 14,
+            paddingTop:0,
+            fontSize: 18,
             color: theme.text,
         },
     });

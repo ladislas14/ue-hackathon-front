@@ -34,7 +34,8 @@ const themedStyles = preTheme((theme: Theme) => {
         title: {
             width: "100%",
             textAlign: "center",
-            fontSize: 24,
+            paddingTop: 30,
+            fontSize: 35,
             color: theme.text,
         },
     });
