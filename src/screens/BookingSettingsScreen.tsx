@@ -15,7 +15,7 @@ class BookingSettingsScreen extends React.Component<BookingSettingsScreenProps> 
         return (
             <ScreenWrapper>
                 <View style={styles.container}>
-                    <Text style={styles.title}>Welcome.</Text>
+                    <Text style={styles.title}>autres choix + confirmation</Text>
                 </View>
             </ScreenWrapper>
         );

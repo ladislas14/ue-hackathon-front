@@ -15,7 +15,7 @@ class BookingDayScreen extends React.Component<BookingDayScreenProps> {
         return (
             <ScreenWrapper>
                 <View style={styles.container}>
-                    <Text style={styles.title}>Welcome.</Text>
+                    <Text style={styles.title}>choix de la date</Text>
                 </View>
             </ScreenWrapper>
         );
