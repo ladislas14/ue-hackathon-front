@@ -2,7 +2,6 @@ import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {Action, AnyAction} from "redux";
 import {RemoteValidationErrors, TokenDto} from "../api/backend/dto";
 import {User} from "../model/user";
-import {Gender} from "../constants/profile-constants";
 import {UserSettings} from "../model/user-settings";
 import {FoodProduct} from "../model/products";
 
@@ -18,7 +17,6 @@ export type OnboardingState = {
     firstname: string;
     lastname: string;
     birthdate: Date | null;
-    gender: Gender | null;
 };
 
 export type AuthState = {

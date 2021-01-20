@@ -1,12 +1,12 @@
 import {AppThunk, OnboardingState, ValidatedThunkAction} from "../types";
-import {LoginDto, ResponseUserDto, SuccessfulRequestResponse, TokenDto} from "../../api/backend/dto";
+import {BackendSuccessfulResponse, LoginDto, ResponseUserDto, TokenDto} from "../../api/backend/dto";
 import {User} from "../../model/user";
-import {requestBackend} from "../../api/utils";
 import {createProfile} from "../profile/actions";
 import {convertDtoToUser} from "../../api/backend/converters";
 import {HttpStatusCode} from "../../constants/http-status";
 import {gatherValidationErrors} from "../../api/backend/errors";
 import {readCachedCredentials} from "../persistent-storage/auth";
+import {requestBackend} from "../../api/backend";
 
 export enum AUTH_ACTION_TYPES {
     REGISTER_BEGIN = "AUTH/REGISTER_BEGIN",
@@ -68,7 +68,7 @@ export const requestRegister = (email: string, password: string): ValidatedThunk
     const response = await requestBackend("auth/register", "POST", {}, {email, password});
 
     if (response.status == HttpStatusCode.OK) {
-        const successResp = response as SuccessfulRequestResponse;
+        const successResp = response as BackendSuccessfulResponse;
         dispatch(registerSuccess(successResp.data as User));
         return {success: true};
     } else {
@@ -111,7 +111,7 @@ export const attemptLoginFromCache = (): AppThunk<Promise<User | undefined>> => 
         const response = await requestBackend("auth/me", "GET", {}, {}, token);
 
         if (response.status == HttpStatusCode.OK) {
-            const payload = (response as SuccessfulRequestResponse).data as ResponseUserDto;
+            const payload = (response as BackendSuccessfulResponse).data as ResponseUserDto;
             const user = convertDtoToUser(payload);
             dispatch(loginSuccess(token, user, true));
             return user;
@@ -125,7 +125,7 @@ export const requestLogin = (email: string, password: string): ValidatedThunkAct
     const response = await requestBackend("auth/login", "POST", {}, {email, password});
 
     if (response.status == HttpStatusCode.OK) {
-        const payload = (response as SuccessfulRequestResponse).data as LoginDto;
+        const payload = (response as BackendSuccessfulResponse).data as LoginDto;
         dispatch(loginSuccess(payload.token, convertDtoToUser(payload.user), false));
         return {success: true};
     } else {
@@ -158,7 +158,6 @@ export const debugConnect = (): AppThunk => async (dispatch) => {
             birthdate: "2002-11-12T07:21:22.110Z",
             firstName: "Kevin" + n,
             lastName: "Test",
-            gender: "male",
         }),
     );
 };

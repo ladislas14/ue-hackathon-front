@@ -3,8 +3,6 @@ import {ActivityIndicator, Text, View} from "react-native";
 import i18n from "i18n-js";
 import {withTheme} from "react-native-elements";
 import {StyleSheet} from "react-native";
-import {Gender} from "../../constants/profile-constants";
-import GenderToggle from "../GenderToggle";
 import AvatarEditButton from "../AvatarEditButton";
 import ValueCard from "../cards/ValueCard";
 import {FormattedDate} from "../FormattedDate";
@@ -74,22 +72,6 @@ class EditProfileForm extends React.Component<EditProfileFormProps> {
                     )}
                     onModalShown={() => this.birthDateInputRef.current?.focus()}
                     apply={(birthdate: Date) => this.onFieldChanged({birthdate})}
-                />
-                <Spacer />
-                <Spacer />
-                <ValueCard
-                    blank={!user}
-                    label={i18n.t("gender")}
-                    initialValue={profile?.gender}
-                    display={
-                        profile && (
-                            <GenderToggle
-                                gender={profile.gender}
-                                onSelect={(gender: Gender) => this.onFieldChanged({gender})}
-                            />
-                        )
-                    }
-                    noModal={true}
                 />
                 <Spacer />
             </>

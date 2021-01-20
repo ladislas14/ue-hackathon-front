@@ -9,7 +9,6 @@ function onboardingStateToDto(onboardingState: OnboardingState): CreateProfileDt
     return {
         firstName: onboardingState.firstname!,
         lastName: onboardingState.lastname!,
-        gender: onboardingState.gender!,
         birthdate: onboardingState.birthdate!.toJSON(),
     };
 }

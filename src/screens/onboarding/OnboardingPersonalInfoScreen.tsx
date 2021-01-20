@@ -3,14 +3,12 @@ import * as React from "react";
 import OnboardingSlide, {OnboardingScreenProps} from "./OnboardingSlide";
 import i18n from "i18n-js";
 import * as Yup from "yup";
-import {VALIDATOR_ONBOARDING_BIRTHDATE, VALIDATOR_ONBOARDING_GENDER} from "../../validators";
+import {VALIDATOR_ONBOARDING_BIRTHDATE} from "../../validators";
 import {AppState} from "../../state/types";
 import {connect, ConnectedProps} from "react-redux";
 import {setOnboardingValues} from "../../state/auth/actions";
 import InputLabel from "../../components/InputLabel";
 import InputErrorText from "../../components/InputErrorText";
-import {Gender} from "../../constants/profile-constants";
-import GenderToggle from "../../components/GenderToggle";
 import {StyleSheet} from "react-native";
 import {FormattedDate} from "../../components/FormattedDate";
 import BirthDateInput from "../../components/BirthDateInput";
@@ -24,30 +22,27 @@ const reduxConnector = connect((state: AppState) => ({
 
 const VALIDATION_SCHEMA = Yup.object().shape({
     birthdate: VALIDATOR_ONBOARDING_BIRTHDATE,
-    gender: VALIDATOR_ONBOARDING_GENDER,
 });
 
 type OnboardingPersonalInfoScreenProps = ConnectedProps<typeof reduxConnector> & ThemeProps & OnboardingScreenProps;
 
 type OnboardingPersonalInfoFormState = {
     birthdate: Date | null;
-    gender: Gender | null;
 };
 
 class OnboardingPersonalInfoScreen extends React.Component<OnboardingPersonalInfoScreenProps> {
     shouldComponentUpdate(nextProps: Readonly<OnboardingPersonalInfoScreenProps>) {
         const prev = this.props.onboardingState;
         const next = nextProps.onboardingState;
-        return prev.birthdate != next.birthdate || prev.gender != next.gender;
+        return prev.birthdate != next.birthdate;
     }
 
     submit(values: OnboardingPersonalInfoFormState) {
-        if (values.birthdate && values.gender) {
+        if (values.birthdate) {
             this.props.next();
             this.props.dispatch(
                 setOnboardingValues({
                     birthdate: values.birthdate,
-                    gender: values.gender,
                 }),
             );
         }
@@ -56,7 +51,6 @@ class OnboardingPersonalInfoScreen extends React.Component<OnboardingPersonalInf
     render(): JSX.Element {
         const {onboardingState, theme} = this.props;
 
-        const spacing = 30;
         const styles = themedStyles(theme);
 
         return (
@@ -99,13 +93,6 @@ class OnboardingPersonalInfoScreen extends React.Component<OnboardingPersonalInf
                                 <FormattedDate style={styles.birthdateText} date={values.birthdate} />
                             )}
                             {touched.birthdate && <InputErrorText error={errors.birthdate}></InputErrorText>}
-
-                            <InputLabel style={{marginTop: spacing}}>{i18n.t("gender")}</InputLabel>
-                            <GenderToggle
-                                gender={values.gender}
-                                onSelect={(gender: Gender) => setFieldValue("gender", gender)}
-                            />
-                            {touched.gender && <InputErrorText error={errors.gender}></InputErrorText>}
                         </OnboardingSlide>
                     );
                 }}

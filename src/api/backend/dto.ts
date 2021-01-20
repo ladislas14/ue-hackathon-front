@@ -1,4 +1,3 @@
-import {Gender} from "../../constants/profile-constants";
 import {SuccessfulRequestResponse} from "../utils";
 
 /* General response-related types */
@@ -56,7 +55,6 @@ export type LoginDto = {
 export type CreateProfileDto = {
     firstName: string;
     lastName: string;
-    gender: Gender;
     birthdate: string;
 };
 

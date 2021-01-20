@@ -13,7 +13,6 @@ const initialOnboardingState = (): OnboardingState => ({
     firstname: "",
     lastname: "",
     birthdate: null,
-    gender: null,
 });
 
 export const initialState: AuthState = {
