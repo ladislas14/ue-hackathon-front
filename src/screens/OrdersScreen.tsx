@@ -5,9 +5,9 @@ import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
 
-export type AvailabilityProductsScreenProps = ThemeProps;
+export type OrdersScreenProps = ThemeProps;
 
-class AvailabilityProductsScreen extends React.Component<AvailabilityProductsScreenProps> {
+class OrdersScreen extends React.Component<OrdersScreenProps> {
     render(): JSX.Element {
         const {theme} = this.props;
         const styles = themedStyles(theme);
@@ -41,4 +41,4 @@ const themedStyles = preTheme((theme: Theme) => {
     });
 });
 
-export default withTheme(AvailabilityProductsScreen);
+export default withTheme(OrdersScreen);

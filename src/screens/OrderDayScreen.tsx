@@ -6,9 +6,9 @@ import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
 import CalendarPicker from 'react-native-calendar-picker';
 
-export type AvailabilityDayScreenProps = ThemeProps;
+export type OrderDayScreenProps = ThemeProps;
 
-class AvailabilityDayScreen extends React.Component<AvailabilityDayScreenProps> {
+class OrderDayScreen extends React.Component<OrderDayScreenProps> {
     render(): JSX.Element {
         const {theme} = this.props;
         const styles = themedStyles(theme);
@@ -44,4 +44,4 @@ const themedStyles = preTheme((theme: Theme) => {
     });
 });
 
-export default withTheme(AvailabilityDayScreen);
+export default withTheme(OrderDayScreen);
