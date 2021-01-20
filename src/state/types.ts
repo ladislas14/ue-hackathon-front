@@ -4,6 +4,7 @@ import {RemoteValidationErrors, TokenDto} from "../api/backend/dto";
 import {User} from "../model/user";
 import {Gender} from "../constants/profile-constants";
 import {UserSettings} from "../model/user-settings";
+import {FoodProduct} from "../model/products";
 
 export type FailableActionReturn = {success: boolean; errors?: string[]};
 export type FailableThunkAction = AppThunk<Promise<FailableActionReturn>>;
@@ -34,10 +35,22 @@ export type SettingsState = {
 export type ProfileState = {
     user: User | null;
 };
+
+export type BookingState = {
+    date: Date | null;
+    cart: {product: FoodProduct; quantity: number}[];
+};
+
+export type AvailabilityState = {
+    date: Date | null;
+};
+
 export type AppState = {
     auth: AuthState;
     settings: SettingsState;
     profile: ProfileState;
+    booking: BookingState;
+    availability: AvailabilityState;
 };
 
 // Shortcut type for redux-thunk actions (async actions)
