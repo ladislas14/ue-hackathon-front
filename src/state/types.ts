@@ -36,15 +36,20 @@ export type ProfileState = {
     user: User | null;
 };
 
+export type BookingState = {
+    date: Date | null;
+    cart: {product: FoodProduct; quantity: number}[];
+};
+
 export type AvailabilityState = {
     date: Date | null;
-    inventory: {product: FoodProduct; quantity: number}[];
 };
 
 export type AppState = {
     auth: AuthState;
     settings: SettingsState;
     profile: ProfileState;
+    booking: BookingState;
     availability: AvailabilityState;
 };
 

@@ -9,6 +9,9 @@ import ConnectedThemeProvider from "./components/providers/ConnectedThemeProvide
 import store from "./state/store";
 import ThemedStatusBar from "./components/ThemedStatusBar";
 import {initPolyfills} from "./state/polyfills";
+import {LogBox} from "react-native";
+
+LogBox.ignoreLogs(["Warning: `flexWrap: `wrap`` is not supported with the `VirtualizedList` components"]);
 
 function App() {
     initPolyfills();

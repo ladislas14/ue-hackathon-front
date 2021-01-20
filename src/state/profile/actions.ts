@@ -1,18 +1,18 @@
 import {AppThunk} from "../types";
 import {
     AvatarSuccessfulUpdatedDto,
+    BackendSuccessfulResponse,
     CreateProfileDto,
     ResponseProfileDto,
     ResponseUserDto,
     SignedUrlResponseDto,
-    SuccessfulRequestResponse,
 } from "../../api/backend/dto";
 import {UserProfile} from "../../model/user-profile";
 import {User} from "../../model/user";
-import {requestBackend} from "../../api/utils";
 import {convertDtoToProfile, convertDtoToUser, convertPartialProfileToCreateDto} from "../../api/backend/converters";
 import {ImageInfo} from "expo-image-picker/build/ImagePicker.types";
 import {HttpStatusCode} from "../../constants/http-status";
+import {requestBackend} from "../../api/backend";
 
 export enum PROFILE_ACTION_TYPES {
     LOAD_USER_PROFILE = "PROFILE/LOAD_USER_PROFILE",
@@ -113,7 +113,7 @@ export const createProfile = (profile: CreateProfileDto): AppThunk => async (dis
     const token = getState().auth.token;
     const response = await requestBackend("profiles", "POST", {}, profile, token);
     if (response.status === HttpStatusCode.CREATED) {
-        const payload = (response as SuccessfulRequestResponse).data;
+        const payload = (response as BackendSuccessfulResponse).data;
         const profile = convertDtoToProfile(payload as ResponseProfileDto);
         dispatch(createProfileSuccess(profile));
     }
@@ -123,7 +123,7 @@ export const fetchUser = (): AppThunk => async (dispatch, getState) => {
     const token = getState().auth.token;
     const response = await requestBackend("auth/me", "GET", {}, {}, token);
     if (response.status === HttpStatusCode.OK) {
-        const payload = (response as SuccessfulRequestResponse).data;
+        const payload = (response as BackendSuccessfulResponse).data;
         const user = convertDtoToUser(payload as ResponseUserDto);
         dispatch(fetchUserSuccess(user));
     }
@@ -138,7 +138,7 @@ export const fetchProfile = (id: string): AppThunk<Promise<UserProfile | null>> 
     const token = getState().auth.token;
     const response = await requestBackend(`profiles/${id}`, "GET", {}, {}, token, true);
     if (response.status === HttpStatusCode.OK) {
-        const payload = (response as SuccessfulRequestResponse).data as ResponseProfileDto;
+        const payload = (response as BackendSuccessfulResponse).data as ResponseProfileDto;
         const profileWithMatchInfo = convertDtoToProfile(payload);
         dispatch(fetchProfileSuccess(profileWithMatchInfo));
         return profileWithMatchInfo;
@@ -167,7 +167,7 @@ export const setAvatar = (image: ImageInfo): AppThunk => async (dispatch, getSta
     const fail = () => dispatch(setAvatarFailure());
 
     if (response.status === HttpStatusCode.OK) {
-        const payload = (response as SuccessfulRequestResponse).data;
+        const payload = (response as BackendSuccessfulResponse).data;
         const {fileName, s3Url} = payload as SignedUrlResponseDto;
 
         try {
@@ -184,7 +184,7 @@ export const setAvatar = (image: ImageInfo): AppThunk => async (dispatch, getSta
             const response2 = await requestBackend("profiles/avatar", "POST", {}, {fileName}, token);
 
             if (response2.status === HttpStatusCode.OK) {
-                const payload2 = (response2 as SuccessfulRequestResponse).data;
+                const payload2 = (response2 as BackendSuccessfulResponse).data;
                 const {avatar} = payload2 as AvatarSuccessfulUpdatedDto;
                 dispatch(setAvatarSuccess(avatar));
             } else fail();

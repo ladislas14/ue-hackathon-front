@@ -5,7 +5,6 @@ import {withTheme} from "react-native-elements";
 import {StackHeaderProps} from "@react-navigation/stack";
 import {AppState} from "../../state/types";
 import {ThemeProps} from "../../types";
-import ProfileAvatar from "../ProfileAvatar";
 import {headerTitle, navigateBack, rootNavigate} from "../../navigation/utils";
 import {NavigatorRoute} from "../../navigation/types";
 import {headerStyles} from "../../styles/headers";
@@ -28,6 +27,7 @@ export type HeaderButtonProps = {
 type AdditionalProps = {
     rightButtons?: ((props: HeaderButtonProps) => JSX.Element)[];
     backButton?: boolean;
+    backRouteFallback?: NavigatorRoute;
     noAvatar?: boolean;
     noShadow?: boolean;
     noSettingsButton?: boolean;
@@ -49,21 +49,18 @@ export type MainHeaderProps = ConnectedProps<typeof reduxConnector> &
 
 class MainHeaderClass extends React.Component<MainHeaderProps> {
     back(): void {
-        navigateBack("MainScreenClient");
+        navigateBack(this.props.backRouteFallback || "MainScreenClient");
     }
 
     render(): JSX.Element {
         const {
             theme,
             insets,
-            user,
             rightButtons,
             backButton,
-            noAvatar,
             noShadow,
             noSettingsButton,
             blur,
-            overrideAvatar,
             overrideTitle,
             wrapperStyle,
             titleStyle,
@@ -101,18 +98,6 @@ class MainHeaderClass extends React.Component<MainHeaderProps> {
                         <MaterialIcons style={[styles.backButtonIcon, {color: textColor}]} name="arrow-back" />
                     </TouchableOpacity>
                 )}
-                {!noAvatar &&
-                    (overrideAvatar || (
-                        <ProfileAvatar
-                            profile={user?.profile}
-                            rounded
-                            size={40}
-                            containerStyle={styles.avatarContainer}
-                            titleStyle={styles.avatarTitle}
-                            activeOpacity={0.75}
-                            onPress={() => rootNavigate("ProfileScreen")}
-                        />
-                    ))}
                 <Text style={[styles.title, {marginLeft: 12, color: textColor}, titleStyle]} numberOfLines={1}>
                     {overrideTitle || title}
                 </Text>

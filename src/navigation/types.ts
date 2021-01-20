@@ -24,7 +24,9 @@ export type MainNavigatorStaffTabs = {
 // Client tabs
 
 export type TabBookingRoot = {
-    BookingScreen: undefined;
+    BookingDayScreen: undefined;
+    BookingProductsScreen: undefined;
+    BookingSettingsScreen: undefined;
 };
 export type TabProfileRoot = {
     ProfileScreen: undefined;

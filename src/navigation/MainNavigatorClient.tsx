@@ -2,14 +2,15 @@
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {createStackNavigator, StackHeaderProps, StackScreenProps} from "@react-navigation/stack";
 import * as React from "react";
-import {MainNavigatorClientTabs, RootNavigatorScreens, TabBookingRoot, TabProfileRoot} from "./types";
+import {MainNavigatorClientTabs, RootNavigatorScreens, TabProfileRoot} from "./types";
 import {withTheme} from "react-native-elements";
 import {BottomTabBarProps} from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import {ThemeProps} from "../types";
 import MainHeader from "../components/headers/MainHeader";
 import MainTabBar, {MainTabBarIcon} from "../components/tabs/MainTabBar";
 import ProfileScreen from "../screens/ProfileScreen";
-import BookingScreen from "../screens/BookingScreen";
+import BookingNavigator from "./BookingNavigator";
+import MainHeaderClient from "../components/headers/MainHeaderClient";
 
 const TabNavigator = createBottomTabNavigator<MainNavigatorClientTabs>();
 
@@ -24,7 +25,7 @@ function MainNavigatorClientComponent(): JSX.Element {
         >
             <TabNavigator.Screen
                 name="TabBooking"
-                component={TabBookingNavigator}
+                component={BookingNavigator}
                 options={{
                     //tabBarLabel: (props) => <MainTabBarLabel text={i18n.t("tabs.home")} {...props} />,
                     tabBarIcon: (props) => <MainTabBarIcon name="shopping-cart" {...props} />,
@@ -41,19 +42,11 @@ function MainNavigatorClientComponent(): JSX.Element {
     );
 }
 
-const BookingStack = createStackNavigator<TabBookingRoot>();
-
-const TabBookingNavigator = (): JSX.Element => (
-    <BookingStack.Navigator screenOptions={{header: MainHeader}}>
-        <BookingStack.Screen name="BookingScreen" component={BookingScreen} />
-    </BookingStack.Navigator>
-);
-
 const ProfileStack = createStackNavigator<TabProfileRoot>();
 
 const TabProfileNavigator = withTheme(
     ({theme}: ThemeProps): JSX.Element => (
-        <ProfileStack.Navigator screenOptions={{header: MainHeader}}>
+        <ProfileStack.Navigator screenOptions={{header: MainHeaderClient}}>
             <ProfileStack.Screen
                 name="ProfileScreen"
                 component={ProfileScreen}
