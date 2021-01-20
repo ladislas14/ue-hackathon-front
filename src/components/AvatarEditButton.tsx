@@ -2,7 +2,7 @@ import {MaterialIcons} from "@expo/vector-icons";
 import * as React from "react";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
-import {Platform, StyleSheet, TouchableOpacity} from "react-native";
+import {StyleSheet, TouchableOpacity} from "react-native";
 import {Theme, ThemeProps} from "../types";
 import {preTheme} from "../styles/utils";
 import {withTheme} from "react-native-elements";
@@ -16,12 +16,10 @@ export type AvatarEditButtonProps = ThemeProps & {
 
 class AvatarEditButton extends React.Component<AvatarEditButtonProps> {
     ensurePermission = async () => {
-        if (Platform.OS !== "web") {
-            let {status} = await Permissions.getAsync(Permissions.CAMERA_ROLL);
-            if (status !== "granted") {
-                status = await (await Permissions.askAsync(Permissions.CAMERA_ROLL)).status;
-                return status === "granted";
-            }
+        let {status} = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+        if (status !== "granted") {
+            status = await (await Permissions.askAsync(Permissions.CAMERA_ROLL)).status;
+            return status === "granted";
         }
         return true;
     };

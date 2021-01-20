@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Text, TouchableOpacity, StyleSheet, Dimensions, Keyboard, Platform} from "react-native";
+import {Text, TouchableOpacity, StyleSheet, Dimensions, Keyboard} from "react-native";
 import {ThemeConsumer} from "react-native-elements";
 import ReAnimated, {Easing} from "react-native-reanimated";
 import {Theme, ThemeProps} from "../../types";
@@ -79,9 +79,7 @@ class LoginHeaderClass extends React.Component<LoginHeaderProps> {
         const styles = themedStyles(theme);
         const Image = getLocalSvg("login-header");
 
-        return Platform.OS === "web" ? (
-            <></>
-        ) : (
+        return (
             <>
                 <ReAnimated.View style={[styles.image, {top: this.imageTop}]}>
                     <Image viewBox={`0 0 ${SVG_VIEWBOX_W} ${SVG_VIEWBOX_H}`} />

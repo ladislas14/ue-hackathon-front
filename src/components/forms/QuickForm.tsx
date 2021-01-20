@@ -1,5 +1,5 @@
 import React from "react";
-import {View, StyleSheet, Platform, Text} from "react-native";
+import {View, StyleSheet, Text} from "react-native";
 import {BottomSheet, withTheme} from "react-native-elements";
 import {preTheme} from "../../styles/utils";
 import {Theme, ThemeProps} from "../../types";
@@ -126,19 +126,11 @@ export class QuickFormClass extends React.Component<QuickFormProps, QuickFormSta
         return (
             <>
                 {activator && activator(() => this.open())}
-                {Platform.OS === "web" ? (
-                    <CustomModal
-                        visible={open}
-                        onHide={() => this.close()}
-                        renderContent={() => <View style={styles.containerModal}>{content}</View>}
-                    />
-                ) : (
-                    <BottomSheet modalProps={{statusBarTranslucent: true}} isVisible={open}>
-                        <View style={styles.wrapperSheet}>
-                            <View style={styles.containerSheet}>{content}</View>
-                        </View>
-                    </BottomSheet>
-                )}
+                <BottomSheet modalProps={{statusBarTranslucent: true}} isVisible={open}>
+                    <View style={styles.wrapperSheet}>
+                        <View style={styles.containerSheet}>{content}</View>
+                    </View>
+                </BottomSheet>
                 <CustomModal
                     visible={confirmationOpen}
                     onHide={() => this.setState({...this.state, confirmationOpen: false})}

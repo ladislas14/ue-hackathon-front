@@ -1,8 +1,6 @@
 import * as React from "react";
 import {NavigationContainerRef} from "@react-navigation/native";
 import {NavigatorRoute} from "./types";
-import {Platform} from "react-native";
-import {APP_SCHEME} from "../constants/config";
 import i18n from "i18n-js";
 
 // Store a ref to the root navigator
@@ -21,15 +19,6 @@ export function navigateBack(fallback?: NavigatorRoute): void {
         if (nav.canGoBack()) nav.goBack();
         else if (fallback) nav.navigate(fallback);
     }
-}
-
-export function attemptRedirectToApp(routeName: string, fallbackRoute: NavigatorRoute): void {
-    const fallback = () => rootNavigate(fallbackRoute);
-
-    if (Platform.OS === "web") {
-        const link = `${APP_SCHEME}://${routeName}`;
-        window.location.replace(link);
-    } else fallback();
 }
 
 export function headerTitle(route: NavigatorRoute): string {

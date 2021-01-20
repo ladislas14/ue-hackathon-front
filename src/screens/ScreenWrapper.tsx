@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Platform, StyleProp, StyleSheet, View, ViewStyle} from "react-native";
+import {StyleProp, StyleSheet, View, ViewStyle} from "react-native";
 import {withTheme} from "react-native-elements";
 import {ThemeProps} from "../types";
 import {preTheme} from "../styles/utils";
@@ -29,7 +29,6 @@ const themedStyles = preTheme(() => {
         container: {
             flex: 1,
             alignItems: "center",
-            ...(Platform.OS === "web" ? {maxWidth: 1000} : {}),
         },
     });
 });

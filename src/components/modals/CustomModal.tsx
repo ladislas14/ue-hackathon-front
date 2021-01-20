@@ -1,7 +1,7 @@
 import React from "react";
 import {withTheme} from "react-native-elements";
 import ModalImpl, {ModalImplClass} from "./ModalImpl";
-import {ModalImplProps} from "./ModalImpl.native";
+import {ModalImplProps} from "./ModalImpl";
 
 export type ModalActivator = (show: () => void) => JSX.Element;
 

@@ -1,15 +1,5 @@
 import * as React from "react";
-import {
-    TouchableOpacity,
-    View,
-    ViewStyle,
-    StyleSheet,
-    Platform,
-    StyleProp,
-    Dimensions,
-    Text,
-    ViewProps,
-} from "react-native";
+import {TouchableOpacity, View, ViewStyle, StyleSheet, StyleProp, Dimensions, Text, ViewProps} from "react-native";
 import {withTheme} from "react-native-elements";
 import ReAnimated, {Easing} from "react-native-reanimated";
 import Swipeable, {SwipeableProperties} from "react-native-gesture-handler/Swipeable";
@@ -124,7 +114,7 @@ export class SwipeableCardClass extends React.Component<SwipeableCardProps, Swip
                             {paddingHorizontal: sideMargin, paddingVertical: verticalSpacing},
                         ]}
                         childrenContainerStyle={[styles.swipeable, {borderRadius}]}
-                        useNativeAnimations={Platform.OS !== "web"}
+                        useNativeAnimations={true}
                         friction={1}
                         renderLeftActions={leftActions ? () => leftActions(hideCard) : swipeableProps.renderLeftActions}
                         renderRightActions={
