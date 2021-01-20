@@ -4,10 +4,16 @@ import {withTheme} from "react-native-elements";
 import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
+import CalendarPicker from 'react-native-calendar-picker';
 
 export type AvailabilityDayScreenProps = ThemeProps;
 
 class AvailabilityDayScreen extends React.Component<AvailabilityDayScreenProps> {
+    onDateChange(date) {
+        this.setState({
+            selectedStartDate: date,
+        });
+    }
     render(): JSX.Element {
         const {theme} = this.props;
         const styles = themedStyles(theme);
@@ -15,7 +21,10 @@ class AvailabilityDayScreen extends React.Component<AvailabilityDayScreenProps> 
         return (
             <ScreenWrapper>
                 <View style={styles.container}>
-                    <Text style={styles.title}>Welcome.</Text>
+                    <Text style={styles.title}>Choix de la date </Text>
+                    <CalendarPicker
+                    onDateChange={this.onDateChange}
+                    />        
                 </View>
             </ScreenWrapper>
         );
