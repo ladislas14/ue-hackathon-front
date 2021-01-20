@@ -6,6 +6,9 @@ import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
 import CalendarPicker from 'react-native-calendar-picker';
 
+import store from "../state/store";
+import {setOrdersDate} from "../state/orders/actions";
+
 export type OrderDayScreenProps = ThemeProps;
 
 class OrderDayScreen extends React.Component<OrderDayScreenProps> {
@@ -18,6 +21,9 @@ class OrderDayScreen extends React.Component<OrderDayScreenProps> {
                 <Text style={styles.title}>Date des commandes</Text>
                 <View style={styles.container}>
                     <CalendarPicker
+                    onDateChange={(date: Date) => {
+                    store.dispatch(setOrdersDate(date));
+                    }}
                     />        
                 </View>
             </ScreenWrapper>
