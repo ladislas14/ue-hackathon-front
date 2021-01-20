@@ -11,7 +11,6 @@ import ScreenWrapper from "./ScreenWrapper";
 import SemiHighlightedText from "../components/SemiHighlightedText";
 import {getLocalSvg} from "../assets";
 import Button from "../components/Button";
-import {MaterialCommunityIcons} from "@expo/vector-icons";
 import DebugMenu from "../components/DebugMenu";
 import {DEBUG_MODE} from "../constants/config";
 
@@ -37,12 +36,6 @@ class WelcomeScreen extends React.Component<WelcomeScreenProps> {
                         </Text>
                     </View>
                     <View style={styles.actionsContainer}>
-                        <Button
-                            text={"Plant of the day"}
-                            icon={<MaterialCommunityIcons name="tree" style={styles.apiIcon} />}
-                            onPress={() => rootNavigate("APIScreen")}
-                            skin="rounded-filled"
-                        />
                         <Button
                             text={i18n.t("welcomeScreen.signIn")}
                             onPress={() => {

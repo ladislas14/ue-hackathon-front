@@ -12,7 +12,6 @@ import {ThemeProps} from "../types";
 import OnboardingSuccessfulScreen from "../screens/onboarding/OnboardingSuccessfulScreen";
 import MainHeader from "../components/headers/MainHeader";
 import SettingsScreen from "../screens/SettingsScreen";
-import APIScreen from "../screens/APIScreen";
 import MainNavigatorClient from "./MainNavigatorClient";
 import MainNavigatorStaff from "./MainNavigatorStaff";
 
@@ -60,7 +59,6 @@ function Navigation({theme, initialRoute, onReady}: RootNavigationProps): JSX.El
                 <Stack.Screen name="LoginRoot" component={LoginNavigator} />
                 <Stack.Screen name="MainScreenClient" component={MainNavigatorClient} />
                 <Stack.Screen name="MainScreenStaff" component={MainNavigatorStaff} />
-                <Stack.Screen name="APIScreen" component={APIScreen} />
                 <Stack.Screen
                     name="SettingsScreen"
                     component={SettingsScreen}

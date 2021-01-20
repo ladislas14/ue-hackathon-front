@@ -4,7 +4,6 @@ export type RootNavigatorScreens = {
     MainScreenClient: undefined;
     MainScreenStaff: undefined;
     LoginRoot: undefined;
-    APIScreen: undefined;
     SettingsScreen: undefined;
     OnboardingScreen: undefined;
     OnboardingSuccessfulScreen: undefined;
