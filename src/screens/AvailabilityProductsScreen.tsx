@@ -15,7 +15,7 @@ class AvailabilityProductsScreen extends React.Component<AvailabilityProductsScr
         return (
             <ScreenWrapper>
                 <View style={styles.container}>
-                    <Text style={styles.title}>Welcome.</Text>
+                    <Text style={styles.title}>Disponibilité des produits</Text>
                 </View>
             </ScreenWrapper>
         );
