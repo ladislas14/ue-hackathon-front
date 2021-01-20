@@ -10,18 +10,31 @@ import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
 
-export type AvailabilityProductsScreenProps = ThemeProps;
+// Map props from store
+const reduxConnector = connect((state: AppState) => ({
+    date: state.availability.date,
+}));
+
+export type AvailabilityProductsScreenProps = ThemeProps& ConnectedProps<typeof reduxConnector>;
 
 class AvailabilityProductsScreen extends React.Component<AvailabilityProductsScreenProps> {
+    constructor(props: AvailabilityProductsScreenProps) {
+        super(props);
+        this.state = {activeProduct: null};
+    }
     render(): JSX.Element {
-        const {theme} = this.props;
-        const styles = themedStyles(theme);
+        const {theme, date} = this.props;
 
+        const styles = themedStyles(theme);
         return (
-            <ScreenWrapper>
-                <View style={styles.container}>
-                    <Text style={styles.title}>Disponibilité des produits</Text>
-                </View>
+            <ScreenWrapper containerStyle={styles.container}>
+                <Text style={styles.title}>Disponibilité des produits</Text>
+                {date && (
+                    <ProductsListing
+                        date={date}
+                        containerStyle={{flex: 1}}
+                    />
+                )}
             </ScreenWrapper>
         );
     }
@@ -40,10 +53,10 @@ const themedStyles = preTheme((theme: Theme) => {
             width: "100%",
             textAlign: "center",
             paddingTop: 30,
-            fontSize: 35,
+            fontSize: 25,
             color: theme.text,
         },
     });
 });
 
-export default withTheme(AvailabilityProductsScreen);
+export default reduxConnector(withTheme(AvailabilityProductsScreen));

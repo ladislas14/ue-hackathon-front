@@ -43,6 +43,9 @@ export type BookingState = {
 
 export type AvailabilityState = {
     date: Date | null;
+    openingHour: Date | null;
+    closingHour: Date | null;
+    inventory: {product: FoodProduct; quantity: number}[];
 };
 
 export type AppState = {

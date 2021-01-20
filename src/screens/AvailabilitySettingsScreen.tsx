@@ -7,6 +7,9 @@ import ScreenWrapper from "./ScreenWrapper";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import CalendarPicker from 'react-native-calendar-picker';
 
+import store from "../state/store";
+import {setAvailabilityOpeningHours, setAvailabilityClosingHours} from "../state/availability/actions";
+
 export type AvailabilitySettingsScreenProps = ThemeProps;
 
 class AvailabilitySettingsScreen extends React.Component<AvailabilitySettingsScreenProps> {
@@ -26,16 +29,22 @@ class AvailabilitySettingsScreen extends React.Component<AvailabilitySettingsScr
                             style={{width: 100, height: 130}}
                             is24Hour={true}
                             display="spinner"
+                            onChange={(event, openingHour) => {
+                                store.dispatch(setAvailabilityOpeningHours(openingHour));
+                            }}
                         />
                     </View>
                     <View style={styles.subcontainer}>
                         <Text style={styles.subtitle}>Heure de fermeture</Text>
                         <DateTimePicker 
-                            value={new Date(2019,1,2, 8,0,0)}
+                            value={new Date(2019,1,2, 16,30,0)}
                             mode="time"
                             style={{width: 100, height: 130}}
                             is24Hour={true}
                             display="spinner"
+                            onChange={(event, closingHour) => {
+                                store.dispatch(setAvailabilityClosingHours(closingHour));
+                            }}
                         />
                     </View>
                 </View>
