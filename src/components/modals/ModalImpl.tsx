@@ -1,24 +1,32 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import {StyleProp, TouchableOpacity, View, ViewStyle} from "react-native";
+import {Modal, TouchableOpacity, ViewStyle, StyleSheet, StyleProp} from "react-native";
 import {withTheme} from "react-native-elements";
-import {ModalImplProps} from "./ModalImpl.native";
+import {preTheme} from "../../styles/utils";
+import {ThemeProps} from "../../types";
+
+export type ModalImplProps = ThemeProps & {
+    onHide?: () => void;
+    onShow?: () => void;
+    renderContent: (hide: () => void) => JSX.Element;
+    modalViewStyle?: StyleProp<ViewStyle>;
+    visible?: boolean;
+    animationType?: "fade" | "none" | "slide" | undefined;
+    bottom?: boolean;
+    fullWidth?: boolean;
+    fullHeight?: boolean;
+    nonDismissable?: boolean;
+    noBackground?: boolean;
+    backdropOpacity?: number;
+};
 
 type ModalImplState = {
     modalVisible: boolean;
 };
 
 export class ModalImplClass extends React.Component<ModalImplProps, ModalImplState> {
-    el: HTMLDivElement;
-
     constructor(props: ModalImplProps) {
         super(props);
         this.state = {modalVisible: props.visible || false};
-        this.el = document.createElement("div");
-    }
-
-    componentDidMount(): void {
-        document.body.appendChild(this.el);
     }
 
     componentDidUpdate(oldProps: ModalImplProps): void {
@@ -36,6 +44,7 @@ export class ModalImplClass extends React.Component<ModalImplProps, ModalImplSta
         const {
             theme,
             modalViewStyle,
+            animationType,
             bottom,
             fullWidth,
             fullHeight,
@@ -44,64 +53,62 @@ export class ModalImplClass extends React.Component<ModalImplProps, ModalImplSta
             backdropOpacity,
         } = this.props;
         const {modalVisible} = this.state;
+        const styles = themedStyles(theme);
 
-        const modal = modalVisible ? (
-            <>
+        return (
+            <Modal animationType={animationType} transparent={true} visible={modalVisible}>
                 <TouchableOpacity
-                    style={
-                        ({
-                            position: "fixed",
-                            width: "100%",
-                            height: "100%",
-                            left: 0,
-                            top: 0,
-                            backgroundColor: `rgba(0,0,0,${backdropOpacity || 0.05})`,
-                            cursor: "pointer",
-                        } as unknown) as StyleProp<ViewStyle> // force typings to accept web-specific styling
-                    }
+                    style={[styles.centeredView, {backgroundColor: `rgba(0,0,0,${backdropOpacity || 0.05})`}]}
                     activeOpacity={1.0}
                     onPress={nonDismissable ? undefined : () => this.setModalVisible(false)}
-                />
-                <View
-                    style={[
-                        ({
-                            // Centering
-                            position: "fixed",
-                            left: 0,
-                            right: 0,
-                            ...(bottom ? {} : {top: 0}),
-                            bottom: 0,
-                            margin: "auto",
-                            // Actual styling
-                            width: "50%",
-                            height: "fit-content",
-                            maxWidth: 300,
-                            borderRadius: 3,
-                            paddingVertical: 20,
-                            paddingHorizontal: 30,
-                            alignItems: "center",
-                        } as unknown) as ViewStyle, // force typings to accept web-specific styling
-                        fullWidth ? {width: "100%", maxWidth: "100%"} : {},
-                        fullHeight ? {height: "100%"} : {},
-                        !noBackground
-                            ? (({
-                                  backgroundColor: theme.cardBackground,
-                                  boxShadow: "0px 0px 8px 0px rgba(0,0,0,0.05)",
-                              } as unknown) as ViewStyle)
-                            : {},
-                        modalViewStyle,
-                    ]}
                 >
-                    {this.props.renderContent(() => this.setModalVisible(false))}
-                </View>
-            </>
-        ) : (
-            <></>
+                    <TouchableOpacity
+                        // This TouchableOpacity intercepts press events so the modal doesn't hide when pressed
+                        activeOpacity={1.0}
+                        style={[
+                            styles.modalView,
+                            bottom ? {position: "absolute", bottom: 0, margin: 0} : {},
+                            fullWidth ? {width: "100%", maxWidth: "100%"} : {},
+                            fullHeight ? {height: "100%"} : {},
+                            !noBackground
+                                ? {
+                                      backgroundColor: theme.cardBackground,
+                                      shadowColor: "#000",
+                                      shadowOffset: {width: 0, height: 1},
+                                      shadowOpacity: 0.22,
+                                      shadowRadius: 2.22,
+                                      elevation: 3,
+                                  }
+                                : {elevation: 0, shadowRadius: 0},
+                            modalViewStyle,
+                        ]}
+                    >
+                        {this.props.renderContent(() => this.setModalVisible(false))}
+                    </TouchableOpacity>
+                </TouchableOpacity>
+            </Modal>
         );
-
-        // "Teleport" the modal to an element that we previously appended to the <body>
-        return ReactDOM.createPortal(modal, this.el);
     }
 }
+
+export const themedStyles = preTheme(() => {
+    return StyleSheet.create({
+        centeredView: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            borderColor: "transparent",
+        },
+        modalView: {
+            width: "80%",
+            maxWidth: 300,
+            margin: 20,
+            borderRadius: 3,
+            paddingVertical: 20,
+            paddingHorizontal: 30,
+            alignItems: "center",
+        },
+    });
+});
 
 export default withTheme(ModalImplClass);
