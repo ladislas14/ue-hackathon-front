@@ -7,7 +7,7 @@ import {FormTextInput} from "../forms/FormTextInput";
 import {MyThunkDispatch, ValidatedActionReturn} from "../../state/types";
 import {VALIDATOR_EMAIL_SIGNUP, VALIDATOR_PASSWORD_SIGNUP, VALIDATOR_PASSWORD_REPEAT} from "../../validators";
 import {getLoginTextInputsStyleProps, formStyles} from "../../styles/forms";
-import {FormProps, Theme, ThemeProps} from "../../types";
+import {Theme, ThemeProps} from "../../types";
 import {requestRegister} from "../../state/auth/actions";
 import {withTheme} from "react-native-elements";
 import {preTheme} from "../../styles/utils";
@@ -40,7 +40,7 @@ const SignupFormSchema = Yup.object().shape({
 });
 
 // Component props
-type SignupFormProps = FormProps<FormState> & ThemeProps & {containerStyle?: StyleProp<ViewStyle>};
+type SignupFormProps = ThemeProps & {containerStyle?: StyleProp<ViewStyle>};
 
 // Component state
 type SignupFormState = {remoteErrors?: RemoteValidationErrors; submitting: boolean};
@@ -58,8 +58,7 @@ class SignupForm extends React.Component<SignupFormProps, SignupFormState> {
     submit(values: FormState) {
         this.setState({...this.state, submitting: true});
         (store.dispatch as MyThunkDispatch)(requestRegister(values.email, values.password)).then(
-            ({success, errors}: ValidatedActionReturn) => {
-                if (success && this.props.onSuccessfulSubmit) this.props.onSuccessfulSubmit(values);
+            ({errors}: ValidatedActionReturn) => {
                 if (errors && errors.fields) {
                     const f = errors.fields;
                     Object.keys(f).forEach((e) => this.setFieldError && this.setFieldError(e, localizeError(f[e])));

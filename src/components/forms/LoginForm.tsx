@@ -9,7 +9,7 @@ import {VALIDATOR_EMAIL_LOGIN, VALIDATOR_PASSWORD_LOGIN} from "../../validators"
 import {getLoginTextInputsStyleProps, formStyles} from "../../styles/forms";
 import {requestLogin} from "../../state/auth/actions";
 import FormError from "./FormError";
-import {FormProps, Theme, ThemeProps} from "../../types";
+import {Theme, ThemeProps} from "../../types";
 import {preTheme} from "../../styles/utils";
 import {withTheme} from "react-native-elements";
 import {generalError, localizeError} from "../../api/backend/errors";
@@ -32,7 +32,7 @@ const LoginFormSchema = Yup.object().shape({
 });
 
 // Component props
-type LoginFormProps = ThemeProps & FormProps<FormState> & {containerStyle?: StyleProp<ViewStyle>};
+type LoginFormProps = ThemeProps & {containerStyle?: StyleProp<ViewStyle>};
 
 type LoginFormState = {remoteErrors?: RemoteValidationErrors; submitting: boolean};
 
@@ -49,8 +49,7 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
     submit(values: FormState) {
         this.setState({...this.state, submitting: true});
         (store.dispatch as MyThunkDispatch)(requestLogin(values.email, values.password)).then(
-            ({success, errors}: ValidatedActionReturn) => {
-                if (success && this.props.onSuccessfulSubmit) this.props.onSuccessfulSubmit(values);
+            ({errors}: ValidatedActionReturn) => {
                 if (errors && errors.fields) {
                     const f = errors.fields;
                     Object.keys(f).forEach((e) => this.setFieldError && this.setFieldError(e, localizeError(f[e])));

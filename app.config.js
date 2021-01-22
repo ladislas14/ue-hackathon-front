@@ -2,8 +2,8 @@ const TARGET = process.env.TARGET || "STAGING";
 
 const VERSION = "0.1.0";
 const ANDROID_VERSION_CODE = 1;
-const PRODUCTION_SERVER_HOST = "api.hackathon.lad-dev.team";
-const STAGING_SERVER_HOST = "127.0.0.1";
+const PRODUCTION_SERVER_HOST = "api.ladislas-dellinger.me";
+const STAGING_SERVER_HOST = "api.ladislas-dellinger.me";
 
 let EXTRAS = {};
 

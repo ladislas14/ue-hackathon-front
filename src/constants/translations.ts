@@ -23,7 +23,7 @@ export default {
             "Enter the email address associated with your account below. Instructions for choosing a new password will be sent shortly.",
         cancel: "Cancel",
         ok: "OK",
-        signupWelcome: "We can't wait for you to join our community!",
+        signupWelcome: "Create your account:",
         save: "Save",
         firstname: "First name",
         lastname: "Last name",
