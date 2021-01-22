@@ -41,6 +41,13 @@ export type BookingState = {
 
 export type AvailabilityState = {
     date: Date | null;
+    openingHour: Date | null;
+    closingHour: Date | null;
+    inventory: {product: FoodProduct; quantity: number}[];
+};
+
+export type OrdersState = {
+    date: Date | null;
 };
 
 export type AppState = {
@@ -49,6 +56,7 @@ export type AppState = {
     profile: ProfileState;
     booking: BookingState;
     availability: AvailabilityState;
+    orders: OrdersState;
 };
 
 // Shortcut type for redux-thunk actions (async actions)

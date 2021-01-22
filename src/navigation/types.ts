@@ -17,6 +17,7 @@ export type MainNavigatorClientTabs = {
 
 export type MainNavigatorStaffTabs = {
     TabAvailability: undefined;
+    TabOrders: undefined;
 };
 
 // Client tabs
@@ -36,6 +37,11 @@ export type TabAvailabilityRoot = {
     AvailabilityDayScreen: undefined;
     AvailabilityProductsScreen: undefined;
     AvailabilitySettingsScreen: undefined;
+};
+
+export type TabOrderRoot = {
+    OrderDayScreen: undefined;
+    OrdersScreen: undefined;
 };
 
 // Login screen

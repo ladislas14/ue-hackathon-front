@@ -8,6 +8,7 @@ import {BottomTabBarProps} from "@react-navigation/bottom-tabs/lib/typescript/sr
 import {ThemeProps} from "../types";
 import MainTabBar, {MainTabBarIcon} from "../components/tabs/MainTabBar";
 import AvailabilityNavigator from "./AvailabilityNavigator";
+import OrderNavigator from "./OrderNavigator";
 
 const TabNavigator = createBottomTabNavigator<MainNavigatorStaffTabs>();
 
@@ -25,7 +26,15 @@ function MainNavigatorStaffComponent(): JSX.Element {
                 component={AvailabilityNavigator}
                 options={{
                     //tabBarLabel: (props) => <MainTabBarLabel text={i18n.t("tabs.home")} {...props} />,
-                    tabBarIcon: (props) => <MainTabBarIcon name="shopping-cart" {...props} />,
+                    tabBarIcon: (props) => <MainTabBarIcon name="settings" {...props} />,
+                }}
+            />
+            <TabNavigator.Screen
+                name="TabOrders"
+                component={OrderNavigator}
+                options={{
+                    //tabBarLabel: (props) => <MainTabBarLabel text={i18n.t("tabs.home")} {...props} />,
+                    tabBarIcon: (props) => <MainTabBarIcon name="book" {...props} />,
                 }}
             />
         </TabNavigator.Navigator>

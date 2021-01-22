@@ -4,18 +4,27 @@ import {withTheme} from "react-native-elements";
 import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
+import CalendarPicker from 'react-native-calendar-picker';
 
-export type AvailabilityScreenProps = ThemeProps;
+import store from "../state/store";
+import {setOrdersDate} from "../state/orders/actions";
 
-class AvailabilityScreen extends React.Component<AvailabilityScreenProps> {
+export type OrderDayScreenProps = ThemeProps;
+
+class OrderDayScreen extends React.Component<OrderDayScreenProps> {
     render(): JSX.Element {
         const {theme} = this.props;
         const styles = themedStyles(theme);
 
         return (
             <ScreenWrapper>
+                <Text style={styles.title}>Date des commandes</Text>
                 <View style={styles.container}>
-                    <Text style={styles.title}>Welcome.</Text>
+                    <CalendarPicker
+                    onDateChange={(date: Date) => {
+                    store.dispatch(setOrdersDate(date));
+                    }}
+                    />        
                 </View>
             </ScreenWrapper>
         );
@@ -34,10 +43,11 @@ const themedStyles = preTheme((theme: Theme) => {
         title: {
             width: "100%",
             textAlign: "center",
-            fontSize: 24,
+            paddingTop: 30,
+            fontSize: 35,
             color: theme.text,
         },
     });
 });
 
-export default withTheme(AvailabilityScreen);
+export default withTheme(OrderDayScreen);
