@@ -58,3 +58,12 @@ export type CreateProfileDto = {
     cardCode: number | undefined;
     role: Role;
 };
+
+export type ResponseProductDto = {
+    id: string;
+    offId: number;
+    quantity: number;
+    remainingQuantity: number;
+    date: string;
+    price: number;
+};

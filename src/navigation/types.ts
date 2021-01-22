@@ -40,7 +40,7 @@ export type TabAvailabilityRoot = {
 };
 
 export type TabOrderRoot = {
-    OrderDayScreen: undefined;
+    StaffOrdersDayScreen: undefined;
     StaffOrdersScreen: undefined;
 };
 
@@ -67,6 +67,7 @@ export type NavigatorRoute =
     | keyof TabBookingRoot
     | keyof TabAvailabilityRoot
     | keyof TabProfileRoot
+    | keyof TabOrderRoot
     | keyof LoginRoot
     | keyof LoginScreens
     | keyof OnboardingScreens;

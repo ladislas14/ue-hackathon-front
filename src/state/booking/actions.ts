@@ -1,8 +1,10 @@
 import {requestBackend} from "../../api/backend";
-import {BackendSuccessfulResponse} from "../../api/backend/dto";
+import {BackendSuccessfulResponse, ResponseProductDto} from "../../api/backend/dto";
 import {HttpStatusCode} from "../../constants/http-status";
 import {FoodProduct} from "../../model/products";
 import {AppThunk} from "../types";
+import {CondOperator, RequestQueryBuilder} from "@nestjsx/crud-request";
+import {requestOFF} from "../../api/openfoodfacts";
 
 export enum BOOKING_ACTION_TYPES {
     BOOKING_SET_DATE = "BOOKING/SET_DATE",
@@ -101,10 +103,24 @@ const validateOrderSuccess = (): ValidateOrderSuccessAction => ({
     type: BOOKING_ACTION_TYPES.BOOKING_VALIDATE_ORDER_SUCCESS,
 });
 
-export const validateOrder = (): AppThunk<Promise<boolean>> => async (dispatch) => {
+export const validateOrder = (): AppThunk<Promise<boolean>> => async (dispatch, getState) => {
+    const token = getState().auth.token;
+    const booking = getState().booking;
+
     dispatch(validateOrderBegin());
 
-    const response = await requestBackend("auth/register", "POST", {}, {});
+    if (booking.date === null) {
+        dispatch(validateOrderFailure());
+        return false;
+    }
+
+    const order = {
+        date: booking.date.toISOString(),
+        comment: booking.comment,
+        cart: booking.cart.map((elem) => ({productId: elem.product.id, quantity: elem.quantity})),
+    };
+
+    const response = await requestBackend("order", "POST", {}, order, token);
 
     if (response.status == HttpStatusCode.OK) {
         const successResp = response as BackendSuccessfulResponse;
@@ -117,13 +133,35 @@ export const validateOrder = (): AppThunk<Promise<boolean>> => async (dispatch) 
 };
 
 export const getBookingProducts = (): AppThunk<Promise<FoodProduct[]>> => async (dispatch, getState) => {
-    const token = getState().auth.token;
     const {date} = getState().booking;
 
-    const response = await requestBackend("", "GET", {}, {});
+    if (!date) return [];
+
+    const qb = RequestQueryBuilder.create();
+
+    qb.setFilter({
+        field: "remainingQuantity",
+        operator: CondOperator.GREATER_THAN,
+        value: 0,
+    });
+
+    qb.setFilter({
+        field: "date",
+        operator: CondOperator.EQUALS,
+        value: date.toISOString(),
+    });
+
+    const response = await requestBackend("products", "GET", {}, {}, undefined, true, "?" + qb.query());
 
     if (response.status == HttpStatusCode.OK) {
-        const successResp = response as BackendSuccessfulResponse;
+        const resp = response as BackendSuccessfulResponse;
+        const products = resp.products as ResponseProductDto[];
+        const promises = products.map((p: ResponseProductDto) =>
+            requestOFF(`api/v0/product/${p.offId}.json`, "GET", {}),
+        );
+
+        const resps = await Promise.all(promises);
+        console.log(resps);
         return [];
     } else {
         return [];

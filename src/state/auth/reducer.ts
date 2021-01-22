@@ -21,7 +21,7 @@ export const initialState: AuthState = {
     token: null,
     onboarded: false,
     onboarding: initialOnboardingState(),
-    onboardingIndex: 1,
+    onboardingIndex: 0,
 };
 
 export const authReducer = (state: AuthState = initialState, action: AuthAction): AuthState => {

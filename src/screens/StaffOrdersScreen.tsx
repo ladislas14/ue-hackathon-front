@@ -1,6 +1,9 @@
 import * as React from "react";
 import {StyleSheet, Text, View} from "react-native";
 import {withTheme} from "react-native-elements";
+import Button from "../components/Button";
+import {rootNavigate} from "../navigation/utils";
+import {slideStyles} from "../styles/slides";
 import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
@@ -11,11 +14,19 @@ class StaffOrdersScreen extends React.Component<StaffOrdersScreenProps> {
     render(): JSX.Element {
         const {theme} = this.props;
         const styles = themedStyles(theme);
+        const sstyles = slideStyles(theme);
 
         return (
-            <ScreenWrapper>
+            <ScreenWrapper containerStyle={[sstyles.container, styles.container]}>
                 <Text style={styles.title}>Inventaire des commandes</Text>
-                <View style={styles.container}></View>
+                <View style={sstyles.navigation}>
+                    <Button
+                        style={sstyles.navButton}
+                        text="Back"
+                        onPress={() => rootNavigate("StaffOrdersDayScreen")}
+                        skin="rounded-hollow"
+                    />
+                </View>
             </ScreenWrapper>
         );
     }
@@ -24,17 +35,12 @@ class StaffOrdersScreen extends React.Component<StaffOrdersScreenProps> {
 const themedStyles = preTheme((theme: Theme) => {
     return StyleSheet.create({
         container: {
-            flex: 1,
-            width: "100%",
-            padding: 50,
-            alignItems: "center",
             justifyContent: "center",
         },
         title: {
             width: "100%",
             textAlign: "center",
-            paddingTop: 30,
-            fontSize: 35,
+            fontSize: 26,
             color: theme.text,
         },
     });

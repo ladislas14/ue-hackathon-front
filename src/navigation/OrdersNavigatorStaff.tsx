@@ -1,7 +1,7 @@
 import * as React from "react";
 import {TabOrderRoot} from "./types";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
-import OrderDayScreen from "../screens/OrderDayScreen";
+import StaffOrdersDayScreen from "../screens/StaffOrdersDayScreen";
 import StaffOrdersScreen from "../screens/StaffOrdersScreen";
 import MainHeaderStaff from "../components/headers/MainHeaderStaff";
 
@@ -12,7 +12,7 @@ export default function OrdersNavigatorStaff(): JSX.Element {
         <>
             <MainHeaderStaff title="Commandes" />
             <Stack.Navigator
-                initialRouteName={"OrderDayScreen"}
+                initialRouteName={"StaffOrdersDayScreen"}
                 tabBarOptions={{showLabel: false, showIcon: false}}
                 tabBar={() => <></>}
                 springConfig={{
@@ -24,7 +24,7 @@ export default function OrdersNavigatorStaff(): JSX.Element {
                 lazy={true}
                 lazyPreloadDistance={0}
             >
-                <Stack.Screen name={"OrderDayScreen"} component={OrderDayScreen} />
+                <Stack.Screen name={"StaffOrdersDayScreen"} component={StaffOrdersDayScreen} />
                 <Stack.Screen name={"StaffOrdersScreen"} component={StaffOrdersScreen} />
             </Stack.Navigator>
         </>

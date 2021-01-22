@@ -129,7 +129,7 @@ export const attemptLoginFromCache = (): AppThunk<Promise<User | undefined>> => 
         const response = await requestBackend("auth/me", "GET", {}, {}, token);
 
         if (response.status == HttpStatusCode.OK) {
-            const payload = (response as BackendSuccessfulResponse).data as ResponseUserDto;
+            const payload = (response as unknown) as ResponseUserDto;
             const user = convertDtoToUser(payload);
             dispatch(loginSuccess(token, user, true));
             return user;

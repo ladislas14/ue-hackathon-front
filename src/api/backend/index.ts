@@ -19,6 +19,7 @@ export async function requestBackend(
     body: URLBodyParams = {},
     authToken: TokenDto | null | undefined = undefined,
     verbose = false,
+    stringParams?: string,
 ): Promise<BackendResponse> {
     const headers: {[key: string]: string} = {
         Accept: "application/json",
@@ -40,6 +41,7 @@ export async function requestBackend(
         headers,
         body,
         verbose,
+        stringParams,
     );
 
     return {data: {}, ...json};

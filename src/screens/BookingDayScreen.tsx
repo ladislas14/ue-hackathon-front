@@ -47,6 +47,7 @@ class BookingDayScreen extends React.Component<BookingDayScreenProps, BookingDay
                 >
                     <InputLabel style={styles.calendarLabel}>Choisissez une date</InputLabel>
                     <CalendarPicker
+                        minDate={new Date()}
                         initialDate={date || undefined}
                         selectedDayStyle={{backgroundColor: theme.accent}}
                         selectedDayTextColor={theme.textWhite}

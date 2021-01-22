@@ -45,8 +45,9 @@ export async function requestRemote(
     headers: {[key: string]: string} = {},
     body: URLBodyParams = {},
     verbose = false,
+    stringParams?: string,
 ): Promise<RequestResponse> {
-    const formattedParams = encodeRequestParams(params);
+    const formattedParams = stringParams || encodeRequestParams(params);
     let response: Response | null = null;
 
     try {
