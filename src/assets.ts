@@ -16,6 +16,10 @@ async function assetDict(theme: ThemeKey, key: string): Promise<unknown> {
             return import("@assets/images/background.svg");
         case "app-icon":
             return import("@assets/images/icon.png");
+        case "large-wave-bg":
+            return import("@assets/images/large-wave-bg.svg");
+        case "woman-holding-phone":
+            return import("@assets/images/woman-holding-phone.svg");
         default:
             return import("@assets/images/placeholder.png");
     }

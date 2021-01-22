@@ -35,7 +35,7 @@ function MainNavigatorClientComponent(): JSX.Element {
                 name="TabProfile"
                 component={TabProfileNavigator}
                 options={{
-                    tabBarIcon: (props) => <MainTabBarIcon name="person" {...props} />,
+                    tabBarIcon: (props) => <MainTabBarIcon name="book" {...props} />,
                 }}
             />
         </TabNavigator.Navigator>

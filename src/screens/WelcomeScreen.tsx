@@ -32,12 +32,12 @@ class WelcomeScreen extends React.Component<WelcomeScreenProps> {
                     <View style={styles.textContainer}>
                         <SemiHighlightedText text={i18n.t("appName")} fontSize={32} textStyle={styles.appName} />
                         <Text style={styles.subtitle} numberOfLines={3}>
-                            {i18n.t("welcomeScreen.subtitle")}
+                            {"Ce projet est développé dans le cadre de l'UE Hackathon à IMT Atlantique (2021)"}
                         </Text>
                     </View>
                     <View style={styles.actionsContainer}>
                         <Button
-                            text={i18n.t("welcomeScreen.signIn")}
+                            text={"Connexion"}
                             onPress={() => {
                                 rootNavigate("LoginRoot", {
                                     screen: "LoginScreens",
@@ -47,7 +47,7 @@ class WelcomeScreen extends React.Component<WelcomeScreenProps> {
                             skin="rounded-filled"
                         />
                         <Button
-                            text={i18n.t("welcomeScreen.signUp")}
+                            text={"Inscription"}
                             onPress={() => {
                                 rootNavigate("LoginRoot", {
                                     screen: "LoginScreens",

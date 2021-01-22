@@ -6,7 +6,7 @@ export default {
             en: "English",
             fr: "French",
         },
-        appName: "Hackathon",
+        appName: "Sandw'IMT",
         welcome: "Welcome",
         // Component-related
         picker: {

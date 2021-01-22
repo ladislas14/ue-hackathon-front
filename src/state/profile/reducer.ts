@@ -16,8 +16,8 @@ export const profileReducer = (
             return {...state, user};
         }
         case PROFILE_ACTION_TYPES.PROFILE_CREATE_SUCCESS: {
-            const {profile} = action as CreateProfileSuccessAction;
-            return state.user ? {...state, user: {...state.user, profile}} : state;
+            const {user} = action as CreateProfileSuccessAction;
+            return state.user ? {...state, user: {...state.user, ...user}} : state;
         }
         case PROFILE_ACTION_TYPES.FETCH_USER_SUCCESS: {
             const {user} = action as FetchUserSuccessAction;

@@ -11,7 +11,7 @@ const Stack = createMaterialTopTabNavigator<TabBookingRoot>();
 export default function BookingNavigator(): JSX.Element {
     return (
         <>
-            <MainHeaderClient title="Booking" />
+            <MainHeaderClient title="Réservation" />
             <Stack.Navigator
                 initialRouteName={"BookingDayScreen"}
                 tabBarOptions={{showLabel: false, showIcon: false}}

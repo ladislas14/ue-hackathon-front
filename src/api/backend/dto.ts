@@ -36,6 +36,9 @@ export type ResponseUserDto = {
     id: string;
     role: Role;
     email: string;
+    firstName: string;
+    lastName: string;
+    cardCode: number | null;
     onboarded: boolean;
 };
 
@@ -52,10 +55,6 @@ export type LoginDto = {
 export type CreateProfileDto = {
     firstName: string;
     lastName: string;
-    cardCode: number | null;
+    cardCode: number | undefined;
     role: Role;
-};
-
-export type ResponseProfileDto = CreateProfileDto & {
-    id: string;
 };

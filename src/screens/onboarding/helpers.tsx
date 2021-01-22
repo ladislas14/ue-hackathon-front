@@ -9,7 +9,7 @@ function onboardingStateToDto(onboardingState: OnboardingState): CreateProfileDt
     return {
         firstName: onboardingState.firstname!,
         lastName: onboardingState.lastname!,
-        cardCode: onboardingState.barCode ? parseInt(onboardingState.barCode) : null,
+        cardCode: onboardingState.barCode ? parseInt(onboardingState.barCode) : undefined,
         role: onboardingState.role!,
     };
 }

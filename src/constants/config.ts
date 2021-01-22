@@ -16,11 +16,6 @@ export const SERVER_HOST: string = extra.SERVER_HOST;
 export const BACKEND_URL: string = extra.SERVER_URL;
 
 /**
- * The number of resources fetched per request when scrolling in infinite scrolling containers.
- */
-export const PROFILES_FETCH_LIMIT = 8; // Matching tab
-
-/**
  * The buffer delay before sending a remote request when typing in a search bar (ms).
  */
 export const SEARCH_BUFFER_DELAY = 250;

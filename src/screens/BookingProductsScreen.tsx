@@ -10,12 +10,13 @@ import {rootNavigate} from "../navigation/utils";
 import {AppState} from "../state/types";
 import {slideStyles} from "../styles/slides";
 import {preTheme} from "../styles/utils";
-import {Theme, ThemeProps} from "../types";
+import {ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
 
 // Map props from store
 const reduxConnector = connect((state: AppState) => ({
     date: state.booking.date,
+    cart: state.booking.cart,
 }));
 
 export type BookingProductsScreenProps = ThemeProps & ConnectedProps<typeof reduxConnector>;
@@ -29,14 +30,14 @@ class BookingProductsScreen extends React.Component<BookingProductsScreenProps, 
     }
 
     render(): JSX.Element {
-        const {theme, date} = this.props;
+        const {theme, date, cart} = this.props;
         const {activeProduct} = this.state;
 
         const styles = themedStyles(theme);
         const sstyles = slideStyles(theme);
 
         return (
-            <ScreenWrapper containerStyle={sstyles.container}>
+            <ScreenWrapper containerStyle={[sstyles.container, styles.container]}>
                 <AddToCardModal
                     product={activeProduct}
                     visible={activeProduct !== null}
@@ -45,22 +46,23 @@ class BookingProductsScreen extends React.Component<BookingProductsScreenProps, 
                 {date && (
                     <ProductsListing
                         date={date}
-                        containerStyle={{flex: 1}}
+                        containerStyle={styles.productsListing}
                         onClickItem={(item: FoodProduct) => {
                             this.setState({...this.state, activeProduct: item});
                         }}
+                        highlightedItems={cart.map((f) => f.product.id)}
                     />
                 )}
                 <View style={sstyles.navigation}>
                     <Button
                         style={sstyles.navButton}
-                        text="Back"
+                        text="Retour"
                         onPress={() => rootNavigate("BookingDayScreen")}
                         skin="rounded-hollow"
                     />
                     <Button
                         style={sstyles.navButton}
-                        text="Next"
+                        text="Suivant"
                         onPress={() => rootNavigate("BookingSettingsScreen")}
                         skin="rounded-filled"
                     />
@@ -70,8 +72,16 @@ class BookingProductsScreen extends React.Component<BookingProductsScreenProps, 
     }
 }
 
-const themedStyles = preTheme((theme: Theme) => {
-    return StyleSheet.create({});
+const themedStyles = preTheme(() => {
+    return StyleSheet.create({
+        container: {
+            paddingHorizontal: 8,
+        },
+        productsListing: {
+            width: "100%",
+            flex: 1,
+        },
+    });
 });
 
 export default reduxConnector(withTheme(BookingProductsScreen));

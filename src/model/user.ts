@@ -1,8 +1,11 @@
-import {UserProfile} from "./user-profile";
+import {Role} from "../constants/profile-constants";
 
 export type User = {
     id: string;
     email: string;
     onboarded: boolean;
-    profile?: UserProfile; // profile is undefined if the user hasn't been through on-boarding yet
+    firstName: string;
+    lastName: string;
+    role: Role;
+    cardCode: number | null;
 };

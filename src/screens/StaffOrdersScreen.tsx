@@ -5,18 +5,17 @@ import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
 
-export type OrdersScreenProps = ThemeProps;
+export type StaffOrdersScreenProps = ThemeProps;
 
-class OrdersScreen extends React.Component<OrdersScreenProps> {
+class StaffOrdersScreen extends React.Component<StaffOrdersScreenProps> {
     render(): JSX.Element {
         const {theme} = this.props;
         const styles = themedStyles(theme);
 
         return (
             <ScreenWrapper>
-                <Text style={styles.title}>Inventaire des commandes </Text>
-                <View style={styles.container}>
-                </View>
+                <Text style={styles.title}>Inventaire des commandes</Text>
+                <View style={styles.container}></View>
             </ScreenWrapper>
         );
     }
@@ -41,4 +40,4 @@ const themedStyles = preTheme((theme: Theme) => {
     });
 });
 
-export default withTheme(OrdersScreen);
+export default withTheme(StaffOrdersScreen);

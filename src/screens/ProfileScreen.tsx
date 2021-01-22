@@ -7,6 +7,7 @@ import {ThemeProps} from "../types";
 import {withTheme} from "react-native-elements";
 import {fetchUser} from "../state/profile/actions";
 import ScreenWrapper from "./ScreenWrapper";
+import UserView from "../components/UserView";
 
 const reduxConnector = connect((state: AppState) => ({
     user: state.profile.user,
@@ -27,11 +28,11 @@ class ProfileScreen extends React.Component<ProfileScreenProps> {
     }
 
     render(): JSX.Element {
-        const {user, dispatch} = this.props;
+        const {user} = this.props;
 
         return (
             <ScreenWrapper>
-                <ProfileView user={user} />
+                <UserView user={user} />
             </ScreenWrapper>
         );
     }

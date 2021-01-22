@@ -93,7 +93,7 @@ class SettingsScreen extends React.Component<SettingsScreenProps> {
                             style={styles.card}
                             label={i18n.t("settings.termsOfService")}
                             oneLine={true}
-                            onPress={() => Alert.alert("Not implemented")} // TODO Implement TOS link
+                            onPress={() => Alert.alert("Not implemented")}
                             display={<Text style={styles.infoText}>{""}</Text>}
                             noModal={true}
                         />

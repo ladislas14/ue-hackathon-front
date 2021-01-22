@@ -38,7 +38,7 @@ export const authReducer = (state: AuthState = initialState, action: AuthAction)
                 token,
                 user: {onboarded, email},
             } = <LogInSuccessAction>action;
-            console.log(action);
+
             // Pre-fill some of the on-boarding values
             const onboarding = {...state.onboarding};
             if (!onboarded) {

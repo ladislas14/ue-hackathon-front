@@ -20,21 +20,17 @@ const reduxConnector = connect((state: AppState) => ({
 
 type OnboardingStatusScreenProps = ConnectedProps<typeof reduxConnector> & ThemeProps & OnboardingScreenProps;
 
-type OnboardingProfileForm1State = {
+type OnboardingStatusFormState = {
     barCode: string | null;
     role: Role | null;
 };
 
 class OnboardingStatusScreen extends React.Component<OnboardingStatusScreenProps> {
-    submit(values: OnboardingProfileForm1State) {
-        if (values.barCode) {
-            this.props.next();
-            this.props.dispatch(
-                setOnboardingValues({
-                    barCode: values.barCode,
-                    role: values.role,
-                }),
-            );
+    submit(values: OnboardingStatusFormState) {
+        const {dispatch, next} = this.props;
+        if (values.role) {
+            dispatch(setOnboardingValues(values));
+            next();
         }
     }
 
@@ -43,10 +39,10 @@ class OnboardingStatusScreen extends React.Component<OnboardingStatusScreenProps
 
         return (
             <Formik
-                initialValues={onboardingState as OnboardingProfileForm1State}
-                onSubmit={(values: OnboardingProfileForm1State) => this.submit(values)}
+                initialValues={onboardingState as OnboardingStatusFormState}
+                onSubmit={(values: OnboardingStatusFormState) => this.submit(values)}
             >
-                {(formikProps: FormikProps<OnboardingProfileForm1State>) => {
+                {(formikProps: FormikProps<OnboardingStatusFormState>) => {
                     const {handleSubmit, values, setFieldValue} = formikProps;
 
                     return (

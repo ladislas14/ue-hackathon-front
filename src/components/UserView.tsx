@@ -4,15 +4,15 @@ import i18n from "i18n-js";
 import {withTheme} from "react-native-elements";
 import {ScrollView} from "react-native";
 import {FormattedDate} from "./FormattedDate";
-import {UserProfile} from "../model/user-profile";
 import {Theme, ThemeProps} from "../types";
 import {preTheme} from "../styles/utils";
 import ValueCard from "./cards/ValueCard";
 import WavyHeader from "./headers/WavyHeader";
+import {User} from "../model/user";
 
 // Component props
-export type ProfileViewProps = ThemeProps & {
-    profile: UserProfile | null;
+export type UserViewProps = ThemeProps & {
+    user: User | null;
     actionBar?: JSX.Element;
 };
 
@@ -20,43 +20,24 @@ function Spacer(): JSX.Element {
     return <View style={{height: 25}}></View>;
 }
 
-class ProfileView extends React.Component<ProfileViewProps> {
+class UserView extends React.Component<UserViewProps> {
     render() {
-        const {theme, profile, actionBar} = this.props;
+        const {theme, user, actionBar} = this.props;
         const styles = themedStyles(theme);
 
-        const fullName = profile ? profile.firstName + " " + profile.lastName : "";
+        const fullName = user ? user.firstName + " " + user.lastName : "";
 
-        const profileFieldComponents = (
-            <>
-                <ValueCard
-                    blank={!profile}
-                    label={i18n.t("dateOfBirth")}
-                    display={profile ? <FormattedDate style={styles.cardText} date={profile.birthdate} /> : <></>}
-                    noModal={true}
-                />
-                <Spacer />
-                <ValueCard
-                    blank={!profile}
-                    label={i18n.t("gender")}
-                    display={profile ? <FormattedGender style={styles.cardText} gender={profile.gender} /> : <></>}
-                    noModal={true}
-                />
-                <Spacer />
-            </>
-        );
+        /*const orders = [
+            {
+                date: new Date(2021, 2, 25),
+                products
+            }
+        ];*/
 
         return (
             <>
                 <WavyHeader style={styles.header} color={theme.accent}>
-                    {/*<EnlargeableAvatar
-                        profile={profile || undefined}
-                        size={120}
-                        rounded
-                        containerStyle={styles.avatarContainer}
-                        activeOpacity={0.8}
-                    />*/}
-                    {!profile && (
+                    {!user && (
                         <ActivityIndicator size="large" color={theme.textWhite} style={styles.loadingIndicator} />
                     )}
                     <Text style={styles.name}>{fullName}</Text>
@@ -68,7 +49,14 @@ class ProfileView extends React.Component<ProfileViewProps> {
                     contentContainerStyle={styles.formWrapper}
                     keyboardShouldPersistTaps="handled"
                 >
-                    {profileFieldComponents}
+                    <Text style={styles.sectionTitle}>Orders:</Text>
+                    {/*<ValueCard
+                        blank={!profile}
+                        label={i18n.t("dateOfBirth")}
+                        display={profile ? <FormattedDate style={styles.cardText} date={profile.birthdate} /> : <></>}
+                        noModal={true}
+                    />*/}
+                    <Spacer />
                 </ScrollView>
             </>
         );
@@ -117,22 +105,13 @@ export const themedStyles = preTheme((theme: Theme) => {
             marginTop: 10,
             height: 30,
         },
-        university: {
-            fontSize: 14,
-            color: theme.textWhite,
-        },
-        universityContainer: {
-            height: 25,
-        },
-        avatarContainer: {
-            borderColor: theme.cardBackground,
-            borderWidth: 2,
-            backgroundColor: theme.accentSecondary,
-        },
         cardText: {
             color: theme.text,
+        },
+        sectionTitle: {
+            fontSize: 20,
         },
     });
 });
 
-export default withTheme(ProfileView);
+export default withTheme(UserView);

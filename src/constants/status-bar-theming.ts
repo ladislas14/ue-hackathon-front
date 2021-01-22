@@ -6,5 +6,4 @@ import {ThemeKey} from "../types";
 export const STATUS_BAR_THEME_OVERRIDES: {[key in NavigatorRoute]?: ThemeKey} = {
     SigninScreen: "light",
     SignupScreen: "light",
-    ForgotPasswordScreen: "light",
 };

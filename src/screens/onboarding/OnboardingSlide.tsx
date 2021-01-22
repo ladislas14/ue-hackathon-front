@@ -122,7 +122,7 @@ class OnboardingSlide extends React.Component<OnboardingSlideProps> {
                                         text="Envoyer"
                                         onPress={() => {
                                             if (handleSubmit) handleSubmit();
-                                            finishOnboarding(store.getState().auth.onboarding);
+                                            setTimeout(() => finishOnboarding(store.getState().auth.onboarding), 500);
                                         }}
                                     />
                                 </>

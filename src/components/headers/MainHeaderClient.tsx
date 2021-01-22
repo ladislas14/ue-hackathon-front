@@ -6,10 +6,10 @@ import {AppState} from "../../state/types";
 import {Theme, ThemeProps} from "../../types";
 import {Route} from "@react-navigation/native";
 import MainHeader from "./MainHeader";
-import {TouchableOpacity} from "react-native-gesture-handler";
 import {MaterialIcons} from "@expo/vector-icons";
 import {preTheme} from "../../styles/utils";
-import {StyleSheet, Text} from "react-native";
+import {StyleSheet, Text, TouchableOpacity} from "react-native";
+import CartModal from "../modals/CartModal";
 
 // Map props from store
 const reduxConnector = connect((state: AppState) => ({
@@ -35,10 +35,14 @@ class MainHeaderClient extends React.Component<MainHeaderProps> {
                 backRouteFallback="MainScreenClient"
                 rightButtons={[
                     (props) => (
-                        <TouchableOpacity style={props.buttonStyle} onPress={() => {}}>
-                            <MaterialIcons style={props.iconStyle} name="shopping-cart" />
-                            {cart.length > 0 && <Text style={styles.cartNumberStyle}>{cart.length}</Text>}
-                        </TouchableOpacity>
+                        <CartModal
+                            activator={(show: () => void) => (
+                                <TouchableOpacity style={props.buttonStyle} onPress={() => show()}>
+                                    <MaterialIcons style={props.iconStyle} name="shopping-cart" />
+                                    {cart.length > 0 && <Text style={styles.cartNumberStyle}>{cart.length}</Text>}
+                                </TouchableOpacity>
+                            )}
+                        />
                     ),
                 ]}
             />

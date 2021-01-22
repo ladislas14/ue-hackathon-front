@@ -1,22 +1,22 @@
 import * as React from "react";
-import {StyleProp, StyleSheet, Text, View, ViewStyle} from "react-native";
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 import i18n from "i18n-js";
 import * as Yup from "yup";
-import {Formik, FormikProps} from "formik";
-import {FormTextInput} from "../forms/FormTextInput";
-import {MyThunkDispatch, ValidatedActionReturn} from "../../state/types";
-import {VALIDATOR_EMAIL_LOGIN, VALIDATOR_PASSWORD_LOGIN} from "../../validators";
-import {getLoginTextInputsStyleProps, formStyles} from "../../styles/forms";
-import {requestLogin} from "../../state/auth/actions";
+import { Formik, FormikProps } from "formik";
+import { FormTextInput } from "../forms/FormTextInput";
+import { MyThunkDispatch, ValidatedActionReturn } from "../../state/types";
+import { VALIDATOR_EMAIL_LOGIN, VALIDATOR_PASSWORD_LOGIN } from "../../validators";
+import { getLoginTextInputsStyleProps, formStyles } from "../../styles/forms";
+import { requestLogin } from "../../state/auth/actions";
 import FormError from "./FormError";
-import {Theme, ThemeProps} from "../../types";
-import {preTheme} from "../../styles/utils";
-import {withTheme} from "react-native-elements";
-import {generalError, localizeError} from "../../api/backend/errors";
+import { Theme, ThemeProps } from "../../types";
+import { preTheme } from "../../styles/utils";
+import { withTheme } from "react-native-elements";
+import { generalError, localizeError } from "../../api/backend/errors";
 import FormSubmitButton from "./FormSubmitButton";
-import {RemoteValidationErrors} from "../../api/backend/dto";
-import {MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
-import {rootNavigate} from "../../navigation/utils";
+import { RemoteValidationErrors } from "../../api/backend/dto";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { rootNavigate } from "../../navigation/utils";
 import Button from "../Button";
 import store from "../../state/store";
 
@@ -32,9 +32,9 @@ const LoginFormSchema = Yup.object().shape({
 });
 
 // Component props
-type LoginFormProps = ThemeProps & {containerStyle?: StyleProp<ViewStyle>};
+type LoginFormProps = ThemeProps & { containerStyle?: StyleProp<ViewStyle> };
 
-type LoginFormState = {remoteErrors?: RemoteValidationErrors; submitting: boolean};
+type LoginFormState = { remoteErrors?: RemoteValidationErrors; submitting: boolean };
 
 class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
     pwdInputRef = React.createRef<FormTextInput>();
@@ -43,33 +43,33 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 
     constructor(props: LoginFormProps) {
         super(props);
-        this.state = {submitting: false};
+        this.state = { submitting: false };
     }
 
     submit(values: FormState) {
-        this.setState({...this.state, submitting: true});
+        this.setState({ ...this.state, submitting: true });
         (store.dispatch as MyThunkDispatch)(requestLogin(values.email, values.password)).then(
-            ({errors}: ValidatedActionReturn) => {
+            ({ errors }: ValidatedActionReturn) => {
                 if (errors && errors.fields) {
                     const f = errors.fields;
                     Object.keys(f).forEach((e) => this.setFieldError && this.setFieldError(e, localizeError(f[e])));
                 }
-                this.setState({remoteErrors: errors, submitting: false});
+                this.setState({ remoteErrors: errors, submitting: false });
             },
         );
     }
 
     render(): JSX.Element {
-        const {theme, containerStyle} = this.props;
-        const {remoteErrors, submitting} = this.state;
+        const { theme, containerStyle } = this.props;
+        const { remoteErrors, submitting } = this.state;
 
         const styles = themedStyles(theme);
         const fstyles = formStyles(theme);
 
         return (
-            <View style={[{width: "100%"}, containerStyle]}>
+            <View style={[{ width: "100%" }, containerStyle]}>
                 <Formik
-                    initialValues={{email: "", password: ""} as FormState}
+                    initialValues={{ email: "", password: "" } as FormState}
                     validationSchema={LoginFormSchema}
                     validateOnBlur={false}
                     onSubmit={(values) => this.submit(values)}
@@ -85,7 +85,7 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
                             setFieldValue,
                             setFieldError,
                         } = formikProps;
-                        const textInputProps = {handleChange, handleBlur, ...getLoginTextInputsStyleProps(theme, 10)};
+                        const textInputProps = { handleChange, handleBlur, ...getLoginTextInputsStyleProps(theme, 10) };
                         this.setFieldValue = setFieldValue;
                         this.setFieldError = setFieldError;
 
@@ -142,7 +142,7 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
                                     <FormSubmitButton
                                         onPress={() => handleSubmit()}
                                         skin="rounded-filled"
-                                        text={i18n.t("loginForm.logIn")}
+                                        text={"Connexion"}
                                         icon={<MaterialCommunityIcons name="login" style={styles.loginButtonIcon} />}
                                         submitting={submitting}
                                     />
@@ -155,11 +155,11 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
                                         onPress={() =>
                                             rootNavigate("LoginRoot", {
                                                 screen: "LoginScreens",
-                                                params: {screen: "SignupScreen"},
+                                                params: { screen: "SignupScreen" },
                                             })
                                         }
                                         skin="rounded-hollow"
-                                        text={i18n.t("loginForm.signUp")}
+                                        text={"Inscription"}
                                     />
                                 </View>
                             </View>
@@ -176,6 +176,7 @@ const themedStyles = preTheme((theme: Theme) => {
         actionsContainer: {
             flexDirection: "column",
             width: "100%",
+            marginTop: 20,
         },
         loginButtonIcon: {
             color: theme.textWhite,

@@ -1,4 +1,3 @@
-import { string } from "yup";
 import {BookingState} from "../types";
 import {
     AddToCartAction,

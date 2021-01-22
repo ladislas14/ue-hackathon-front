@@ -54,7 +54,7 @@ class AvailabilityProductsScreen extends React.Component<AvailabilityProductsScr
 const themedStyles = preTheme((theme: Theme) => {
     return StyleSheet.create({
         container: {
-            paddingTop: 40,
+            paddingHorizontal: 8,
         },
         title: {
             width: "100%",
@@ -64,8 +64,8 @@ const themedStyles = preTheme((theme: Theme) => {
             color: theme.text,
         },
         productsListing: {
+            width: "100%",
             flex: 1,
-            marginVertical: 10,
         },
     });
 });

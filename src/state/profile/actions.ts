@@ -1,8 +1,7 @@
 import {AppThunk} from "../types";
-import {BackendSuccessfulResponse, CreateProfileDto, ResponseProfileDto, ResponseUserDto} from "../../api/backend/dto";
-import {UserProfile} from "../../model/user-profile";
+import {CreateProfileDto, ResponseUserDto} from "../../api/backend/dto";
 import {User} from "../../model/user";
-import {convertDtoToProfile, convertDtoToUser} from "../../api/backend/converters";
+import {convertDtoToUser} from "../../api/backend/converters";
 import {HttpStatusCode} from "../../constants/http-status";
 import {requestBackend} from "../../api/backend";
 
@@ -21,12 +20,12 @@ export type LoadUserProfileAction = {
 
 export type CreateProfileAction = {
     type: string;
-    profile: CreateProfileDto;
+    user: CreateProfileDto;
 };
 
 export type CreateProfileSuccessAction = {
     type: string;
-    profile: UserProfile;
+    user: User;
 };
 
 export type FetchUserSuccessAction = {
@@ -34,29 +33,20 @@ export type FetchUserSuccessAction = {
     user: User;
 };
 
-export type FetchProfileSuccessAction = {
-    type: string;
-    profile: UserProfile;
-};
+export type ProfileAction = CreateProfileAction | CreateProfileSuccessAction | FetchUserSuccessAction;
 
-export type ProfileAction =
-    | CreateProfileAction
-    | CreateProfileSuccessAction
-    | FetchUserSuccessAction
-    | FetchProfileSuccessAction;
-
-const createProfileSuccess = (profile: UserProfile): CreateProfileSuccessAction => ({
+const createProfileSuccess = (user: User): CreateProfileSuccessAction => ({
     type: PROFILE_ACTION_TYPES.PROFILE_CREATE_SUCCESS,
-    profile,
+    user,
 });
 
 export const createProfile = (profile: CreateProfileDto): AppThunk => async (dispatch, getState) => {
     const token = getState().auth.token;
-    const response = await requestBackend("user", "POST", {}, profile, token, true);
-    if (response.status === HttpStatusCode.CREATED) {
-        const payload = (response as unknown) as ResponseProfileDto;
-        const profile = convertDtoToProfile(payload);
-        dispatch(createProfileSuccess(profile));
+    const response = await requestBackend("users", "PATCH", {}, profile, token, true);
+    if (response.status === HttpStatusCode.OK) {
+        const payload = (response as unknown) as ResponseUserDto;
+        const user = convertDtoToUser(payload);
+        dispatch(createProfileSuccess(user));
     }
 };
 
@@ -64,8 +54,8 @@ export const fetchUser = (): AppThunk => async (dispatch, getState) => {
     const token = getState().auth.token;
     const response = await requestBackend("auth/me", "GET", {}, {}, token);
     if (response.status === HttpStatusCode.OK) {
-        const payload = (response as BackendSuccessfulResponse).data;
-        const user = convertDtoToUser(payload as ResponseUserDto);
+        const payload = (response as unknown) as ResponseUserDto;
+        const user = convertDtoToUser(payload);
         dispatch(fetchUserSuccess(user));
     }
 };
@@ -73,21 +63,4 @@ export const fetchUser = (): AppThunk => async (dispatch, getState) => {
 const fetchUserSuccess = (user: User): FetchUserSuccessAction => ({
     type: PROFILE_ACTION_TYPES.FETCH_USER_SUCCESS,
     user,
-});
-
-export const fetchProfile = (id: string): AppThunk<Promise<UserProfile | null>> => async (dispatch, getState) => {
-    const token = getState().auth.token;
-    const response = await requestBackend(`profiles/${id}`, "GET", {}, {}, token, true);
-    if (response.status === HttpStatusCode.OK) {
-        const payload = (response as BackendSuccessfulResponse).data as ResponseProfileDto;
-        const profileWithMatchInfo = convertDtoToProfile(payload);
-        dispatch(fetchProfileSuccess(profileWithMatchInfo));
-        return profileWithMatchInfo;
-    }
-    return null;
-};
-
-const fetchProfileSuccess = (profile: UserProfile): FetchProfileSuccessAction => ({
-    type: PROFILE_ACTION_TYPES.FETCH_PROFILE_SUCCESS,
-    profile,
 });

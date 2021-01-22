@@ -1,4 +1,4 @@
-import {ONBOARDING_SCREENS} from "../screens/onboarding";
+import {ONBOARDING_SCREENS} from "../screens/onboarding/screens";
 
 export type RootNavigatorScreens = {
     MainScreenClient: undefined;
@@ -41,7 +41,7 @@ export type TabAvailabilityRoot = {
 
 export type TabOrderRoot = {
     OrderDayScreen: undefined;
-    OrdersScreen: undefined;
+    StaffOrdersScreen: undefined;
 };
 
 // Login screen
