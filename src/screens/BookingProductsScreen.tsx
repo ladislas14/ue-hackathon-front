@@ -8,6 +8,7 @@ import ProductsListing from "../components/ProductsListing";
 import {FoodProduct} from "../model/products";
 import {rootNavigate} from "../navigation/utils";
 import {AppState} from "../state/types";
+import {slideStyles} from "../styles/slides";
 import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
@@ -32,8 +33,10 @@ class BookingProductsScreen extends React.Component<BookingProductsScreenProps, 
         const {activeProduct} = this.state;
 
         const styles = themedStyles(theme);
+        const sstyles = slideStyles(theme);
+
         return (
-            <ScreenWrapper containerStyle={styles.container}>
+            <ScreenWrapper containerStyle={sstyles.container}>
                 <AddToCardModal
                     product={activeProduct}
                     visible={activeProduct !== null}
@@ -48,15 +51,15 @@ class BookingProductsScreen extends React.Component<BookingProductsScreenProps, 
                         }}
                     />
                 )}
-                <View style={styles.navigation}>
+                <View style={sstyles.navigation}>
                     <Button
-                        style={styles.navButton}
+                        style={sstyles.navButton}
                         text="Back"
                         onPress={() => rootNavigate("BookingDayScreen")}
                         skin="rounded-hollow"
                     />
                     <Button
-                        style={styles.navButton}
+                        style={sstyles.navButton}
                         text="Next"
                         onPress={() => rootNavigate("BookingSettingsScreen")}
                         skin="rounded-filled"
@@ -68,19 +71,7 @@ class BookingProductsScreen extends React.Component<BookingProductsScreenProps, 
 }
 
 const themedStyles = preTheme((theme: Theme) => {
-    return StyleSheet.create({
-        container: {
-            paddingTop: 0,
-            paddingBottom: 50,
-        },
-        navigation: {
-            flexDirection: "row",
-        },
-        navButton: {
-            flex: 1,
-            marginHorizontal: 20,
-        },
-    });
+    return StyleSheet.create({});
 });
 
 export default reduxConnector(withTheme(BookingProductsScreen));

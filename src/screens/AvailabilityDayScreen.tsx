@@ -6,28 +6,66 @@ import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import {AppState} from "../state/types";
 import ScreenWrapper from "./ScreenWrapper";
-import CalendarPicker from 'react-native-calendar-picker';
+import CalendarPicker from "react-native-calendar-picker";
 
 import store from "../state/store";
 import {setAvailabilityDate} from "../state/availability/actions";
+import Button from "../components/Button";
+import {rootNavigate} from "../navigation/utils";
+import {slideStyles} from "../styles/slides";
+import {Moment} from "moment";
+import InputLabel from "../components/InputLabel";
 
-export type AvailabilityDayScreenProps = ThemeProps;
+// Map props from store
+const reduxConnector = connect((state: AppState) => ({
+    date: state.availability.date,
+}));
 
-class AvailabilityDayScreen extends React.Component<AvailabilityDayScreenProps> {
+export type AvailabilityDayScreenProps = ThemeProps & ConnectedProps<typeof reduxConnector>;
+
+type AvailabilityDayScreenState = {calendarWidth: number};
+
+class AvailabilityDayScreen extends React.Component<AvailabilityDayScreenProps, AvailabilityDayScreenState> {
+    constructor(props: AvailabilityDayScreenProps) {
+        super(props);
+        this.state = {calendarWidth: 0};
+    }
+
     render(): JSX.Element {
-        const {theme} = this.props;
+        const {theme, date} = this.props;
+        const {calendarWidth} = this.state;
         const styles = themedStyles(theme);
+        const sstyles = slideStyles(theme);
 
         return (
-            <ScreenWrapper>
-                <Text style={styles.title}>Date de disponibilité des produits</Text>
-                <View style={styles.container}>
+            <ScreenWrapper containerStyle={[sstyles.container, styles.container]}>
+                <Text style={styles.title}>Configuration de la disponibilité des produits</Text>
+
+                <View
+                    style={{width: "100%", height: 380}}
+                    onLayout={(layout) =>
+                        this.setState({...this.state, calendarWidth: layout.nativeEvent.layout.width})
+                    }
+                >
+                    <InputLabel style={styles.calendarLabel}>Choisissez une date</InputLabel>
                     <CalendarPicker
-                    style={styles.calendar}
-                    onDateChange={(date: Date) => {
-                        store.dispatch(setAvailabilityDate(date));
-                    }}
-                    />        
+                        initialDate={date || undefined}
+                        selectedDayStyle={{backgroundColor: theme.accent}}
+                        selectedDayTextColor={theme.textWhite}
+                        startFromMonday={true}
+                        width={calendarWidth > 0 ? calendarWidth + 25 : undefined}
+                        onDateChange={(m: Moment) => {
+                            store.dispatch(setAvailabilityDate(m.toDate()));
+                        }}
+                    />
+                </View>
+                <View style={sstyles.navigation}>
+                    <Button
+                        style={sstyles.navButton}
+                        text="Next"
+                        onPress={() => rootNavigate("AvailabilityProductsScreen")}
+                        skin="rounded-filled"
+                    />
                 </View>
             </ScreenWrapper>
         );
@@ -37,27 +75,26 @@ class AvailabilityDayScreen extends React.Component<AvailabilityDayScreenProps> 
 const themedStyles = preTheme((theme: Theme) => {
     return StyleSheet.create({
         container: {
-            flex: 1,
-            width: "100%",
-            padding: 50,
-            alignItems: "center",
-            justifyContent: "center",
+            paddingTop: 80,
+            paddingBottom: 60,
+            justifyContent: "space-between",
         },
-        calendar: {
-            flex: 1,
-            width: "100%",
-            padding: 50,
-            alignItems: "center",
-            justifyContent: "center",
+        calendarLabel: {
+            marginVertical: 20,
         },
         title: {
             width: "100%",
             textAlign: "center",
-            paddingTop: 30,
-            fontSize: 35,
+            fontSize: 26,
             color: theme.text,
+        },
+        subtitle: {
+            width: "100%",
+            fontSize: 22,
+            color: theme.text,
+            textAlign: "left",
         },
     });
 });
 
-export default withTheme(AvailabilityDayScreen);
+export default reduxConnector(withTheme(AvailabilityDayScreen));

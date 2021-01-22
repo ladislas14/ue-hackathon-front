@@ -4,11 +4,13 @@ import {withTheme} from "react-native-elements";
 import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
-import DateTimePicker from '@react-native-community/datetimepicker';
-import CalendarPicker from 'react-native-calendar-picker';
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import store from "../state/store";
 import {setAvailabilityOpeningHours, setAvailabilityClosingHours} from "../state/availability/actions";
+import {slideStyles} from "../styles/slides";
+import {rootNavigate} from "../navigation/utils";
+import Button from "../components/Button";
 
 export type AvailabilitySettingsScreenProps = ThemeProps;
 
@@ -16,37 +18,46 @@ class AvailabilitySettingsScreen extends React.Component<AvailabilitySettingsScr
     render(): JSX.Element {
         const {theme} = this.props;
         const styles = themedStyles(theme);
+        const sstyles = slideStyles(theme);
 
         return (
-            <ScreenWrapper>
-                <Text style={styles.title}>Horaires de la cafétéria</Text>
-                <View style={styles.container}>
+            <ScreenWrapper containerStyle={[sstyles.container, styles.container]}>
+                <Text style={styles.title}>Paramètres supplémentaires</Text>
+                <View style={styles.hoursContainer}>
                     <View style={styles.subcontainer}>
-                        <Text style={styles.subtitle}>Heure d'ouverture</Text>
-                        <DateTimePicker 
-                            value={new Date(2019,1,2, 8,0,0)}
+                        <Text style={styles.hourLabel}>Heure d'ouverture</Text>
+                        <DateTimePicker
+                            value={new Date(2019, 1, 2, 8, 0, 0)}
                             mode="time"
                             style={{width: 100, height: 130}}
                             is24Hour={true}
                             display="spinner"
                             onChange={(event, openingHour) => {
-                                store.dispatch(setAvailabilityOpeningHours(openingHour));
+                                if (openingHour) store.dispatch(setAvailabilityOpeningHours(openingHour));
                             }}
                         />
                     </View>
                     <View style={styles.subcontainer}>
-                        <Text style={styles.subtitle}>Heure de fermeture</Text>
-                        <DateTimePicker 
-                            value={new Date(2019,1,2, 16,30,0)}
+                        <Text style={styles.hourLabel}>Heure de fermeture</Text>
+                        <DateTimePicker
+                            value={new Date(2019, 1, 2, 16, 30, 0)}
                             mode="time"
                             style={{width: 100, height: 130}}
                             is24Hour={true}
                             display="spinner"
                             onChange={(event, closingHour) => {
-                                store.dispatch(setAvailabilityClosingHours(closingHour));
+                                if (closingHour) store.dispatch(setAvailabilityClosingHours(closingHour));
                             }}
                         />
                     </View>
+                </View>
+                <View style={sstyles.navigation}>
+                    <Button
+                        style={sstyles.navButton}
+                        text="Envoyer"
+                        onPress={() => rootNavigate("AvailabilitySettingsScreen")}
+                        skin="rounded-filled"
+                    />
                 </View>
             </ScreenWrapper>
         );
@@ -56,17 +67,16 @@ class AvailabilitySettingsScreen extends React.Component<AvailabilitySettingsScr
 const themedStyles = preTheme((theme: Theme) => {
     return StyleSheet.create({
         container: {
-            flex: 1,
-            flexDirection: 'row',
+            justifyContent: "space-around",
+        },
+        hoursContainer: {
+            flexDirection: "row",
             width: "100%",
-            height: 150,
-            padding: 10,
+            //justifyContent: "center",
             alignItems: "center",
-            justifyContent: "center",
         },
         subcontainer: {
             flex: 1,
-            width: "100%",
             height: 150,
             padding: 10,
             alignItems: "center",
@@ -75,14 +85,14 @@ const themedStyles = preTheme((theme: Theme) => {
         title: {
             width: "100%",
             textAlign: "center",
-            paddingTop:30,
-            fontSize: 35,
+            paddingTop: 30,
+            fontSize: 28,
             color: theme.text,
         },
-        subtitle: {
+        hourLabel: {
             width: "100%",
             textAlign: "center",
-            paddingTop:0,
+            maxWidth: 150,
             fontSize: 18,
             color: theme.text,
         },
