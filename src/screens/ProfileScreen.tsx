@@ -3,10 +3,9 @@ import * as React from "react";
 import {connect, ConnectedProps} from "react-redux";
 import {AppState, MyThunkDispatch} from "../state/types";
 import {TabProfileRoot} from "../navigation/types";
-import EditProfileForm from "../components/forms/EditProfileForm";
 import {ThemeProps} from "../types";
 import {withTheme} from "react-native-elements";
-import {fetchUser, setProfileFields} from "../state/profile/actions";
+import {fetchUser} from "../state/profile/actions";
 import ScreenWrapper from "./ScreenWrapper";
 
 const reduxConnector = connect((state: AppState) => ({
@@ -32,10 +31,7 @@ class ProfileScreen extends React.Component<ProfileScreenProps> {
 
         return (
             <ScreenWrapper>
-                <EditProfileForm
-                    user={user}
-                    onChange={(fields) => (dispatch as MyThunkDispatch)(setProfileFields(fields))}
-                />
+                <ProfileView user={user} />
             </ScreenWrapper>
         );
     }

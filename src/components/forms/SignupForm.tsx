@@ -27,9 +27,9 @@ type FormState = {
 };
 
 const initialState = (): FormState => ({
-    email: "",
-    password: "",
-    passwordRepeat: "",
+    email: "test" + Math.floor(Math.random() * 1000) + "@test.com",
+    password: "PASSword$1",
+    passwordRepeat: "PASSword$1",
 });
 
 // Use Yup to create the validation schema

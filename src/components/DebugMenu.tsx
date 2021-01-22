@@ -3,9 +3,8 @@ import * as React from "react";
 import {TouchableOpacity} from "react-native";
 import {BottomSheet, ListItem, withTheme} from "react-native-elements";
 import {rootNavigate} from "../navigation/utils";
-import {debugConnect} from "../state/auth/actions";
+import {beginOnboarding} from "../state/auth/actions";
 import store from "../state/store";
-import {MyThunkDispatch} from "../state/types";
 import {ThemeProps} from "../types";
 
 type DebugMenuProps = ThemeProps;
@@ -30,14 +29,7 @@ class DebugMenu extends React.Component<DebugMenuProps, DebugMenuState> {
         {
             title: "Access OnboardingScreen",
             onPress: () => {
-                rootNavigate("OnboardingScreen");
-                this.hide();
-            },
-        },
-        {
-            title: "Automatically create profile",
-            onPress: () => {
-                (store.dispatch as MyThunkDispatch)(debugConnect());
+                store.dispatch(beginOnboarding());
                 this.hide();
             },
         },

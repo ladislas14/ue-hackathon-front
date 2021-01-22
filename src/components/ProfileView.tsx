@@ -8,8 +8,6 @@ import {UserProfile} from "../model/user-profile";
 import {Theme, ThemeProps} from "../types";
 import {preTheme} from "../styles/utils";
 import ValueCard from "./cards/ValueCard";
-import EnlargeableAvatar from "./EnlargeableAvatar";
-import FormattedGender from "./FormattedGender";
 import WavyHeader from "./headers/WavyHeader";
 
 // Component props
@@ -51,13 +49,13 @@ class ProfileView extends React.Component<ProfileViewProps> {
         return (
             <>
                 <WavyHeader style={styles.header} color={theme.accent}>
-                    <EnlargeableAvatar
+                    {/*<EnlargeableAvatar
                         profile={profile || undefined}
                         size={120}
                         rounded
                         containerStyle={styles.avatarContainer}
                         activeOpacity={0.8}
-                    />
+                    />*/}
                     {!profile && (
                         <ActivityIndicator size="large" color={theme.textWhite} style={styles.loadingIndicator} />
                     )}

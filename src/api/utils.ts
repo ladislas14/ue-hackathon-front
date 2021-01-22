@@ -1,7 +1,7 @@
 import {HttpStatusCode} from "../constants/http-status";
 
 // Request-related types
-type Primitive = string | number | boolean | Primitive[] | undefined;
+type Primitive = string | number | boolean | null | Primitive[] | undefined;
 export type URLParams = {[key: string]: Primitive};
 export type URLBodyParams = {[key: string]: Primitive | Primitive[] | URLBodyParams | URLBodyParams[]};
 

@@ -3,7 +3,6 @@ import * as React from "react";
 import {Keyboard} from "react-native";
 import {FormTextInput} from "../../components/forms/FormTextInput";
 import OnboardingSlide, {OnboardingScreenProps} from "./OnboardingSlide";
-import i18n from "i18n-js";
 import * as Yup from "yup";
 import {VALIDATOR_FIRSTNAME, VALIDATOR_LASTNAME} from "../../validators";
 import {getOnboardingTextInputsStyleProps} from "../../styles/forms";
@@ -69,14 +68,14 @@ class OnboardingNameScreen extends React.Component<OnboardingNameScreenProps> {
 
                     return (
                         <OnboardingSlide
-                            title={i18n.t("onboarding.name.title")}
-                            subtitle={i18n.t("onboarding.name.subtitle")}
+                            title="Bienvenue"
+                            subtitle="Pour finaliser votre inscription, nous avons besoin de quelques informations supplémentaires"
                             handleSubmit={handleSubmit}
                             {...this.props}
                         >
                             <FormTextInput
                                 {...textInputProps("firstname")}
-                                label={i18n.t("firstname")}
+                                label="Prénom"
                                 autoCompleteType="name"
                                 enablesReturnKeyAutomatically={true}
                                 returnKeyType="next"
@@ -87,7 +86,7 @@ class OnboardingNameScreen extends React.Component<OnboardingNameScreenProps> {
                             <FormTextInput
                                 {...textInputProps("lastname")}
                                 ref={this.lastNameInputRef}
-                                label={i18n.t("lastname")}
+                                label="Nom"
                                 autoCompleteType="name"
                                 enablesReturnKeyAutomatically={true}
                                 returnKeyType="done"

@@ -28,11 +28,9 @@ type AdditionalProps = {
     rightButtons?: ((props: HeaderButtonProps) => JSX.Element)[];
     backButton?: boolean;
     backRouteFallback?: NavigatorRoute;
-    noAvatar?: boolean;
     noShadow?: boolean;
     noSettingsButton?: boolean;
     blur?: boolean;
-    overrideAvatar?: JSX.Element;
     overrideTitle?: string;
     wrapperStyle?: StyleProp<ViewStyle>;
     titleStyle?: StyleProp<TextStyle>;

@@ -110,6 +110,10 @@ export default {
             female: "Female",
             other: "Other",
         },
+        roles: {
+            client: "Client",
+            staff: "Staff",
+        },
         dateOfBirth: "Date of birth",
         months: {
             0: "January",

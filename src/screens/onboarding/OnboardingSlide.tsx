@@ -1,16 +1,5 @@
-import {FontAwesome} from "@expo/vector-icons";
 import * as React from "react";
-import {
-    Text,
-    View,
-    TouchableOpacity,
-    ScrollView,
-    KeyboardAvoidingView,
-    ViewStyle,
-    StyleProp,
-    Alert,
-    Dimensions,
-} from "react-native";
+import {Text, View, ScrollView, KeyboardAvoidingView, ViewStyle, StyleProp, Alert, Dimensions} from "react-native";
 import {withTheme} from "react-native-elements";
 import {onboardingStyle} from "../../styles/onboarding";
 import {ThemeProps} from "../../types";
@@ -20,7 +9,7 @@ import store from "../../state/store";
 import ScreenWrapper from "../ScreenWrapper";
 import {logout} from "../../state/auth/actions";
 import {getLocalSvg} from "../../assets";
-import WavyHeader from "../../components/headers/WavyHeader";
+import Button from "../../components/Button";
 
 export type OnboardingScreenProps = {
     index: number;
@@ -38,6 +27,10 @@ export type OnboardingSlideProps = {
     containerStyle?: StyleProp<ViewStyle>;
 } & OnboardingScreenProps &
     ThemeProps;
+
+function ButtonSpacer(): JSX.Element {
+    return <View style={{width: 10, height: 1}}></View>;
+}
 
 class OnboardingSlide extends React.Component<OnboardingSlideProps> {
     render(): JSX.Element {
@@ -66,7 +59,6 @@ class OnboardingSlide extends React.Component<OnboardingSlideProps> {
         const {width, height} = Dimensions.get("screen");
         return (
             <ScreenWrapper>
-                {/*<WavyHeader style={styles.wavyHeader} color={theme.accent} />*/}
                 <View style={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0, opacity: 1, zIndex: 0}}>
                     <Background
                         preserveAspectRatio={"true"}
@@ -74,62 +66,83 @@ class OnboardingSlide extends React.Component<OnboardingSlideProps> {
                         style={{width, height}}
                     />
                 </View>
-                <ScrollView
-                    style={styles.slideScrollView}
-                    contentContainerStyle={[containerStyle, styles.slideContentWrapper]}
-                >
-                    <KeyboardAvoidingView
-                        behavior="position"
-                        keyboardVerticalOffset={70}
-                        enabled={!noKeyboardAvoidance}
+                <View style={styles.wrapper}>
+                    <ScrollView
+                        style={styles.slideScrollView}
+                        contentContainerStyle={[containerStyle, styles.slideContentWrapper]}
                     >
-                        <View style={styles.header}>
-                            {title && typeof title === "string" && <Text style={styles.title}>{title}</Text>}
-                            {title && typeof title !== "string" && title}
-                            {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
-                        </View>
-                        {this.props.children}
-                    </KeyboardAvoidingView>
-                </ScrollView>
-                <View style={styles.slideNavWrapper}>
-                    {hasPrevious && (
-                        <TouchableOpacity style={styles.navButton} onPress={() => this.props.previous()}>
-                            <FontAwesome style={styles.navButtonIcon} name="arrow-circle-left"></FontAwesome>
-                        </TouchableOpacity>
-                    )}
-                    {!hasPrevious && (
-                        <TouchableOpacity style={styles.navButton} onPress={() => this.quitOnboarding()}>
-                            <FontAwesome style={styles.navButtonIcon} name="arrow-circle-left"></FontAwesome>
-                        </TouchableOpacity>
-                    )}
-                    {!hideNavNext && hasNext && (
-                        <TouchableOpacity style={styles.navButton} onPress={navigateRight}>
-                            <FontAwesome style={styles.navButtonIcon} name="arrow-circle-right"></FontAwesome>
-                        </TouchableOpacity>
-                    )}
-                    {!hasNext && (
-                        <TouchableOpacity
-                            style={styles.navButton}
-                            onPress={() => {
-                                if (handleSubmit) handleSubmit();
-                                finishOnboarding(store.getState().auth.onboarding);
-                            }}
+                        <KeyboardAvoidingView
+                            behavior="position"
+                            keyboardVerticalOffset={70}
+                            enabled={!noKeyboardAvoidance}
                         >
-                            <Text style={styles.finishButtonText}>{i18n.t("onboarding.submit")}</Text>
-                        </TouchableOpacity>
-                    )}
+                            <View style={styles.header}>
+                                {title && typeof title === "string" && <Text style={styles.title}>{title}</Text>}
+                                {title && typeof title !== "string" && title}
+                                {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+                            </View>
+                            {this.props.children}
+                        </KeyboardAvoidingView>
+                    </ScrollView>
+                    <View style={styles.slideNavWrapper}>
+                        <View style={styles.slideNavButtons}>
+                            {hasPrevious && (
+                                <Button
+                                    style={styles.navButton}
+                                    skin="rounded-hollow"
+                                    text="Précédent"
+                                    onPress={() => this.props.previous()}
+                                />
+                            )}
+                            {!hasPrevious && (
+                                <Button
+                                    style={styles.navButton}
+                                    skin="rounded-hollow"
+                                    text="Quitter"
+                                    onPress={() => this.quitOnboarding()}
+                                />
+                            )}
+                            {!hideNavNext && hasNext && (
+                                <>
+                                    <ButtonSpacer />
+                                    <Button
+                                        style={styles.navButton}
+                                        skin="rounded-filled"
+                                        text="Suivant"
+                                        onPress={navigateRight}
+                                    />
+                                </>
+                            )}
+                            {!hideNavNext && !hasNext && (
+                                <>
+                                    <ButtonSpacer />
+                                    <Button
+                                        style={styles.navButton}
+                                        skin="rounded-filled"
+                                        text="Envoyer"
+                                        onPress={() => {
+                                            if (handleSubmit) handleSubmit();
+                                            finishOnboarding(store.getState().auth.onboarding);
+                                        }}
+                                    />
+                                </>
+                            )}
+                        </View>
+                    </View>
                 </View>
             </ScreenWrapper>
         );
     }
 
     quitOnboarding() {
+        const quit = () => store.dispatch(logout());
+
         Alert.alert(i18n.t("onboarding.quit.title"), i18n.t("onboarding.quit.text"), [
             {
                 text: i18n.t("onboarding.quit.cancel"),
                 style: "cancel",
             },
-            {text: i18n.t("onboarding.quit.yes"), onPress: () => store.dispatch(logout()), style: "destructive"},
+            {text: i18n.t("onboarding.quit.yes"), onPress: quit, style: "destructive"},
         ]);
     }
 }

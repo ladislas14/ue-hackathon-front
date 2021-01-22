@@ -16,12 +16,6 @@ export const SERVER_HOST: string = extra.SERVER_HOST;
 export const BACKEND_URL: string = extra.SERVER_URL;
 
 /**
- * Specify the quality of compression, from 0 to 1.
- * 0 means compress for small size, 1 means compress for maximum quality.
- */
-export const AVATAR_QUALITY = 0.75;
-
-/**
  * The number of resources fetched per request when scrolling in infinite scrolling containers.
  */
 export const PROFILES_FETCH_LIMIT = 8; // Matching tab

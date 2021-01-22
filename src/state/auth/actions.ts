@@ -1,7 +1,6 @@
 import {AppThunk, OnboardingState, ValidatedThunkAction} from "../types";
 import {BackendSuccessfulResponse, LoginDto, ResponseUserDto, TokenDto} from "../../api/backend/dto";
 import {User} from "../../model/user";
-import {createProfile} from "../profile/actions";
 import {convertDtoToUser} from "../../api/backend/converters";
 import {HttpStatusCode} from "../../constants/http-status";
 import {gatherValidationErrors} from "../../api/backend/errors";
@@ -12,6 +11,9 @@ export enum AUTH_ACTION_TYPES {
     REGISTER_BEGIN = "AUTH/REGISTER_BEGIN",
     REGISTER_SUCCESS = "AUTH/REGISTER_SUCCESS",
     REGISTER_FAILURE = "AUTH/REGISTER_FAILURE",
+    BEGIN_ONBOARDING = "AUTH/BEGIN_ONBOARDING",
+    NEXT_ONBOARDING_SLIDE = "AUTH/NEXT_ONBOARDING_SLIDE",
+    PREVIOUS_ONBOARDING_SLIDE = "AUTH/PREVIOUS_ONBOARDING_SLIDE",
     LOG_IN_SUCCESS = "AUTH/LOG_IN_SUCCESS",
     LOG_IN_FAILURE = "AUTH/LOG_IN_FAILURE",
     LOG_OUT = "AUTH/LOG_OUT",
@@ -27,6 +29,18 @@ export type RegisterBeginAction = {
 export type RegisterSuccessAction = {type: string; user: User};
 
 export type RegisterFailureAction = {type: string};
+
+export type BeginOnboardingAction = {
+    type: string;
+};
+
+export type NextOnboardingSlideAction = {
+    type: string;
+};
+
+export type PreviousOnboardingSlideAction = {
+    type: string;
+};
 
 export type LogInSuccessAction = {
     type: string;
@@ -48,6 +62,9 @@ export type AuthAction =
     | RegisterBeginAction
     | RegisterSuccessAction
     | RegisterFailureAction
+    | BeginOnboardingAction
+    | NextOnboardingSlideAction
+    | PreviousOnboardingSlideAction
     | LogInSuccessAction
     | LogInFailureAction
     | LogOutAction
@@ -70,6 +87,7 @@ export const requestRegister = (email: string, password: string): ValidatedThunk
     if (response.status == HttpStatusCode.OK) {
         const successResp = response as BackendSuccessfulResponse;
         dispatch(registerSuccess(successResp.data as User));
+        dispatch(requestLogin(email, password));
         return {success: true};
     } else {
         dispatch(registerFailure());
@@ -125,7 +143,7 @@ export const requestLogin = (email: string, password: string): ValidatedThunkAct
     const response = await requestBackend("auth/login", "POST", {}, {email, password});
 
     if (response.status == HttpStatusCode.OK) {
-        const payload = (response as BackendSuccessfulResponse).data as LoginDto;
+        const payload = (response as unknown) as LoginDto;
         dispatch(loginSuccess(payload.token, convertDtoToUser(payload.user), false));
         return {success: true};
     } else {
@@ -140,24 +158,19 @@ export const logout = (): LogOutAction => ({
 
 // Onboarding actions
 
+export const beginOnboarding = (): BeginOnboardingAction => ({
+    type: AUTH_ACTION_TYPES.BEGIN_ONBOARDING,
+});
+
+export const nextOnboardingSlide = (): NextOnboardingSlideAction => ({
+    type: AUTH_ACTION_TYPES.NEXT_ONBOARDING_SLIDE,
+});
+
+export const previousOnboardingSlide = (): PreviousOnboardingSlideAction => ({
+    type: AUTH_ACTION_TYPES.PREVIOUS_ONBOARDING_SLIDE,
+});
+
 export const setOnboardingValues = (values: Partial<OnboardingState>): SetOnboardingValuesAction => ({
     type: AUTH_ACTION_TYPES.SET_ONBOARDING_VALUES,
     values,
 });
-
-export const debugConnect = (): AppThunk => async (dispatch) => {
-    const n = Math.round(1e3 * Math.random());
-    const email = `test${n}.test@test.com`;
-    const password = "PASSword$1";
-
-    await dispatch(requestRegister(email, password));
-
-    await dispatch(requestLogin(email, password));
-    await dispatch(
-        createProfile({
-            birthdate: "2002-11-12T07:21:22.110Z",
-            firstName: "Kevin" + n,
-            lastName: "Test",
-        }),
-    );
-};

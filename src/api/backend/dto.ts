@@ -1,3 +1,4 @@
+import {Role} from "../../constants/profile-constants";
 import {SuccessfulRequestResponse} from "../utils";
 
 /* General response-related types */
@@ -31,15 +32,11 @@ export type RemoteValidationErrors = {general: string; fields: {[key: string]: s
 
 /* Specific DTOs */
 
-export type UserRole = "user" | "admin";
-
 export type ResponseUserDto = {
     id: string;
-    role: UserRole;
+    role: Role;
     email: string;
-    isVerified: boolean;
     onboarded: boolean;
-    profile: ResponseProfileDto;
 };
 
 export type TokenDto = {
@@ -55,19 +52,10 @@ export type LoginDto = {
 export type CreateProfileDto = {
     firstName: string;
     lastName: string;
-    birthdate: string;
+    cardCode: number | null;
+    role: Role;
 };
 
 export type ResponseProfileDto = CreateProfileDto & {
     id: string;
-    avatar: string;
-};
-
-export type SignedUrlResponseDto = {
-    fileName: string;
-    s3Url: string;
-};
-
-export type AvatarSuccessfulUpdatedDto = {
-    avatar: string;
 };

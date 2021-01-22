@@ -4,6 +4,7 @@ import {RemoteValidationErrors, TokenDto} from "../api/backend/dto";
 import {User} from "../model/user";
 import {UserSettings} from "../model/user-settings";
 import {FoodProduct} from "../model/products";
+import {Role} from "../constants/profile-constants";
 
 export type FailableActionReturn = {success: boolean; errors?: string[]};
 export type FailableThunkAction = AppThunk<Promise<FailableActionReturn>>;
@@ -16,7 +17,8 @@ export const initialPaginatedState = (): PaginatedState => ({page: 1, canFetchMo
 export type OnboardingState = {
     firstname: string;
     lastname: string;
-    birthdate: Date | null;
+    barCode: string | null;
+    role: Role | null;
 };
 
 export type AuthState = {
@@ -24,6 +26,7 @@ export type AuthState = {
     token: null | TokenDto;
     onboarded: boolean;
     onboarding: OnboardingState;
+    onboardingIndex: number;
 };
 
 export type SettingsState = {

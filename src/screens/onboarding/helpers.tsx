@@ -9,7 +9,8 @@ function onboardingStateToDto(onboardingState: OnboardingState): CreateProfileDt
     return {
         firstName: onboardingState.firstname!,
         lastName: onboardingState.lastname!,
-        birthdate: onboardingState.birthdate!.toJSON(),
+        cardCode: onboardingState.barCode ? parseInt(onboardingState.barCode) : null,
+        role: onboardingState.role!,
     };
 }
 

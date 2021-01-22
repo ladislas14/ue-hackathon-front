@@ -12,7 +12,8 @@ import {
 const initialOnboardingState = (): OnboardingState => ({
     firstname: "",
     lastname: "",
-    birthdate: null,
+    barCode: null,
+    role: null,
 });
 
 export const initialState: AuthState = {
@@ -20,6 +21,7 @@ export const initialState: AuthState = {
     token: null,
     onboarded: false,
     onboarding: initialOnboardingState(),
+    onboardingIndex: 1,
 };
 
 export const authReducer = (state: AuthState = initialState, action: AuthAction): AuthState => {
@@ -36,7 +38,7 @@ export const authReducer = (state: AuthState = initialState, action: AuthAction)
                 token,
                 user: {onboarded, email},
             } = <LogInSuccessAction>action;
-
+            console.log(action);
             // Pre-fill some of the on-boarding values
             const onboarding = {...state.onboarding};
             if (!onboarded) {
@@ -62,6 +64,15 @@ export const authReducer = (state: AuthState = initialState, action: AuthAction)
                 authenticated: false,
                 onboarded: false,
             };
+        }
+        case AUTH_ACTION_TYPES.BEGIN_ONBOARDING: {
+            return {...state, onboardingIndex: 0};
+        }
+        case AUTH_ACTION_TYPES.PREVIOUS_ONBOARDING_SLIDE: {
+            return {...state, onboardingIndex: state.onboardingIndex - 1};
+        }
+        case AUTH_ACTION_TYPES.NEXT_ONBOARDING_SLIDE: {
+            return {...state, onboardingIndex: state.onboardingIndex + 1};
         }
         case AUTH_ACTION_TYPES.SET_ONBOARDING_VALUES: {
             const {values} = <SetOnboardingValuesAction>action;
