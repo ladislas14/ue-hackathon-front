@@ -1,5 +1,5 @@
 import * as React from "react";
-import {StyleSheet, View} from "react-native";
+import {Alert, StyleSheet, View} from "react-native";
 import {withTheme} from "react-native-elements";
 import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
@@ -13,6 +13,7 @@ import {rootNavigate} from "../navigation/utils";
 import {slideStyles} from "../styles/slides";
 import {MyThunkDispatch} from "../state/types";
 import CartDisplay from "../components/CartDisplay";
+import AsyncButton from "../components/AsyncButton";
 
 export type BookingSettingsScreenProps = ThemeProps;
 
@@ -61,11 +62,17 @@ class BookingSettingsScreen extends React.Component<BookingSettingsScreenProps> 
                         onPress={() => rootNavigate("BookingProductsScreen")}
                         skin="rounded-hollow"
                     />
-                    <Button
+                    <AsyncButton
                         style={sstyles.navButton}
                         text="Valider"
-                        onPress={() => {
-                            (store.dispatch as MyThunkDispatch)(validateOrder());
+                        onPress={async () => {
+                            const success = await (store.dispatch as MyThunkDispatch)(validateOrder());
+                            if (success) {
+                                Alert.alert("Votre commande a bien été prise en compte.");
+                                rootNavigate("BookingDayScreen");
+                            } else {
+                                Alert.alert("Une erreur est apparue lors du traitement de votre requête.");
+                            }
                         }}
                         skin="rounded-filled"
                     />

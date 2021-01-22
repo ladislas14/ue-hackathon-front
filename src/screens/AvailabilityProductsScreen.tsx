@@ -31,7 +31,7 @@ class AvailabilityProductsScreen extends React.Component<AvailabilityProductsScr
 
         return (
             <ScreenWrapper containerStyle={[sstyles.container, styles.container]}>
-                {date && <ProductsListing date={date} containerStyle={styles.productsListing} />}
+                {date && <ProductsListing date={date} isStaff={true} containerStyle={styles.productsListing} />}
                 <View style={sstyles.navigation}>
                     <Button
                         style={sstyles.navButton}

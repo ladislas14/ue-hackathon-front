@@ -22,6 +22,7 @@ import {FoodProduct} from "../model/products";
 import store from "../state/store";
 import {getBookingProducts} from "../state/booking/actions";
 import {MyThunkDispatch} from "../state/types";
+import {getAvailabilityProducts} from "../state/availability/actions";
 
 // Map props from store
 const reduxConnector = connect(() => ({}));
@@ -32,6 +33,7 @@ export type ProductsListingProps = ConnectedProps<typeof reduxConnector> & {
     highlightedItems?: string[];
     containerStyle?: StyleProp<ViewStyle>;
     onClickItem?: (p: FoodProduct) => void;
+    isStaff: boolean;
 } & ViewProps &
     ThemeProps;
 
@@ -64,14 +66,22 @@ class ProductsListing extends React.Component<ProductsListingProps, ProductsList
     }
 
     updateProducts(): void {
-        const {date} = this.props;
+        const {date, isStaff} = this.props;
         if (date === null) this.setProducts([]);
         else {
             this.setState({...this.state, loading: true});
-            (store.dispatch as MyThunkDispatch)(getBookingProducts()).then((products: FoodProduct[]) => {
-                this.setProducts(products);
-                this.setState({...this.state, loading: false});
-            });
+
+            if (isStaff) {
+                (store.dispatch as MyThunkDispatch)(getAvailabilityProducts()).then((products: FoodProduct[]) => {
+                    this.setProducts(products);
+                    this.setState({...this.state, loading: false});
+                });
+            } else {
+                (store.dispatch as MyThunkDispatch)(getBookingProducts()).then((products: FoodProduct[]) => {
+                    this.setProducts(products);
+                    this.setState({...this.state, loading: false});
+                });
+            }
         }
     }
 
@@ -119,7 +129,8 @@ class ProductsListing extends React.Component<ProductsListingProps, ProductsList
                                     <Text style={styles.itemName} numberOfLines={2}>
                                         {info.item.name}
                                     </Text>
-                                    <Text style={styles.itemPrice}>{(info.item.name.length * 0.5).toFixed(2)}€</Text>
+                                    <Text style={styles.itemInfo}>{info.item.price.toFixed(2)}€</Text>
+                                    <Text style={styles.itemInfo}>({info.item.remaningQuantity} remaining)</Text>
                                 </View>
                             </TouchableOpacity>
                         );
@@ -161,7 +172,7 @@ export const themedStyles = preTheme((theme: Theme) => {
         itemName: {
             fontSize: 12,
         },
-        itemPrice: {
+        itemInfo: {
             fontSize: 12,
         },
         itemInfoContainer: {

@@ -46,6 +46,7 @@ class BookingProductsScreen extends React.Component<BookingProductsScreenProps, 
                 {date && (
                     <ProductsListing
                         date={date}
+                        isStaff={false}
                         containerStyle={styles.productsListing}
                         onClickItem={(item: FoodProduct) => {
                             this.setState({...this.state, activeProduct: item});

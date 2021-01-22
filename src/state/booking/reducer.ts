@@ -32,7 +32,13 @@ export const bookingReducer = (state: BookingState = initialState, action: Booki
         }
         case BOOKING_ACTION_TYPES.BOOKING_CART_ADD: {
             const {product, quantity} = action as AddToCartAction;
-            return {...state, cart: state.cart.concat([{product, quantity}])};
+            const index = state.cart.findIndex((it) => it.product.id === product.id);
+            if (index === -1) return {...state, cart: state.cart.concat([{product, quantity}])};
+            else {
+                const newState = {...state};
+                newState.cart[index].quantity += quantity;
+                return newState;
+            }
         }
         case BOOKING_ACTION_TYPES.BOOKING_CART_REMOVE: {
             const {productId} = action as RemoveFromCartAction;

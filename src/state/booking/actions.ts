@@ -5,6 +5,8 @@ import {FoodProduct} from "../../model/products";
 import {AppThunk} from "../types";
 import {CondOperator, RequestQueryBuilder} from "@nestjsx/crud-request";
 import {requestOFF} from "../../api/openfoodfacts";
+import {OFFProductDto, OFFResponse} from "../../api/openfoodfacts/dto";
+import {productFromDtos} from "../../api/backend/converters";
 
 export enum BOOKING_ACTION_TYPES {
     BOOKING_SET_DATE = "BOOKING/SET_DATE",
@@ -156,13 +158,13 @@ export const getBookingProducts = (): AppThunk<Promise<FoodProduct[]>> => async 
     if (response.status == HttpStatusCode.OK) {
         const resp = response as BackendSuccessfulResponse;
         const products = resp.products as ResponseProductDto[];
-        const promises = products.map((p: ResponseProductDto) =>
-            requestOFF(`api/v0/product/${p.offId}.json`, "GET", {}),
+        const promises = products.map((p) => requestOFF(`api/v0/product/${p.offId}.json`, "GET", {}));
+
+        const prods: FoodProduct[] = (await Promise.all(promises)).map((resp: OFFResponse, i: number) =>
+            productFromDtos(resp.product as OFFProductDto, products[i]),
         );
 
-        const resps = await Promise.all(promises);
-        console.log(resps);
-        return [];
+        return prods;
     } else {
         return [];
     }
