@@ -39,6 +39,8 @@ export type ProfileState = {
 
 export type BookingState = {
     date: Date | null;
+    pick_up: Date | null;
+    comment: string;
     cart: {product: FoodProduct; quantity: number}[];
 };
 

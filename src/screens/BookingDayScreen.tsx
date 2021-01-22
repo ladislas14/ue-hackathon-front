@@ -4,6 +4,11 @@ import {withTheme} from "react-native-elements";
 import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
+import CalendarPicker from "react-native-calendar-picker";
+
+import store from "../state/store";
+import {setBookingDate} from "../state/booking/actions";
+import {Moment} from "moment";
 
 export type BookingDayScreenProps = ThemeProps;
 
@@ -14,8 +19,14 @@ class BookingDayScreen extends React.Component<BookingDayScreenProps> {
 
         return (
             <ScreenWrapper>
+                <Text style={styles.title}>Date de commande des produits</Text>
                 <View style={styles.container}>
-                    <Text style={styles.title}>choix de la date</Text>
+                    <CalendarPicker
+                        style={styles.calendar}
+                        onDateChange={(date: Moment) => {
+                            store.dispatch(setBookingDate(date.toDate()));
+                        }}
+                    />
                 </View>
             </ScreenWrapper>
         );
@@ -25,6 +36,13 @@ class BookingDayScreen extends React.Component<BookingDayScreenProps> {
 const themedStyles = preTheme((theme: Theme) => {
     return StyleSheet.create({
         container: {
+            flex: 1,
+            width: "100%",
+            padding: 50,
+            alignItems: "center",
+            justifyContent: "center",
+        },
+        calendar: {
             flex: 1,
             width: "100%",
             padding: 50,

@@ -1,3 +1,4 @@
+import { string } from "yup";
 import {BookingState} from "../types";
 import {
     AddToCartAction,
@@ -5,10 +6,14 @@ import {
     BOOKING_ACTION_TYPES,
     RemoveFromCartAction,
     SetBookingDateAction,
+    SetBookingPickUpAction,
+    SetBookingCommentAction,
 } from "./actions";
 
 export const initialState: BookingState = {
     date: new Date(),
+    pick_up: new Date(),
+    comment: "",
     cart: [],
 };
 
@@ -17,6 +22,14 @@ export const bookingReducer = (state: BookingState = initialState, action: Booki
         case BOOKING_ACTION_TYPES.BOOKING_SET_DATE: {
             const {date} = action as SetBookingDateAction;
             return {...state, date};
+        }
+        case BOOKING_ACTION_TYPES.BOOKING_SET_PICK_UP: {
+            const {pick_up} = action as SetBookingPickUpAction;
+            return {...state, pick_up};
+        }
+        case BOOKING_ACTION_TYPES.BOOKING_COMMENT_SET: {
+            const {comment} = action as SetBookingCommentAction;
+            return {...state, comment};
         }
         case BOOKING_ACTION_TYPES.BOOKING_CART_ADD: {
             const {product, quantity} = action as AddToCartAction;
