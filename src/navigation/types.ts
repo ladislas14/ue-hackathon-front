@@ -65,6 +65,7 @@ export type NavigatorRoute =
     | keyof MainNavigatorClientTabs
     | keyof MainNavigatorStaffTabs
     | keyof TabBookingRoot
+    | keyof TabAvailabilityRoot
     | keyof TabProfileRoot
     | keyof LoginRoot
     | keyof LoginScreens
