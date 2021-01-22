@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Keyboard, StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle} from "react-native";
+import {StyleProp, StyleSheet, Text, View, ViewStyle} from "react-native";
 import i18n from "i18n-js";
 import * as Yup from "yup";
 import {Formik, FormikProps} from "formik";
@@ -138,21 +138,6 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
                                 />
 
                                 <FormError error={generalError(remoteErrors)} />
-
-                                <TouchableOpacity
-                                    accessibilityRole="link"
-                                    accessibilityLabel={i18n.t("forgotPassword")}
-                                    onPress={() => {
-                                        Keyboard.dismiss();
-                                        rootNavigate("LoginRoot", {
-                                            screen: "LoginScreens",
-                                            params: {screen: "ForgotPasswordScreen"},
-                                        });
-                                    }}
-                                    style={styles.forgotPwdLink}
-                                >
-                                    <Text style={styles.forgotPasswordText}>{i18n.t("forgotPassword")}</Text>
-                                </TouchableOpacity>
 
                                 <View style={styles.actionsContainer}>
                                     <FormSubmitButton

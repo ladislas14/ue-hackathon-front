@@ -7,7 +7,6 @@ import WelcomeScreen from "../screens/WelcomeScreen";
 import LoginHeader from "../components/headers/LoginHeader";
 import DebugMenu from "../components/DebugMenu";
 import {DEBUG_MODE} from "../constants/config";
-import VersionInfo from "../components/VersionInfo";
 
 const SigninRoot = createMaterialTopTabNavigator<LoginScreens>();
 const Tab = createMaterialTopTabNavigator<LoginRoot>();
@@ -24,7 +23,6 @@ const LoginNavigator = (): JSX.Element => (
                         <SigninRoot.Screen name="SignupScreen" component={SignupScreen} />
                     </SigninRoot.Navigator>
 
-                    <VersionInfo />
                     {DEBUG_MODE && <DebugMenu />}
                 </>
             )}
