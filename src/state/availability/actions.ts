@@ -1,7 +1,9 @@
 import {CondOperator, RequestQueryBuilder} from "@nestjsx/crud-request";
 import {requestBackend} from "../../api/backend";
+import {productFromDtos} from "../../api/backend/converters";
 import {BackendSuccessfulResponse, ResponseProductDto} from "../../api/backend/dto";
 import {requestOFF} from "../../api/openfoodfacts";
+import {OFFProductDto, OFFResponse} from "../../api/openfoodfacts/dto";
 import {HttpStatusCode} from "../../constants/http-status";
 import {FoodProduct} from "../../model/products";
 import {AppThunk} from "../types";
@@ -95,9 +97,10 @@ export const getAvailabilityProducts = (): AppThunk<Promise<FoodProduct[]>> => a
             requestOFF(`api/v0/product/${p.offId}.json`, "GET", {}),
         );
 
-        const resps = await Promise.all(promises);
-        console.log(resps);
-        return [];
+        const prods: FoodProduct[] = (await Promise.all(promises)).map((resp: OFFResponse, i: number) =>
+            productFromDtos(resp.product as OFFProductDto, products[i]),
+        );
+        return prods;
     } else {
         return [];
     }

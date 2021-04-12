@@ -62,7 +62,7 @@ class AvailabilityDayScreen extends React.Component<AvailabilityDayScreenProps, 
                 <View style={sstyles.navigation}>
                     <Button
                         style={sstyles.navButton}
-                        text="Next"
+                        text="Suivant"
                         onPress={() => rootNavigate("AvailabilityProductsScreen")}
                         skin="rounded-filled"
                     />

@@ -41,7 +41,7 @@ class AvailabilityProductsScreen extends React.Component<AvailabilityProductsScr
                     />
                     <Button
                         style={sstyles.navButton}
-                        text="Next"
+                        text="Suivant"
                         onPress={() => rootNavigate("AvailabilitySettingsScreen")}
                         skin="rounded-filled"
                     />

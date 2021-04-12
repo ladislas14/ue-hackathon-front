@@ -35,14 +35,31 @@ export const bookingReducer = (state: BookingState = initialState, action: Booki
             const index = state.cart.findIndex((it) => it.product.id === product.id);
             if (index === -1) return {...state, cart: state.cart.concat([{product, quantity}])};
             else {
-                const newState = {...state};
-                newState.cart[index].quantity += quantity;
-                return newState;
+                return {
+                    ...state,
+                    cart: state.cart.map((it, i) => {
+                        if (i === index) return {...it, quantity: it.quantity + 1};
+                        else return it;
+                    }),
+                };
             }
         }
         case BOOKING_ACTION_TYPES.BOOKING_CART_REMOVE: {
             const {productId} = action as RemoveFromCartAction;
-            return {...state, cart: state.cart.filter((it) => it.product.id !== productId)};
+            const index = state.cart.findIndex((it) => it.product.id === productId);
+            console.log(index);
+            if (index === -1) return state;
+            else if (state.cart[index].quantity === 1) {
+                return {...state, cart: state.cart.filter((it) => it.product.id !== productId)};
+            } else {
+                return {
+                    ...state,
+                    cart: state.cart.map((it, i) => {
+                        if (i === index) return {...it, quantity: it.quantity - 1};
+                        else return it;
+                    }),
+                };
+            }
         }
         default:
             return state;

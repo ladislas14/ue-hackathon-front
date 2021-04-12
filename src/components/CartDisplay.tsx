@@ -40,7 +40,6 @@ class CartDisplay extends React.Component<CartDisplayProps> {
                         onRemove={() => {
                             store.dispatch(removeFromCart(product.id));
                         }}
-                        //textStyle={textStyle}
                     />
                 ))}
             </ScrollView>
@@ -68,8 +67,10 @@ const Item = withTheme(
                     {removable && (
                         <TouchableOpacity
                             style={styles.itemRemoveButton}
-                            onPress={() => {
+                            onPress={(e) => {
                                 if (onRemove) onRemove();
+                                e.stopPropagation();
+                                e.preventDefault();
                             }}
                         >
                             <MaterialIcons name="close" style={styles.itemRemoveIcon} />

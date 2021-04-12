@@ -12,8 +12,8 @@ import InputLabel from "../components/InputLabel";
 import {connect, ConnectedProps} from "react-redux";
 import {AppState} from "../state/types";
 import Button from "../components/Button";
-import { slideStyles } from "../styles/slides";
-import { rootNavigate } from "../navigation/utils";
+import {slideStyles} from "../styles/slides";
+import {rootNavigate} from "../navigation/utils";
 
 // Map props from store
 const reduxConnector = connect((state: AppState) => ({
@@ -59,12 +59,14 @@ class BookingDayScreen extends React.Component<BookingDayScreenProps, BookingDay
                     />
                 </View>
                 <View style={sstyles.navigation}>
-                    <Button
-                        style={sstyles.navButton}
-                        text="Suivant"
-                        onPress={() => rootNavigate("BookingProductsScreen")}
-                        skin="rounded-filled"
-                    />
+                    {date && (
+                        <Button
+                            style={sstyles.navButton}
+                            text="Suivant"
+                            onPress={() => rootNavigate("BookingProductsScreen")}
+                            skin="rounded-filled"
+                        />
+                    )}
                 </View>
             </ScreenWrapper>
         );

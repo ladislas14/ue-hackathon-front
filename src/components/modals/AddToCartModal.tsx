@@ -31,7 +31,7 @@ class AddToCartModal extends React.Component<AddToCartModalProps, AddToCartModal
         if (product !== null) {
             content = (hide: () => void) => (
                 <>
-                    <Text style={styles.title}>Add to cart</Text>
+                    <Text style={styles.title}>Ajouter au panier</Text>
                     <View style={styles.quantityContainer}>
                         <InputSpinner
                             max={6}

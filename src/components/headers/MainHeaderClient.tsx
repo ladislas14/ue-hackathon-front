@@ -23,29 +23,43 @@ export type MainHeaderProps = ConnectedProps<typeof reduxConnector> &
     ThemeProps &
     MainHeaderStackProps & {title?: string};
 
-class MainHeaderClient extends React.Component<MainHeaderProps> {
+type MainHeaderState = {showCart: boolean};
+
+class MainHeaderClient extends React.Component<MainHeaderProps, MainHeaderState> {
+    constructor(props: MainHeaderProps) {
+        super(props);
+        this.state = {showCart: false};
+    }
+
     render(): JSX.Element {
         const {cart, title, theme, ...otherProps} = this.props;
+        const {showCart} = this.state;
         const styles = themedStyles(theme);
 
         return (
-            <MainHeader
-                {...otherProps}
-                overrideTitle={title || ""}
-                backRouteFallback="MainScreenClient"
-                rightButtons={[
-                    (props) => (
-                        <CartModal
-                            activator={(show: () => void) => (
-                                <TouchableOpacity style={props.buttonStyle} onPress={() => show()}>
-                                    <MaterialIcons style={props.iconStyle} name="shopping-cart" />
-                                    {cart.length > 0 && <Text style={styles.cartNumberStyle}>{cart.length}</Text>}
-                                </TouchableOpacity>
-                            )}
-                        />
-                    ),
-                ]}
-            />
+            <>
+                <MainHeader
+                    {...otherProps}
+                    overrideTitle={title || ""}
+                    backRouteFallback="MainScreenClient"
+                    rightButtons={[
+                        (props) => (
+                            <TouchableOpacity
+                                style={props.buttonStyle}
+                                onPress={() => this.setState({...this.state, showCart: true})}
+                            >
+                                <MaterialIcons style={props.iconStyle} name="shopping-cart" />
+                                {cart.length > 0 && <Text style={styles.cartNumberStyle}>{cart.length}</Text>}
+                            </TouchableOpacity>
+                        ),
+                    ]}
+                />
+                <CartModal
+                    visible={showCart}
+                    onShow={() => this.setState({...this.state, showCart: true})}
+                    onHide={() => this.setState({...this.state, showCart: false})}
+                />
+            </>
         );
     }
 }

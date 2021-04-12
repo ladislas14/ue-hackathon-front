@@ -5,12 +5,12 @@ import {preTheme} from "../styles/utils";
 import {Theme, ThemeProps} from "../types";
 import ScreenWrapper from "./ScreenWrapper";
 import DateTimePicker from "@react-native-community/datetimepicker";
-
 import store from "../state/store";
 import {setAvailabilityOpeningHours, setAvailabilityClosingHours} from "../state/availability/actions";
 import {slideStyles} from "../styles/slides";
 import {rootNavigate} from "../navigation/utils";
 import Button from "../components/Button";
+import {FormattedDate} from "../components/FormattedDate";
 
 export type AvailabilitySettingsScreenProps = ThemeProps;
 
@@ -26,7 +26,7 @@ class AvailabilitySettingsScreen extends React.Component<AvailabilitySettingsScr
                 <View style={styles.hoursContainer}>
                     <View style={styles.subcontainer}>
                         <Text style={styles.hourLabel}>Heure d'ouverture</Text>
-                        <DateTimePicker
+                        {/*<DateTimePicker
                             value={new Date(2019, 1, 2, 8, 0, 0)}
                             mode="time"
                             style={{width: 100, height: 130}}
@@ -35,11 +35,12 @@ class AvailabilitySettingsScreen extends React.Component<AvailabilitySettingsScr
                             onChange={(event, openingHour) => {
                                 if (openingHour) store.dispatch(setAvailabilityOpeningHours(openingHour));
                             }}
-                        />
+                        />*/}
+                        <Text>08:30</Text>
                     </View>
                     <View style={styles.subcontainer}>
                         <Text style={styles.hourLabel}>Heure de fermeture</Text>
-                        <DateTimePicker
+                        {/*<DateTimePicker
                             value={new Date(2019, 1, 2, 16, 30, 0)}
                             mode="time"
                             style={{width: 100, height: 130}}
@@ -48,7 +49,8 @@ class AvailabilitySettingsScreen extends React.Component<AvailabilitySettingsScr
                             onChange={(event, closingHour) => {
                                 if (closingHour) store.dispatch(setAvailabilityClosingHours(closingHour));
                             }}
-                        />
+                        />*/}
+                        <Text>16:30</Text>
                     </View>
                 </View>
                 <View style={sstyles.navigation}>

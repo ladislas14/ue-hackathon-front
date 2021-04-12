@@ -8,10 +8,13 @@ export function convertDtoToUser(dto: ResponseUserDto): User {
 }
 
 export function productFromDtos(offDto: OFFProductDto, backendDto: ResponseProductDto): FoodProduct {
+    let cat = offDto.categories_hierarchy[0].split(":")[1];
+    cat = cat.charAt(0).toUpperCase() + cat.substr(1);
+
     return {
         offId: offDto.id,
         name: offDto.product_name,
-        category: offDto.categories_hierarchy[0].split(":")[1],
+        category: cat,
         thumbnailUrl: offDto.image_small_url,
         date: new Date(backendDto.date),
         price: backendDto.price,

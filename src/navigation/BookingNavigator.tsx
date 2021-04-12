@@ -14,6 +14,7 @@ export default function BookingNavigator(): JSX.Element {
             <MainHeaderClient title="Réservation" />
             <Stack.Navigator
                 initialRouteName={"BookingDayScreen"}
+                swipeEnabled={false}
                 tabBarOptions={{showLabel: false, showIcon: false}}
                 tabBar={() => <></>}
                 springConfig={{

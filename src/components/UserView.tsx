@@ -49,7 +49,7 @@ class UserView extends React.Component<UserViewProps> {
                     contentContainerStyle={styles.formWrapper}
                     keyboardShouldPersistTaps="handled"
                 >
-                    <Text style={styles.sectionTitle}>Orders:</Text>
+                    <Text style={styles.sectionTitle}>Commandes:</Text>
                     {/*<ValueCard
                         blank={!profile}
                         label={i18n.t("dateOfBirth")}

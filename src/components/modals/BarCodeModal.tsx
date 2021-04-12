@@ -17,6 +17,7 @@ class BarCodeModal extends React.Component<BarCodeModalProps> {
         return (
             <CustomModal
                 {...otherProps}
+                nonDismissable={true}
                 renderContent={(hide: () => void) => (
                     <>
                         <Text style={styles.title}>Scannez le code barre au dos de votre carte IMT Atlantique</Text>

@@ -122,10 +122,9 @@ export const validateOrder = (): AppThunk<Promise<boolean>> => async (dispatch, 
         cart: booking.cart.map((elem) => ({productId: elem.product.id, quantity: elem.quantity})),
     };
 
-    const response = await requestBackend("order", "POST", {}, order, token);
+    const response = await requestBackend("orders", "POST", {}, order, token, true);
 
-    if (response.status == HttpStatusCode.OK) {
-        const successResp = response as BackendSuccessfulResponse;
+    if (response.status == HttpStatusCode.CREATED) {
         dispatch(validateOrderSuccess());
         return true;
     } else {

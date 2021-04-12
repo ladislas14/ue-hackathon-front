@@ -126,11 +126,11 @@ class ProductsListing extends React.Component<ProductsListingProps, ProductsList
                                     resizeMode="contain"
                                 />
                                 <View style={styles.itemInfoContainer}>
-                                    <Text style={styles.itemName} numberOfLines={2}>
+                                    <Text style={styles.itemName} numberOfLines={1}>
                                         {info.item.name}
                                     </Text>
                                     <Text style={styles.itemInfo}>{info.item.price.toFixed(2)}€</Text>
-                                    <Text style={styles.itemInfo}>({info.item.remaningQuantity} remaining)</Text>
+                                    <Text style={styles.itemInfo}>({info.item.remaningQuantity} restants)</Text>
                                 </View>
                             </TouchableOpacity>
                         );
@@ -151,7 +151,7 @@ export const themedStyles = preTheme((theme: Theme) => {
         },
         item: {
             backgroundColor: theme.cardBackground,
-            width: (Dimensions.get("window").width - 16) / ITEMS_PER_ROW - ITEM_HORIZONTAL_MARGIN * 2 - 1,
+            width: (Dimensions.get("window").width - 20) / ITEMS_PER_ROW - ITEM_HORIZONTAL_MARGIN * 2 - 1,
             height: ITEM_HEIGHT,
             marginHorizontal: ITEM_HORIZONTAL_MARGIN,
             marginVertical: 4,

@@ -1,9 +1,5 @@
 import {OrdersState} from "../types";
-import {
-    SetOrdersDateAction,
-    OrdersAction,
-    ORDERS_ACTION_TYPES,
-} from "./actions";
+import {SetOrdersDateAction, OrdersAction, ORDERS_ACTION_TYPES} from "./actions";
 
 export const initialState: OrdersState = {
     date: new Date(),
